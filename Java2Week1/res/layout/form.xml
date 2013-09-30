@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/holo_blue_dark" >
+   <ImageView 
+            android:id="@+id/banner"
+            android:layout_width="385dip"
+            android:layout_height="90dip"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/zipcode_banner"
+            android:src="@drawable/zipcodebanner">
+            </ImageView>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+ 
+        <EditText
+            android:id="@+id/searchField"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_zipcode_here"
+            style="@style/editTextStyle"/>
+        
+       
+		<Button 
+		    android:id="@+id/searchButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/search"/>
+
+
+	</LinearLayout>
+	
+	
+	
+		<GridLayout 
+	    	android:id="@+id/locationDisplay"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="0dip"
+	    	android:layout_weight=".5"
+	    	android:columnCount="2"
+	    	android:padding="10dip">
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/areacode_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_areacode"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/city_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_city"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/county_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_county"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/state_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_state"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/latitude_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_latitude"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/longitude_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_longitude"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/csa_name_"
+		        style="@style/textLabels"/>
+		    <TextView	
+		        android:id="@+id/location_csa_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/cbsa_name_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_cbsa_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/region_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_region"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/timezone_"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_timezone"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        style="@style/jsonResults"/>
+		    
+		</GridLayout>
+		
+		
+		
+		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"> 
+		<Button 
+	 	    android:id="@+id/popularZipcodes"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:text="@string/popular_zipcodes"/>
+		 </LinearLayout>
+		<Spinner 
+	 	    android:id="@+id/favList"
+	 	   	android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+	 	    android:paddingBottom="10dp"
+	 	    android:paddingTop="10dp"
+	 	    android:prompt="@string/enter_zipcode_here"
+	 	    android:visibility="invisible"
+	 	    
+	 	    style="@style/spinnerStyle" />
+		
+</LinearLayout>
