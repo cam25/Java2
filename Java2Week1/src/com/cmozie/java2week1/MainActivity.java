@@ -97,7 +97,7 @@ public class MainActivity extends Activity {
 		_popularZips = new TextView(this);
 		
 		//sets _history to the get history call
-		//_history = getHistory();
+		_history = getHistory();
 		
 		//adding items to the spinner
 		//san francisco
@@ -398,11 +398,7 @@ public void locationInfo(String area_code, String city, String county, String st
 					Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
 					toast.show();
 					
-					_history.put("Location: ", ja.toString());
-					
-			
-					
-					
+		
 					
 					
 
@@ -426,5 +422,41 @@ public void locationInfo(String area_code, String city, String county, String st
 				Log.e("JSON","JSON OBJECT EXCEPTION");
 			}
 		}
+		
 	}
+		@SuppressWarnings("unchecked")
+		private HashMap<String, String> getHistory(){
+			
+			//creates an object named stored that reads the object that is stored in local storage
+			Object stored = FileStuff.readObjectFile(_context, "history", false);
+			
+			//declares the hashmap history variable
+			HashMap<String, String> history;
+			
+			//if theres an error fire alert
+			if (stored == null) {
+				Log.i("HISTORY","NO HISTORY FILE FOUND");
+				AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+				alert.setTitle("Saved Files");
+				alert.setMessage("There are no saved zipcodes in local storage. Once a search is made the zipcode will be saved.");
+				alert.setCancelable(false);
+				alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.cancel();
+					}
+				});
+				alert.show();
+				history = new HashMap<String, String>();
+				
+				//else store it into the history
+			}	else {
+				history = (HashMap<String, String>) stored;
+			}
+			return history;
+			
+		}
+	
 }
