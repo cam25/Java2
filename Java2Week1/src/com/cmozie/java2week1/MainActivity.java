@@ -1,37 +1,29 @@
 package com.cmozie.java2week1;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
-
 import com.cmozie.classes.*;
-import com.cmozie.Libz.FileStuff;
 import webConnections.*;
 
 
@@ -39,6 +31,8 @@ import webConnections.*;
 /**
  * The Class MainActivity.
  */
+
+@SuppressLint("HandlerLeak")
 public class MainActivity extends Activity {
 
 	//--public statics
@@ -55,7 +49,7 @@ public class MainActivity extends Activity {
 	Boolean _connected = false;
 	
 	//class declarations
-	FavDisplay _favorites;
+	//FavDisplay _favorites;
 	
 	//strings
 	String _zipcode;
@@ -71,7 +65,7 @@ public class MainActivity extends Activity {
 	String _timezone;
 
 	
-	HashMap<String, String> _history;
+	
 	
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
@@ -94,14 +88,14 @@ public class MainActivity extends Activity {
 		
 		
 		_context = this;
-		_popularZips = new TextView(this);
+		//_popularZips = new TextView(this);
 		
 		//sets _history to the get history call
-		_history = getHistory();
+		//_history = getHistory();
 		
 		//adding items to the spinner
 		//san francisco
-		_stacks.add("94105");
+		/*_stacks.add("94105");
 		//Miami
 		_stacks.add("33133");
 		//washington dc
@@ -109,15 +103,15 @@ public class MainActivity extends Activity {
 		//time square
 		_stacks.add("10036");
 		//Chicago
-		_stacks.add("60106");
+		_stacks.add("60106");*/
 		
 		 
 		 //logs the _history text if inside local storage
-		Log.i("HISTORY READ", _history.toString());
+		//Log.i("HISTORY READ", _history.toString());
 	 
 		//allows to target the search button in the search form to set onclick event
 		searchButton = (Button) findViewById(R.id.searchButton);
-	
+		//searchButton.isPressed() && sField.getText().length() > 1
 		//search button on click listener
 		 searchButton.setOnClickListener(new View.OnClickListener() {
 		
@@ -125,8 +119,94 @@ public class MainActivity extends Activity {
 			public void onClick(View view) {
 			EditText sField = (EditText) findViewById(R.id.searchField);
 					//if the search button is pressed and the text field length is greater than 1 go ahead and search
-					if (searchButton.isPressed() && sField.getText().length() > 1) {
-						getLookup(sField.getText().toString());
+			
+				if (sField.getText().length() < 1) {
+					
+					Toast toast = Toast.makeText(_context, "Please Enter a Correct Zipcode", Toast.LENGTH_LONG);
+					toast.show();
+				
+					
+				}else {
+					
+					Handler zipcodeHandler = new Handler() {
+
+						@Override
+						public void handleMessage(Message msg) {
+							// TODO Auto-generated method stub
+							String fullURLString = msg.obj.toString() ;
+							if (msg.arg1 == RESULT_OK && msg.obj != null) 
+							
+							{
+								try {
+									
+									JSONObject json = new JSONObject(fullURLString);
+									JSONArray ja = json.getJSONArray("zips");
+									
+									for (int i = 0; i < ja.length(); i++) {
+										//sets a json object to access object values inside array
+										JSONObject one = ja.getJSONObject(i);
+										
+									//setting my text to the values to the strings of the json data
+									_zipcode = one.getString("zip_code");
+									_areaCode = one.getString("area_code");
+									_city = one.getString("city");
+									_state = one.getString("state");
+									_county = one.getString("county");
+									_csa_name = one.getString("csa_name");
+									_cbsa_name = one.getString("cbsa_name");
+									_latitude = one.getString("latitude");
+									_longitude = one.getString("longitude");
+									_region = one.getString("region");
+									_timezone = one.getString("time_zone");
+										 
+									}
+									Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
+								
+									//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
+									locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+								
+									//confims zipcode is valie
+									Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
+									toast.show();
+									
+									
+								} catch (Exception e) {
+									// TODO: handle exception
+									//Alert for any error in entering into textfield if not a zipcode
+									AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+									alert.setTitle("Error");
+									alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct. USA zipcodes only.");
+									alert.setCancelable(false);
+									alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+
+											dialog.cancel();
+										}
+									});
+									alert.show();
+									Log.e("Handle Message", e.getMessage().toString());
+								}
+								
+		
+								
+							}						
+							
+						}
+						
+						
+					};
+					
+					Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
+					
+					Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+					startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
+					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode, sField.getText().toString());
+					
+					startService(startZipcodeIntent);
+					
+						//getLookup(sField.getText().toString());
 						
 						//hides keyboard.
 						InputMethodManager imm = (InputMethodManager)getSystemService(
@@ -138,6 +218,7 @@ public class MainActivity extends Activity {
 				sField.setText("");
 				
 			}
+			
 		});
 		
 		 
@@ -167,15 +248,15 @@ public class MainActivity extends Activity {
 		}
 		 
 		
-			
-		 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stacks);
-		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
-		 ((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
+	}
+		 //ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stacks);
+		 //listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
+		 //((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
 		
 	
 		 //popular zipcodes onclick
-		 _pop = (Button) findViewById(R.id.popularZipcodes);
-		 _pop.setOnClickListener(new OnClickListener() {
+		 //_pop = (Button) findViewById(R.id.popularZipcodes);
+		 /*_pop.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
@@ -211,7 +292,7 @@ public class MainActivity extends Activity {
 							
 							
 							//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
-							getLookup(selected);
+							//getLookup(selected);
 							
 						}
 						
@@ -236,7 +317,7 @@ public class MainActivity extends Activity {
 		 _pop.setText("Click here for popular zipcodes");
 
 	
-	}
+	}*/
 	
 /**
  * Location info.
@@ -265,7 +346,7 @@ public void locationInfo(String area_code, String city, String county, String st
 		((TextView) findViewById(R.id.location_region)).setText(region);
 		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
 }
-
+	
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -286,7 +367,7 @@ public void locationInfo(String area_code, String city, String county, String st
 	 * @param zipcode the zipcode
 	 * @return the lookup
 	 */
-	public void getLookup(String zipcode){
+	/*public void getLookup(String zipcode){
 		
 		//this is the base url of the api
 		String baseURL = "http://zipfeeder.us/zip?";
@@ -334,15 +415,15 @@ public void locationInfo(String area_code, String city, String county, String st
 			finalURL = null;
 		}
 	}
-	
+	*/
 	/**
 	 * The Class mainZipRequest.
 	 */
-	private class mainZipRequest extends AsyncTask<URL, Void, String>{
+	/*private class mainZipRequest extends AsyncTask<URL, Void, String>{
 		
-		/* (non-Javadoc)
+		 (non-Javadoc)
 		 * @see android.os.AsyncTask#doInBackground(Params[])
-		 */
+		 
 		@Override
 		protected String doInBackground(URL...urls){
 			String response = "";
@@ -350,12 +431,12 @@ public void locationInfo(String area_code, String city, String county, String st
 			response = WebStuff.getURLStringResponse(url);
 		}
 			return response;
-		}
+		}*/
 		
 		/* (non-Javadoc)
 		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 		 */
-		@Override
+		/*@Override
 		protected void onPostExecute(String result){
 			
 			Log.i("URL RESPONSE", result);
@@ -423,8 +504,8 @@ public void locationInfo(String area_code, String city, String county, String st
 			}
 		}
 		
-	}
-		@SuppressWarnings("unchecked")
+	}*/
+		/*@SuppressWarnings("unchecked")
 		private HashMap<String, String> getHistory(){
 			
 			//creates an object named stored that reads the object that is stored in local storage
@@ -457,6 +538,6 @@ public void locationInfo(String area_code, String city, String county, String st
 			}
 			return history;
 			
-		}
+		}*/
 	
 }

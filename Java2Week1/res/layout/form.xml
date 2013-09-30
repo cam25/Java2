@@ -152,25 +152,6 @@
 		
 		
 		
-		<LinearLayout 
-		    android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:orientation="horizontal"> 
-		<Button 
-	 	    android:id="@+id/popularZipcodes"
-	 	    android:layout_width="wrap_content"
-	 	    android:layout_height="wrap_content"
-	 	    android:text="@string/popular_zipcodes"/>
-		 </LinearLayout>
-		<Spinner 
-	 	    android:id="@+id/favList"
-	 	   	android:layout_width="match_parent"
-	 	    android:layout_height="wrap_content"
-	 	    android:paddingBottom="10dp"
-	 	    android:paddingTop="10dp"
-	 	    android:prompt="@string/enter_zipcode_here"
-	 	    android:visibility="invisible"
-	 	    
-	 	    style="@style/spinnerStyle" />
+		
 		
 </LinearLayout>

@@ -25,9 +25,8 @@ public final class R {
         public static final int zipcodebanner=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f080010;
+        public static final int action_settings=0x7f08000e;
         public static final int banner=0x7f080000;
-        public static final int favList=0x7f08000f;
         public static final int locationDisplay=0x7f080003;
         public static final int location_areacode=0x7f080004;
         public static final int location_cbsa_name=0x7f08000b;
@@ -39,7 +38,6 @@ public final class R {
         public static final int location_region=0x7f08000c;
         public static final int location_state=0x7f080007;
         public static final int location_timezone=0x7f08000d;
-        public static final int popularZipcodes=0x7f08000e;
         public static final int searchButton=0x7f080002;
         public static final int searchField=0x7f080001;
     }
