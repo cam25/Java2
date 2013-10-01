@@ -136,20 +136,25 @@ public class MainActivity extends Activity {
 					
 					Handler zipcodeHandler = new Handler() {
 
+						
 						@Override
 						public void handleMessage(Message msg) {
 							// TODO Auto-generated method stub
 							String fullURLString = msg.obj.toString() ;
 							if (msg.arg1 == RESULT_OK && msg.obj != null) 
+								Log.i("FIRST", "TEST");
 							
 							{
 								try {
-									
+									Log.i("Second", "TEST");
 									JSONObject json = new JSONObject(fullURLString);
+									
 									JSONArray ja = json.getJSONArray("zips");
 									
 									for (int i = 0; i < ja.length(); i++) {
 										//sets a json object to access object values inside array
+										
+										
 										JSONObject one = ja.getJSONObject(i);
 										
 									//setting my text to the values to the strings of the json data
