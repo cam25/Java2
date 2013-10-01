@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cmozie.Libz.FileStuff;
 import com.cmozie.classes.*;
 import webConnections.*;
 
@@ -39,6 +41,8 @@ public class MainActivity extends Activity {
 	public static Context _context;
 	//public static LocationDisplay _locationDetails;
 	public static Button searchButton;
+	
+	FileStuff m_file;
 	
 	
 	//layout
@@ -76,6 +80,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		//m_file = FileStuff.getInstance();
 		
 		//inflating my form.xml
 		View view;
@@ -165,9 +171,13 @@ public class MainActivity extends Activity {
 									//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 									locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 								
-									//confims zipcode is valie
-									Toast toast = Toast.makeText(_context, "Valid Zipcode " + _zipcode , Toast.LENGTH_SHORT);
+									
+									//Trying to read the file stored.
+									Toast toast = Toast.makeText(getBaseContext(),"Read -->" + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
+									
 									toast.show();
+									
+									//m_file.storeStringFile(_context, fullURLString, content, external)
 									
 									
 								} catch (Exception e) {

@@ -4,6 +4,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import webConnections.WebStuff;
+
+import com.cmozie.Libz.FileStuff;
+
 import android.app.Activity;
 import android.app.IntentService;
 import android.content.Intent;
@@ -16,7 +20,7 @@ import android.util.Log;
 public class ZipcodeService extends IntentService {
 	public static final String MESSENGER_KEY = "messenger";
 	public static final String enteredZipcode = "zipcode";
-	
+
 
 	public ZipcodeService() {
 		super("ZipcodeService");
@@ -28,6 +32,7 @@ public class ZipcodeService extends IntentService {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -35,6 +40,7 @@ public class ZipcodeService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		Log.i("ONHandleIntent", "Started");
+		//m_file = FileStuff.getInstance();
 		
 		Bundle extras = intent.getExtras();
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
@@ -62,17 +68,22 @@ public class ZipcodeService extends IntentService {
 				}
 				
 				//creates finalURL as a URL
-				URL finalURL;
+				URL UrlResult;
+				String queryReply;
 				try{
 					//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
-					finalURL = new URL (baseURL + key + "&zips=" + qs);
+					UrlResult = new URL (baseURL + key + "&zips=" + qs);
 					
 					//logs the final url query
-					Log.i("URL",finalURL.toString());
-				
+					Log.i("URL",UrlResult.toString());
+					
+					queryReply = WebStuff.getURLStringResponse(UrlResult);
+					//storing of the 
+					FileStuff.storeStringFile(this, "temp", queryReply, false);
+					Log.i("STORED FILE", "saved");
 				}catch (MalformedURLException e){
 					Log.e("BAD URL", "Malformed URL");
-					finalURL = null;
+					UrlResult = null;
 				}
 				Log.i("OnHandleIntent","Done looking up zipcode");
 				

@@ -37,12 +37,32 @@ public class FileStuff {
 	 * @param external the external
 	 * @return the boolean
 	 */
+	
+	private static FileStuff m_instance;
+	
+	//constructor
+	private FileStuff(){
+		
+		
+	}
+	
+	public static FileStuff getInstance(){
+		if (m_instance == null) {
+			m_instance = new FileStuff();
+			
+		}
+		return m_instance;
+				
+		
+	}
+	
+	
 	@SuppressWarnings("resource")
 	public static Boolean storeStringFile(Context context, String filename, String content, Boolean external){
 		
 		try {
 			File file;
-			FileOutputStream fos;
+			FileOutputStream fos = null;
 			if (external) {
 				file = new File(context.getExternalFilesDir(null),filename);
 				fos = new FileOutputStream(file);
@@ -52,6 +72,8 @@ public class FileStuff {
 				fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
 			}
 			fos.write(content.getBytes());
+			
+			Log.i("WRITING OF STRING FILE", "Success!");
 			fos.close();
 		} catch (IOException e) {
 			
@@ -118,6 +140,7 @@ public class FileStuff {
 				fin = context.openFileInput(filename);
 				
 			}
+			
 			BufferedInputStream bin = new BufferedInputStream(fin);
 			byte[] contentBytes = new byte[1024];
 			int bytesRead = 0;
