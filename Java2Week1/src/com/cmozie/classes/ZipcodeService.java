@@ -69,7 +69,7 @@ public class ZipcodeService extends IntentService {
 				
 				//creates finalURL as a URL
 				URL UrlResult;
-				String queryReply;
+				String queryReply = null;
 				try{
 					//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
 					UrlResult = new URL (baseURL + key + "&zips=" + qs);
@@ -89,7 +89,9 @@ public class ZipcodeService extends IntentService {
 				
 		Message message = Message.obtain();
 		message.arg1 = Activity.RESULT_OK;
-		message.obj = "Service is done";
+		
+		//This is where the problem from parsing json data was coming..Have to set the message.obj = to the queryReply url
+		message.obj = queryReply;
 		
 		try {
 			messenger.send(message);

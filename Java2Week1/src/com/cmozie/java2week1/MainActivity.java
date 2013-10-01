@@ -1,6 +1,8 @@
 package com.cmozie.java2week1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -70,7 +72,7 @@ public class MainActivity extends Activity {
 
 	
 	
-	
+	HashMap<String, String> _history;
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
 	
@@ -142,7 +144,7 @@ public class MainActivity extends Activity {
 							// TODO Auto-generated method stub
 							String fullURLString = msg.obj.toString() ;
 							if (msg.arg1 == RESULT_OK && msg.obj != null) 
-								Log.i("FIRST", "TEST");
+								Log.i("Serv.Response", msg.obj.toString());
 							
 							{
 								try {
@@ -176,6 +178,7 @@ public class MainActivity extends Activity {
 									//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 									locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 								
+									
 									
 									//Trying to read the file stored.
 									Toast toast = Toast.makeText(getBaseContext(),"Read -->" + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
@@ -524,7 +527,7 @@ public void locationInfo(String area_code, String city, String county, String st
 		private HashMap<String, String> getHistory(){
 			
 			//creates an object named stored that reads the object that is stored in local storage
-			Object stored = FileStuff.readObjectFile(_context, "history", false);
+			Object stored = FileStuff.readStringFile(_context, "temp", false);
 			
 			//declares the hashmap history variable
 			HashMap<String, String> history;
