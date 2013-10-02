@@ -45,8 +45,8 @@
 		<GridLayout 
 	    	android:id="@+id/locationDisplay"
 	    	
-	    	android:layout_width="400dp"
-	    	android:layout_height="400dip"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
 	    	
 	    	android:columnCount="2"
 	    	android:padding="5dip"
@@ -162,12 +162,11 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        style="@style/jsonResults"/>
-		    
-		    
-		    
+		   
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:paddingTop="10dp"
 		        android:text="Zipcode 2:"
 		        style="@style/textLabels"/>
 		    
@@ -177,12 +176,24 @@
 		        android:layout_height="wrap_content"
 		         style="@style/jsonResults"/>
 		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="AreaCode 2:"
+		        style="@style/textLabels"/>
+		    
 		    
 		    <TextView 
 		        android:id="@+id/location_areacode2"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="City 2:"
+		        style="@style/textLabels"/>
 		    
 		    
 		    <TextView 
@@ -192,15 +203,34 @@
 		         style="@style/jsonResults"/>
 		    
 		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="County 2:"
+		        style="@style/textLabels"/>
+		    
+		    <TextView 
 		        android:id="@+id/location_county2"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		         style="@style/jsonResults"/>
+		     
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="State 2:"
+		        style="@style/textLabels"/>
+		    
 		    <TextView 
 		        android:id="@+id/location_state2"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Latitude 2:"
+		        style="@style/textLabels"/>
 		    
 		    <TextView 
 		        android:id="@+id/location_latitude2"
@@ -209,26 +239,38 @@
 		         style="@style/jsonResults"/>
 		    
 		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Longitude 2:"
+		        style="@style/textLabels"/>
+		    
+		    <TextView 
 		        android:id="@+id/location_longitude2"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		         style="@style/jsonResults"/>
-		    <TextView 
-		        android:id="@+id/location_csa_name2"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		         style="@style/jsonResults"/>
+		    
+		    
+		  
 		    
 		    <TextView 
-		        android:id="@+id/location_cbsa_name2"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		         style="@style/jsonResults"/>
+		        android:text="Region 2:"
+		        style="@style/textLabels"/>
+		    
 		    <TextView 
 		        android:id="@+id/location_region2"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Timezone 2:"
+		        style="@style/textLabels"/>
+		    
 		    <TextView 
 		        android:id="@+id/location_timezone2"
 		        android:layout_width="wrap_content"

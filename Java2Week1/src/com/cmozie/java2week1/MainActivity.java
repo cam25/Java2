@@ -417,8 +417,10 @@ public class MainActivity extends Activity {
 											_area_code2 = two.getString("area_code");
 											_city2 = two.getString("city");
 											_county2 = two.getString("county");
-											_csa_name2 = two.getString("csa_name");
-											_cbsa_name2 = two.getString("cbsa_name");
+											_state2 = two.getString("state");
+										
+											//_csa_name2 = two.getString("csa_name");
+											//_cbsa_name2 = two.getString("cbsa_name");
 											_latitude2 = two.getString("latitude");
 											_longitude2 = two.getString("longitude");
 											_region2 = two.getString("region");
@@ -538,13 +540,12 @@ public void locationInfo2(String zipcode,String area_code, String city, String c
 	
 	((TextView) findViewById(R.id.location_zipcode2)).setText(zipcode);
 	((TextView) findViewById(R.id.location_areacode2)).setText(area_code);
-	((TextView) findViewById(R.id.location_city2)).setText(city);;
+	((TextView) findViewById(R.id.location_city2)).setText(city);
 	((TextView) findViewById(R.id.location_county2)).setText(county);
 	((TextView) findViewById(R.id.location_state2)).setText(state);
+
 	((TextView) findViewById(R.id.location_latitude2)).setText(latitude);
 	((TextView) findViewById(R.id.location_longitude2)).setText(longitude);
-	((TextView) findViewById(R.id.location_csa_name2)).setText(csa_name);
-	((TextView) findViewById(R.id.location_cbsa_name2)).setText(cbsa_name);
 	((TextView) findViewById(R.id.location_region2)).setText(region);
 	((TextView) findViewById(R.id.location_timezone2)).setText(timezone);
 }

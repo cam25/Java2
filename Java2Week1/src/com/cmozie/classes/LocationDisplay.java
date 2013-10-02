@@ -54,7 +54,7 @@ public class LocationDisplay extends GridLayout {
 		super(context);
 		
 		_context = context;
-		this.setColumnCount(3);
+		//this.setColumnCount(3);
 		
 		
 		TextView zipcodeLabel = new TextView(_context);
