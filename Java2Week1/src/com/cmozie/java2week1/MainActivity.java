@@ -273,11 +273,11 @@ public class MainActivity extends Activity {
 		 
 		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
 				 
-				 new Cities(94105, "San Francisco", "CA"),
-				 new Cities(33133, "Miami", "FL"),
-				 new Cities(20001, "Washington", "DC"),
-				 new Cities(10036, "New York", "NY"),
-				 new Cities(60106, "Chicago", "IL")
+				 new Cities("94105", "San Francisco", "CA"),
+				 new Cities("33133", "Miami", "FL"),
+				 new Cities("20001", "Washington", "DC"),
+				 new Cities("10036", "New York", "NY"),
+				 new Cities("60106", "Chicago", "IL")
 		 });
 		 
 		
@@ -331,9 +331,91 @@ public class MainActivity extends Activity {
 		 					
 		 					String selected = parent.getItemAtPosition(pos).toString();
 		 					Log.i("Favorite Selected", selected);
-		 				
-		 					
-		 					
+		 					Handler zipcodeHandler = new Handler() {
+
+								
+								@Override
+								public void handleMessage(Message msg) {
+									// TODO Auto-generated method stub
+									String selected = msg.obj.toString() ;
+									if (msg.arg1 == RESULT_OK && msg.obj != null) 
+										Log.i("Serv.Response", msg.obj.toString());
+									
+									{
+										try {
+											Log.i("Second", "TEST");
+											JSONObject json = new JSONObject(selected);
+											
+											JSONArray ja = json.getJSONArray("zips");
+											
+											for (int i = 0; i < ja.length(); i++) {
+												//sets a json object to access object values inside array
+												
+												
+												JSONObject one = ja.getJSONObject(i);
+												
+											//setting my text to the values to the strings of the json data
+											_zipcode = one.getString("zip_code");
+											_areaCode = one.getString("area_code");
+											_city = one.getString("city");
+											_state = one.getString("state");
+											_county = one.getString("county");
+											_csa_name = one.getString("csa_name");
+											_cbsa_name = one.getString("cbsa_name");
+											_latitude = one.getString("latitude");
+											_longitude = one.getString("longitude");
+											_region = one.getString("region");
+											_timezone = one.getString("time_zone");
+												 
+											}
+											Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
+										
+											//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
+											//locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+										
+											locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+										
+											//Trying to read the file stored.
+											Toast toast = Toast.makeText(getBaseContext(),"Read -->" + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
+											
+											toast.show();
+											
+											//m_file.storeStringFile(_context, fullURLString, content, external)
+											
+											
+										} catch (Exception e) {
+											// TODO: handle exception
+											//Alert for any error in entering into textfield if not a zipcode
+											AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+											alert.setTitle("Error");
+											alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct. USA zipcodes only.");
+											alert.setCancelable(false);
+											alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+												
+												@Override
+												public void onClick(DialogInterface dialog, int which) {
+
+													dialog.cancel();
+												}
+											});
+											alert.show();
+											Log.e("Handle Message", e.getMessage().toString());
+										}
+										
+				
+										
+									}						
+									
+								}
+								
+								
+							};
+							Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
+							
+							Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+							startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
+							startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,selected);
+							startService(startZipcodeIntent);
 		 					//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
 		 					//getLookup(selected);
 		 					

@@ -4,12 +4,12 @@ package com.cmozie.classes;
 public class Cities {
 
 	
-	public int zipcode = 0;
+	public String zipcode = "";
 	public String city = "";
 	public String state = "";
 	
 	//singleton/constructor to set values of my variables
-	public Cities(int _zipcode, String _city, String _state){
+	public Cities(String _zipcode, String _city, String _state){
 		
 		zipcode = _zipcode;
 		city = _city;
@@ -18,7 +18,7 @@ public class Cities {
 	}
 
 	public String toString(){
-		return (city + "(" + state  +" ) " );
+		return (zipcode + city);
 		
 	}
 }

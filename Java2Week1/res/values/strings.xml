@@ -20,6 +20,6 @@
     <string name="cbsa_name_">Cbsa name:</string>
     <string name="region_">Region:</string>
     <string name="timezone_">Timezone:</string>
-    <string name="zipcode">Zipcode</string>
+    <string name="zipcode">Zipcode:</string>
 
 </resources>
