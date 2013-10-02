@@ -155,7 +155,7 @@ public class MainActivity extends Activity {
 									Log.i("Second", "TEST");
 									JSONObject json = new JSONObject(fullURLString);
 									
-									JSONArray ja = json.getJSONArray("zips");
+									JSONArray ja = json.getJSONArray("zips[1]");
 									
 									for (int i = 0; i < ja.length(); i++) {
 										//sets a json object to access object values inside array

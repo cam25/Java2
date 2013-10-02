@@ -18,7 +18,7 @@ public class Cities {
 	}
 
 	public String toString(){
-		return (zipcode + city);
+		return (zipcode + "|" + city);
 		
 	}
 }
