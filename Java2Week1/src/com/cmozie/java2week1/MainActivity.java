@@ -106,17 +106,7 @@ public class MainActivity extends Activity {
 		//sets _history to the get history call
 		//_history = getHistory();
 		
-		//adding items to the spinner
-		//san francisco
-		_stacks.add("94105");
-		//Miami
-		_stacks.add("33133");
-		//washington dc
-		_stacks.add("20001");
-		//time square
-		_stacks.add("10036");
-		//Chicago
-		_stacks.add("60106");
+		
 		
 		 
 		 //logs the _history text if inside local storage
@@ -275,6 +265,17 @@ public class MainActivity extends Activity {
 		 ((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
 
 
+		//adding items to the spinner
+			//san francisco
+			_stacks.add("94105");
+			//Miami
+			_stacks.add("33133");
+			//washington dc
+			_stacks.add("20001");
+			//time square
+			_stacks.add("10036");
+			//Chicago
+			_stacks.add("60106");
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
 		 _pop.setOnClickListener(new OnClickListener() {
