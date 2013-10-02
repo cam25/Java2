@@ -279,7 +279,7 @@ public class MainActivity extends Activity {
 				 new Cities("10036", "New York", "NY"),
 				 new Cities("60106", "Chicago", "IL")
 		 });
-		 
+		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
 		
 		 spinner = (Spinner) findViewById(R.id.favList);
 		spinner.setAdapter(listAdapter);
