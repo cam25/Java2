@@ -52,9 +52,10 @@ public class MainActivity extends Activity {
 	//public static LocationDisplay _locationDetails;
 	public static Button searchButton;
 	static Spinner spinner = null;
+	public int selected; 
 	FileStuff m_file;
 	
-	
+	public int Sanfran = 0;
 	//layout
 	TextView _popularZips;
 	Button _pop;
@@ -273,11 +274,11 @@ public class MainActivity extends Activity {
 		 
 		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
 				 
-				 new Cities("94105", "San Francisco", "CA"),
-				 new Cities("33133", "Miami", "FL"),
-				 new Cities("20001", "Washington", "DC"),
-				 new Cities("10036", "New York", "NY"),
-				 new Cities("60106", "Chicago", "IL")
+				 new Cities("", "San Francisco", "CA"),
+				 new Cities("", "Miami", "FL"),
+				 new Cities("", "Washington", "DC"),
+				 new Cities("", "New York", "NY"),
+				 new Cities("", "Chicago", "IL")
 		 });
 		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
 		
@@ -285,7 +286,7 @@ public class MainActivity extends Activity {
 		spinner.setAdapter(listAdapter);
 		 //((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
 
-		 
+		
 
 		//adding items to the spinner
 			//san francisco
@@ -327,10 +328,42 @@ public class MainActivity extends Activity {
 		 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		 				
 		 				
-		 				public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
+		 				
+
+		 				
+						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
 		 					
-		 					String selected = parent.getItemAtPosition(pos).toString();
-		 					Log.i("Favorite Selected", selected);
+		 					//String selected = (String) parent.getItemAtPosition(pos).toString();
+		 					
+		 					String zipcode = "";
+		 					
+		 					int position = spinner.getSelectedItemPosition();
+		 					switch (position) {
+		 					
+							case 0:
+								zipcode = "94105|94106";
+								break;
+								
+							case 1:
+								zipcode = "33133|33132";
+								break;
+							
+							case 2:
+								zipcode =  "20001|20002";
+								break;
+							case 3:
+								zipcode = "10001|10002";
+								break;
+							case 4:
+								zipcode = "60018|60068";
+								break;
+							
+
+							default:
+								break;
+							}
+		 							
+		 	
 		 					Handler zipcodeHandler = new Handler() {
 
 								
@@ -414,7 +447,7 @@ public class MainActivity extends Activity {
 							
 							Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
 							startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-							startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,selected);
+							startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
 							startService(startZipcodeIntent);
 		 					//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
 		 					//getLookup(selected);
