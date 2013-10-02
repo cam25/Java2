@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Camera.Area;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -79,6 +80,17 @@ public class MainActivity extends Activity {
 	String _region;
 	String _timezone;
 
+	String _zipcode2;
+	String _city2;
+	String _county2;
+	String _state2;
+	String _area_code2;
+	String _latitude2;
+	String _longitude2;
+	String _csa_name2;
+	String _cbsa_name2;
+	String _region2;
+	String _timezone2;
 	
 	
 	HashMap<String, String> _history;
@@ -386,6 +398,7 @@ public class MainActivity extends Activity {
 												
 												
 												JSONObject one = ja.getJSONObject(i);
+												JSONObject two = ja.getJSONObject(0);
 												
 											//setting my text to the values to the strings of the json data
 											_zipcode = one.getString("zip_code");
@@ -399,15 +412,29 @@ public class MainActivity extends Activity {
 											_longitude = one.getString("longitude");
 											_region = one.getString("region");
 											_timezone = one.getString("time_zone");
+											
+											_zipcode2 = two.getString("zip_code");
+											_area_code2 = two.getString("area_code");
+											_city2 = two.getString("city");
+											_county2 = two.getString("county");
+											_csa_name2 = two.getString("csa_name");
+											_cbsa_name2 = two.getString("cbsa_name");
+											_latitude2 = two.getString("latitude");
+											_longitude2 = two.getString("longitude");
+											_region2 = two.getString("region");
+											_timezone2 = two.getString("time_zone");
+											
+											
 												 
 											}
 											Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 										
+											Log.i("FIRST",_zipcode2 );
 											//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
 											//locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 										
 											locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
-										
+											locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
 											//Trying to read the file stored.
 											Toast toast = Toast.makeText(getBaseContext(),"Read -->" + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
 											
@@ -507,7 +534,20 @@ public void locationInfo(String zipcode,String area_code, String city, String co
 		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
 }
 
-
+public void locationInfo2(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+	
+	((TextView) findViewById(R.id.location_zipcode2)).setText(zipcode);
+	((TextView) findViewById(R.id.location_areacode2)).setText(area_code);
+	((TextView) findViewById(R.id.location_city2)).setText(city);;
+	((TextView) findViewById(R.id.location_county2)).setText(county);
+	((TextView) findViewById(R.id.location_state2)).setText(state);
+	((TextView) findViewById(R.id.location_latitude2)).setText(latitude);
+	((TextView) findViewById(R.id.location_longitude2)).setText(longitude);
+	((TextView) findViewById(R.id.location_csa_name2)).setText(csa_name);
+	((TextView) findViewById(R.id.location_cbsa_name2)).setText(cbsa_name);
+	((TextView) findViewById(R.id.location_region2)).setText(region);
+	((TextView) findViewById(R.id.location_timezone2)).setText(timezone);
+}
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)

@@ -44,11 +44,12 @@
 	
 		<GridLayout 
 	    	android:id="@+id/locationDisplay"
+	    	
 	    	android:layout_width="400dp"
 	    	android:layout_height="400dip"
 	    	
 	    	android:columnCount="2"
-	    	android:padding="0dip"
+	    	android:padding="5dip"
 	    	android:scrollbars="vertical">
 		<TextView 
 		        android:layout_width="wrap_content"
@@ -161,6 +162,78 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        style="@style/jsonResults"/>
+		    
+		    
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Zipcode 2:"
+		        style="@style/textLabels"/>
+		    
+		    <TextView 
+		        android:id="@+id/location_zipcode2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    
+		    
+		    <TextView 
+		        android:id="@+id/location_areacode2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    
+		    
+		    <TextView 
+		        android:id="@+id/location_city2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:id="@+id/location_county2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    <TextView 
+		        android:id="@+id/location_state2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:id="@+id/location_latitude2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:id="@+id/location_longitude2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    <TextView 
+		        android:id="@+id/location_csa_name2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    
+		    <TextView 
+		        android:id="@+id/location_cbsa_name2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    <TextView 
+		        android:id="@+id/location_region2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
+		    <TextView 
+		        android:id="@+id/location_timezone2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
 		    
 		</GridLayout>
 		

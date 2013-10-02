@@ -18,7 +18,8 @@
     </style>
     
     <style name="jsonResults">
-        <item name="android:textStyle">bold</item>  
+        <item name="android:textStyle">bold</item> 
+        <item name="android:paddingRight">1dp</item> 
        
         </style>
         

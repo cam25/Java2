@@ -32,6 +32,18 @@ public class LocationDisplay extends GridLayout {
 	TextView _region;
 	TextView _timezone;
 	
+	TextView _zipcode2;
+	TextView _city2;
+	TextView _county2;
+	TextView _state2;
+	TextView _area_code2;
+	TextView _latitude2;
+	TextView _longitude2;
+	TextView _csa_name2;
+	TextView _cbsa_name2;
+	TextView _region2;
+	TextView _timezone2;
+	
 	
 	/**
 	 * Instantiates a new location display.
@@ -42,7 +54,7 @@ public class LocationDisplay extends GridLayout {
 		super(context);
 		
 		_context = context;
-		this.setColumnCount(2);
+		this.setColumnCount(3);
 		
 		
 		TextView zipcodeLabel = new TextView(_context);
@@ -123,6 +135,44 @@ public class LocationDisplay extends GridLayout {
 		this.addView(timeZoneLabel);
 		this.addView(_timezone);
 		
+		
+	
+		
+		_zipcode2 = new TextView(_context);
+		this.addView(_zipcode2);
+		
+		
+		_area_code2 = new TextView(_context);
+		
+		//this.addView(areaCodeLabel2);
+		this.addView(_area_code2);
+		
+		_city2 = new TextView(_context);
+		this.addView(_city2);
+		
+		_county2 = new TextView(_context);
+		this.addView(_county2);
+		
+		_state2 = new TextView(_context);
+		this.addView(_state2);
+		
+		_latitude2 = new TextView(_context);
+		this.addView(_latitude2);
+		
+		_longitude2 = new TextView(_context);
+		this.addView(_longitude2);
+		
+		_csa_name2 = new TextView(_context);
+		this.addView(_cbsa_name2);
+		
+		_cbsa_name2 = new TextView(_context);
+		this.addView(_cbsa_name2);
+		
+		_region2 = new TextView(_context);
+		this.addView(_region2);
+		
+		_timezone2 = new TextView(_context);
+		this.addView(_timezone2);
 	
 	}
 	
@@ -154,6 +204,21 @@ public class LocationDisplay extends GridLayout {
 		_cbsa_name.setText(cbsa_name);
 		_region.setText(region);
 		_timezone.setText(timezone);
+	}
+	
+public void locationInfo2(String zipcode2, String area_code2, String city2, String county2, String state2, String latitude2, String longitude2, String csa_name2, String cbsa_name2, String region2, String timezone2) {
+		
+		_zipcode.setText(zipcode2);
+		_area_code.setText(area_code2);
+		_city.setText(city2);
+		_county.setText(county2);
+		_state.setText(state2);
+		_latitude.setText(latitude2);
+		_longitude.setText(longitude2);
+		_csa_name.setText(csa_name2);
+		_cbsa_name.setText(cbsa_name2);
+		_region.setText(region2);
+		_timezone.setText(timezone2);
 	}
 
 }
