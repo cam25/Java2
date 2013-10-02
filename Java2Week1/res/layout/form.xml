@@ -167,7 +167,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:paddingTop="10dp"
-		        android:text="Zipcode 2:"
+		        android:text="@string/zipcode_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 
@@ -179,7 +179,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="AreaCode 2:"
+		        android:text="@string/areacode_2_"
 		        style="@style/textLabels"/>
 		    
 		    
@@ -192,7 +192,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="City 2:"
+		        android:text="@string/city_2_"
 		        style="@style/textLabels"/>
 		    
 		    
@@ -205,7 +205,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="County 2:"
+		        android:text="@string/county_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 
@@ -217,7 +217,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="State 2:"
+		        android:text="@string/state_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 
@@ -229,7 +229,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Latitude 2:"
+		        android:text="@string/latitude_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 
@@ -241,7 +241,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Longitude 2:"
+		        android:text="@string/longitude_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 
@@ -256,7 +256,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Region 2:"
+		        android:text="@string/region_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 
@@ -268,7 +268,7 @@
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="Timezone 2:"
+		        android:text="@string/timezone_2_"
 		        style="@style/textLabels"/>
 		    
 		    <TextView 

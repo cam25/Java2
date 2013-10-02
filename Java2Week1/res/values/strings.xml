@@ -21,5 +21,14 @@
     <string name="region_">Region:</string>
     <string name="timezone_">Timezone:</string>
     <string name="zipcode">Zipcode:</string>
+    <string name="zipcode_2_">Zipcode 2:</string>
+    <string name="areacode_2_">AreaCode 2:</string>
+    <string name="city_2_">City 2:</string>
+    <string name="county_2_">County 2:</string>
+    <string name="state_2_">State 2:</string>
+    <string name="latitude_2_">Latitude 2:</string>
+    <string name="longitude_2_">Longitude 2:</string>
+    <string name="region_2_">Region 2:</string>
+    <string name="timezone_2_">Timezone 2:</string>
 
 </resources>

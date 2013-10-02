@@ -1,10 +1,7 @@
 package com.cmozie.java2week1;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +11,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.hardware.Camera.Area;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,12 +20,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -108,7 +102,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//m_file = FileStuff.getInstance();
+
 		
 		//inflating my form.xml
 		View view;
@@ -127,136 +121,11 @@ public class MainActivity extends Activity {
 		
 		//sets _history to the get history call
 		//_history = getHistory();
-		
-		
-		
-		 
+	
 		 //logs the _history text if inside local storage
 		//Log.i("HISTORY READ", _history.toString());
 	 
-		//allows to target the search button in the search form to set onclick event
-		///searchButton = (Button) findViewById(R.id.searchButton);
-		//searchButton.isPressed() && sField.getText().length() > 1
-		//search button on click listener
-		 /*searchButton.setOnClickListener(new View.OnClickListener() {
 		
-			@Override
-			public void onClick(View view) {
-			EditText sField = (EditText) findViewById(R.id.searchField);
-					//if the search button is pressed and the text field length is greater than 1 go ahead and search
-			
-				if (sField.getText().length() < 1) {
-					
-					Toast toast = Toast.makeText(_context, "Please Enter a Correct Zipcode", Toast.LENGTH_LONG);
-					toast.show();
-				
-					
-				}else {
-					
-					Handler zipcodeHandler = new Handler() {
-
-						
-						@Override
-						public void handleMessage(Message msg) {
-							// TODO Auto-generated method stub
-							String fullURLString = msg.obj.toString() ;
-							if (msg.arg1 == RESULT_OK && msg.obj != null) 
-								Log.i("Serv.Response", msg.obj.toString());
-							
-							{
-								try {
-									Log.i("Second", "TEST");
-									JSONObject json = new JSONObject(fullURLString);
-									
-									JSONArray ja = json.getJSONArray("zips");
-									
-									for (int i = 0; i < ja.length(); i++) {
-										//sets a json object to access object values inside array
-										
-										
-										JSONObject one = ja.getJSONObject(i);
-										
-									//setting my text to the values to the strings of the json data
-									_zipcode = one.getString("zip_code");
-									_areaCode = one.getString("area_code");
-									_city = one.getString("city");
-									_state = one.getString("state");
-									_county = one.getString("county");
-									_csa_name = one.getString("csa_name");
-									_cbsa_name = one.getString("cbsa_name");
-									_latitude = one.getString("latitude");
-									_longitude = one.getString("longitude");
-									_region = one.getString("region");
-									_timezone = one.getString("time_zone");
-										 
-									}
-									Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
-								
-									//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
-									//locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
-								
-									locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
-								
-									//Trying to read the file stored.
-									Toast toast = Toast.makeText(getBaseContext(),"Read -->" + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
-									
-									toast.show();
-									
-									//m_file.storeStringFile(_context, fullURLString, content, external)
-									
-									
-								} catch (Exception e) {
-									// TODO: handle exception
-									//Alert for any error in entering into textfield if not a zipcode
-									AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-									alert.setTitle("Error");
-									alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct. USA zipcodes only.");
-									alert.setCancelable(false);
-									alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
-										
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-
-											dialog.cancel();
-										}
-									});
-									alert.show();
-									Log.e("Handle Message", e.getMessage().toString());
-								}
-								
-		
-								
-							}						
-							
-						}
-						
-						
-					};
-					
-					Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
-					
-					Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
-					startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode, sField.getText().toString());
-					
-					startService(startZipcodeIntent);
-					
-						//getLookup(sField.getText().toString());
-						
-						//hides keyboard.
-						InputMethodManager imm = (InputMethodManager)getSystemService(
-						Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(sField.getWindowToken(), 0);
-						searchButton.setEnabled(true);
-					}
-										//empties the search field
-				sField.setText("");
-				
-			}
-			
-		});*/
-		
-		 
 		 //webConnection jar file usage
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
@@ -279,7 +148,7 @@ public class MainActivity extends Activity {
 				}
 			});
 			alert.show();
-			searchButton.setClickable(false);
+		
 		}
 		
 		

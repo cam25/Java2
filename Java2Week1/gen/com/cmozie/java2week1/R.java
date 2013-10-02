@@ -62,22 +62,31 @@ public final class R {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int areacode_=0x7f050009;
+        public static final int areacode_2_=0x7f050015;
         public static final int cbsa_name_=0x7f050010;
         public static final int city_=0x7f05000a;
+        public static final int city_2_=0x7f050016;
         public static final int county_=0x7f05000b;
+        public static final int county_2_=0x7f050017;
         public static final int csa_name_=0x7f05000f;
         public static final int enter_zipcode_here=0x7f050005;
         public static final int hello_world=0x7f050002;
         public static final int latitude_=0x7f05000d;
+        public static final int latitude_2_=0x7f050019;
         public static final int longitude_=0x7f05000e;
+        public static final int longitude_2_=0x7f05001a;
         public static final int popular_zipcodes=0x7f050007;
         public static final int region_=0x7f050011;
+        public static final int region_2_=0x7f05001b;
         public static final int search=0x7f050006;
         public static final int searchButn=0x7f050004;
         public static final int state_=0x7f05000c;
+        public static final int state_2_=0x7f050018;
         public static final int textFieldText=0x7f050003;
         public static final int timezone_=0x7f050012;
+        public static final int timezone_2_=0x7f05001c;
         public static final int zipcode=0x7f050013;
+        public static final int zipcode_2_=0x7f050014;
         public static final int zipcode_banner=0x7f050008;
     }
     public static final class style {
