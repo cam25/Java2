@@ -11,9 +11,9 @@ public class Cities {
 	//singleton/constructor to set values of my variables
 	public Cities(int _zipcode, String _city, String _state){
 		
-		_zipcode = zipcode;
-		_city = city;
-		_state = state;
+		zipcode = _zipcode;
+		city = _city;
+		state = _state;
 		
 	}
 

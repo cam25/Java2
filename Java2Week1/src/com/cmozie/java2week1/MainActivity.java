@@ -1,7 +1,9 @@
 package com.cmozie.java2week1;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -80,11 +82,15 @@ public class MainActivity extends Activity {
 	
 	HashMap<String, String> _history;
 	
+	
 	ArrayList<String>_stacks = new ArrayList<String>();
+	
+	
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -98,6 +104,8 @@ public class MainActivity extends Activity {
 		
 		//setting contentView to my inflated view/form
 		setContentView(view);
+		
+		
 		
 		
 		
@@ -261,14 +269,19 @@ public class MainActivity extends Activity {
 			searchButton.setClickable(false);
 		}
 		
+		
 		 
-		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(this, android.R.layout.simple_spinner_item, new Cities[]{
-		 
-				 new Cities(94105, "San Francisco", "CA")
+		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
+				 
+				 new Cities(94105, "San Francisco", "CA"),
+				 new Cities(33133, "Miami", "FL"),
+				 new Cities(20001, "Washington", "DC"),
+				 new Cities(10036, "New York", "NY"),
+				 new Cities(60106, "Chicago", "IL")
 		 });
 		 
 		
-		 spinner = (Spinner) this.findViewById(R.id.favList);
+		 spinner = (Spinner) findViewById(R.id.favList);
 		spinner.setAdapter(listAdapter);
 		 //((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
 
