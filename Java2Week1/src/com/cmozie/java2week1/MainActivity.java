@@ -123,10 +123,10 @@ public class MainActivity extends Activity {
 		//Log.i("HISTORY READ", _history.toString());
 	 
 		//allows to target the search button in the search form to set onclick event
-		searchButton = (Button) findViewById(R.id.searchButton);
+		///searchButton = (Button) findViewById(R.id.searchButton);
 		//searchButton.isPressed() && sField.getText().length() > 1
 		//search button on click listener
-		 searchButton.setOnClickListener(new View.OnClickListener() {
+		 /*searchButton.setOnClickListener(new View.OnClickListener() {
 		
 			@Override
 			public void onClick(View view) {
@@ -242,7 +242,7 @@ public class MainActivity extends Activity {
 				
 			}
 			
-		});
+		});*/
 		
 		 
 		 //webConnection jar file usage
