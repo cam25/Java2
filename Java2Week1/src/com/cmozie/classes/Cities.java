@@ -17,5 +17,8 @@ public class Cities {
 		
 	}
 
-	
+	public String toString(){
+		return (city + "(" + state  +" ) " );
+		
+	}
 }
