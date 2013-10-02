@@ -46,6 +46,16 @@
 	    	android:layout_weight=".5"
 	    	android:columnCount="2"
 	    	android:padding="10dip">
+		<TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/zipcode"
+		        style="@style/textLabels"/>
+		    <TextView 
+		        android:id="@+id/location_zipcode"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         style="@style/jsonResults"/>
 		    <TextView 
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -149,7 +159,28 @@
 		    
 		</GridLayout>
 		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"> 
+		<Button 
+	 	    android:id="@+id/popularZipcodes"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:text="@string/popular_zipcodes"/>
+		 </LinearLayout>
+		<Spinner 
+	 	    android:id="@+id/favList"
+	 	   	android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+	 	    android:paddingBottom="10dp"
+	 	    android:paddingTop="10dp"
+	 	    android:prompt="@string/enter_zipcode_here"
+	 	    android:visibility="invisible"
+	 	    
+	 	    style="@style/spinnerStyle" />
 		
+
 		
 		
 		

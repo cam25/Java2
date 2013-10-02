@@ -20,9 +20,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,7 +108,7 @@ public class MainActivity extends Activity {
 		
 		//adding items to the spinner
 		//san francisco
-		/*_stacks.add("94105");
+		_stacks.add("94105");
 		//Miami
 		_stacks.add("33133");
 		//washington dc
@@ -111,7 +116,7 @@ public class MainActivity extends Activity {
 		//time square
 		_stacks.add("10036");
 		//Chicago
-		_stacks.add("60106");*/
+		_stacks.add("60106");
 		
 		 
 		 //logs the _history text if inside local storage
@@ -176,10 +181,10 @@ public class MainActivity extends Activity {
 									Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 								
 									//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
-									locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+									//locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
 								
-									
-									
+									locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+								
 									//Trying to read the file stored.
 									Toast toast = Toast.makeText(getBaseContext(),"Read -->" + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
 									
@@ -265,78 +270,76 @@ public class MainActivity extends Activity {
 			searchButton.setClickable(false);
 		}
 		 
-		
-	}
-		 //ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stacks);
-		 //listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
-		 //((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
-		
-	
-		 //popular zipcodes onclick
-		 //_pop = (Button) findViewById(R.id.popularZipcodes);
-		 /*_pop.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-					//informing the user how to select a popular zipcode
-					AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-					alert.setTitle("What to do?");
-					alert.setMessage("Click the yellow box to view the popular zipcodes");
-					alert.setCancelable(false);
-					alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
+		 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(_context, android.R.layout.simple_spinner_item, _stacks);
+		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
+		 ((Spinner) findViewById(R.id.favList)).setAdapter(listAdapter);
 
-							dialog.cancel();
-						}
-					});
-					alert.show();
-					//adds the _favorites/spinner to the view button is clicked
-					Spinner spinnerObj = (Spinner) findViewById(R.id.favList);
-					
-					
-					spinnerObj.setVisibility(View.VISIBLE);
-					((Spinner) findViewById(R.id.favList)).setOnItemSelectedListener(new OnItemSelectedListener() {
-						
-						
-						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
-							
-							String selected = parent.getItemAtPosition(pos).toString();
-							Log.i("Favorite Selected", selected);
-							
-							
-							
-							//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
-							//getLookup(selected);
-							
-						}
-						
-						@Override
-						public void onNothingSelected(AdapterView<?>parent){
-							Log.i("Aborted", "None Selected");
-							
-						}
-						
-						
-					});
-					
-					//sets button to non clickable once clicked once 
-					_pop.setClickable(false);
-					
-					
-				}
-					
-			});
-		
-	
+
+		 //popular zipcodes onclick
+		 _pop = (Button) findViewById(R.id.popularZipcodes);
+		 _pop.setOnClickListener(new OnClickListener() {
+		 		
+		 		public void onClick(View v) {
+		 			// TODO Auto-generated method stub
+		 			
+		 			//informing the user how to select a popular zipcode
+		 			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+		 			alert.setTitle("What to do?");
+		 			alert.setMessage("Click the yellow box to view the popular zipcodes");
+		 			alert.setCancelable(false);
+		 			alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
+		 				
+		 				@Override
+		 				public void onClick(DialogInterface dialog, int which) {
+
+		 					dialog.cancel();
+		 				}
+		 			});
+		 			alert.show();
+		 			//adds the _favorites/spinner to the view button is clicked
+		 			Spinner spinnerObj = (Spinner) findViewById(R.id.favList);
+		 			
+		 			
+		 			spinnerObj.setVisibility(View.VISIBLE);
+		 			((Spinner) findViewById(R.id.favList)).setOnItemSelectedListener(new OnItemSelectedListener() {
+		 				
+		 				
+		 				public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
+		 					
+		 					String selected = parent.getItemAtPosition(pos).toString();
+		 					Log.i("Favorite Selected", selected);
+		 					
+		 					
+		 					
+		 					//trying to call this function and pass in the selectedItemAtPosition string to the function to run the api query on the selected zipcode in the spinner.
+		 					//getLookup(selected);
+		 					
+		 				}
+		 				
+		 				@Override
+		 				public void onNothingSelected(AdapterView<?>parent){
+		 					Log.i("Aborted", "None Selected");
+		 					
+		 				}
+		 				
+		 				
+		 			});
+		 			
+		 			//sets button to non clickable once clicked once 
+		 			_pop.setClickable(false);
+		 			
+		 			
+		 		}
+		 			
+		 	});
+
+
 		 _pop.setText("Click here for popular zipcodes");
 
+
+		 }
 	
-	}*/
-	
+		
 /**
  * Location info.
  *
@@ -351,8 +354,9 @@ public class MainActivity extends Activity {
  * @param region the region
  * @param timezone the timezone
  */
-public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+public void locationInfo(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
+		((TextView) findViewById(R.id.location_zipcode)).setText(zipcode);
 		((TextView) findViewById(R.id.location_areacode)).setText(area_code);
 		((TextView) findViewById(R.id.location_city)).setText(city);;
 		((TextView) findViewById(R.id.location_county)).setText(county);
@@ -364,8 +368,9 @@ public void locationInfo(String area_code, String city, String county, String st
 		((TextView) findViewById(R.id.location_region)).setText(region);
 		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
 }
-	
-	
+
+
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */

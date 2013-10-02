@@ -25,19 +25,22 @@ public final class R {
         public static final int zipcodebanner=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000e;
+        public static final int action_settings=0x7f080011;
         public static final int banner=0x7f080000;
+        public static final int favList=0x7f080010;
         public static final int locationDisplay=0x7f080003;
-        public static final int location_areacode=0x7f080004;
-        public static final int location_cbsa_name=0x7f08000b;
-        public static final int location_city=0x7f080005;
-        public static final int location_county=0x7f080006;
-        public static final int location_csa_name=0x7f08000a;
-        public static final int location_latitude=0x7f080008;
-        public static final int location_longitude=0x7f080009;
-        public static final int location_region=0x7f08000c;
-        public static final int location_state=0x7f080007;
-        public static final int location_timezone=0x7f08000d;
+        public static final int location_areacode=0x7f080005;
+        public static final int location_cbsa_name=0x7f08000c;
+        public static final int location_city=0x7f080006;
+        public static final int location_county=0x7f080007;
+        public static final int location_csa_name=0x7f08000b;
+        public static final int location_latitude=0x7f080009;
+        public static final int location_longitude=0x7f08000a;
+        public static final int location_region=0x7f08000d;
+        public static final int location_state=0x7f080008;
+        public static final int location_timezone=0x7f08000e;
+        public static final int location_zipcode=0x7f080004;
+        public static final int popularZipcodes=0x7f08000f;
         public static final int searchButton=0x7f080002;
         public static final int searchField=0x7f080001;
     }
@@ -66,6 +69,7 @@ public final class R {
         public static final int state_=0x7f05000c;
         public static final int textFieldText=0x7f050003;
         public static final int timezone_=0x7f050012;
+        public static final int zipcode=0x7f050013;
         public static final int zipcode_banner=0x7f050008;
     }
     public static final class style {

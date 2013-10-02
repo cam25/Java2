@@ -89,6 +89,8 @@ public class LocationDisplay extends GridLayout {
 		timeZoneLabel.setText("Timezone:");
 		_timezone = new TextView(_context);
 		
+		this.addView(zipcodeLabel);
+		this.addView(_zipcode);
 		
 		this.addView(areaCodeLabel);
 		this.addView(_area_code);
@@ -139,8 +141,9 @@ public class LocationDisplay extends GridLayout {
 	 * @param region the region
 	 * @param timezone the timezone
 	 */
-	public void locationInfo(String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+	public void locationInfo(String zipcode, String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
+		_zipcode.setText(zipcode);
 		_area_code.setText(area_code);
 		_city.setText(city);
 		_county.setText(county);
