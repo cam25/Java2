@@ -21,6 +21,7 @@ import java.io.ObjectOutputStream;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -73,12 +74,15 @@ public class FileStuff {
 			}
 			fos.write(content.getBytes());
 			
+			
 			Log.i("WRITING OF STRING FILE", "Success!");
 			fos.close();
+			
 		} catch (IOException e) {
 			
 			Log.i("WRITE ERROR",filename);
 		}
+		
 			return true;
 	}
 
@@ -139,6 +143,7 @@ public class FileStuff {
 				file = new File(filename);
 				fin = context.openFileInput(filename);
 				
+				
 			}
 			
 			BufferedInputStream bin = new BufferedInputStream(fin);
@@ -153,12 +158,18 @@ public class FileStuff {
 				
 			}
 			content = contentBuffer.toString();
+			
 			fin.close();
 		} catch (FileNotFoundException e) {
+			Toast toast = Toast.makeText(context, "Nothing in local storage  ", Toast.LENGTH_SHORT);
+			
+			toast.show();
 			Log.e("READ ERROR","FILE NOT FOUND" + filename);
 		}catch (IOException e) {
 			Log.e("READ ERROR","I/O ERROR");
 		}
+		
+		
 		return content;
 		
 	}

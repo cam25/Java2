@@ -2,6 +2,7 @@ package com.cmozie.java2week1;
 
 import java.util.ArrayList;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -113,11 +114,6 @@ public class MainActivity extends Activity {
 			//if no connection
 		}else if(!_connected) {
 			
-			
-			FileStuff.readStringFile(_context, "temp", _connected);
-			Log.i("new", FileStuff.readStringFile(_context, "temp", _connected));
-			
-			 
 			//alert for connection
 			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 			alert.setTitle("Connection Required!");
@@ -132,6 +128,74 @@ public class MainActivity extends Activity {
 				}
 			});
 			alert.show();
+		
+			//pulling in data from Local storage here
+			try {
+				JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
+				
+				JSONArray ja = json.getJSONArray("zips");
+				
+				for (int i = 0; i < ja.length(); i++) {
+					//sets a json object to access object values inside array
+					
+					
+					JSONObject one = ja.getJSONObject(i);
+					JSONObject two = ja.getJSONObject(0);
+					
+				//setting my text to the values to the strings of the json data
+				_zipcode = one.getString("zip_code");
+				_areaCode = one.getString("area_code");
+				_city = one.getString("city");
+				_state = one.getString("state");
+				_county = one.getString("county");
+				_csa_name = one.getString("csa_name");
+				_cbsa_name = one.getString("cbsa_name");
+				_latitude = one.getString("latitude");
+				_longitude = one.getString("longitude");
+				_region = one.getString("region");
+				_timezone = one.getString("time_zone");
+				
+				_zipcode2 = two.getString("zip_code");
+				_area_code2 = two.getString("area_code");
+				_city2 = two.getString("city");
+				_county2 = two.getString("county");
+				_state2 = two.getString("state");
+
+
+				_latitude2 = two.getString("latitude");
+				_longitude2 = two.getString("longitude");
+				_region2 = two.getString("region");
+				_timezone2 = two.getString("time_zone");
+				
+				
+					 
+				}
+			} catch (Exception e) {
+				AlertDialog.Builder alert1 = new AlertDialog.Builder(_context);
+	 			alert.setTitle("Local Storage");
+	 			alert.setMessage("Error in converting local storage to screen. Restart app with a connection.");
+	 			alert.setCancelable(false);
+	 			alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
+	 				
+	 				@Override
+	 				public void onClick(DialogInterface dialog, int which) {
+
+	 					dialog.cancel();
+	 				}
+	 			});
+	 			alert1.show();
+			
+			}
+			
+			
+		
+			locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+			locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
+			//Trying to read the file stored.
+			
+			
+			 
+			
 		
 		}
 		 
@@ -261,17 +325,12 @@ public class MainActivity extends Activity {
 											Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
 										
 											Log.i("FIRST",_zipcode2 );
-											//sets the values of the text by calling the locationInfo function inside of my Locationdisplay class
-											//locationInfo(_areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);  
+											
 										
 											locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
 											locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
-											//Trying to read the file stored.
-											Toast toast = Toast.makeText(getBaseContext(),"Search Complete + Reading local Storage....  " + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
 											
-											toast.show();
 											
-											//m_file.storeStringFile(_context, fullURLString, content, external)
 											
 											
 										} catch (Exception e) {

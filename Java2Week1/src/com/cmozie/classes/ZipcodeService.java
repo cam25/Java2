@@ -16,6 +16,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ZipcodeService extends IntentService {
 	public static final String MESSENGER_KEY = "messenger";
@@ -80,6 +81,7 @@ public class ZipcodeService extends IntentService {
 					queryReply = WebStuff.getURLStringResponse(UrlResult);
 					//storing of the 
 					FileStuff.storeStringFile(this, "temp", queryReply, false);
+					
 					Log.i("STORED FILE", "saved");
 				}catch (MalformedURLException e){
 					Log.e("BAD URL", "Malformed URL");
