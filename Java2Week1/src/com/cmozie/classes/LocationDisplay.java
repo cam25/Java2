@@ -1,12 +1,13 @@
 /*
- * project 			Java1Week4
+ * project 			Java2Week1
  * 
  * package			com.cmozie.classes
  * 
  * name				cameronmozie
  * 
- * date				Sep 26, 2013
+ * date				Oct 3, 2013
  */
+
 
 package com.cmozie.classes;
 
@@ -180,6 +181,7 @@ public class LocationDisplay extends GridLayout {
 	/**
 	 * Location info.
 	 *
+	 * @param zipcode the zipcode
 	 * @param area_code the area_code
 	 * @param city the city
 	 * @param county the county
@@ -206,6 +208,21 @@ public class LocationDisplay extends GridLayout {
 		_timezone.setText(timezone);
 	}
 	
+/**
+ * Location info2.
+ *
+ * @param zipcode2 the zipcode2
+ * @param area_code2 the area_code2
+ * @param city2 the city2
+ * @param county2 the county2
+ * @param state2 the state2
+ * @param latitude2 the latitude2
+ * @param longitude2 the longitude2
+ * @param csa_name2 the csa_name2
+ * @param cbsa_name2 the cbsa_name2
+ * @param region2 the region2
+ * @param timezone2 the timezone2
+ */
 public void locationInfo2(String zipcode2, String area_code2, String city2, String county2, String state2, String latitude2, String longitude2, String csa_name2, String cbsa_name2, String region2, String timezone2) {
 		
 		_zipcode.setText(zipcode2);

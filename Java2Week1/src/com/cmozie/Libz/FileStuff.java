@@ -1,11 +1,11 @@
 /*
- * project 			Java1Week4
+ * project 			Java2Week1
  * 
- * package			com.cmozie.libz
+ * package			com.cmozie.Libz
  * 
  * name				cameronmozie
  * 
- * date				Sep 26, 2013
+ * date				Oct 3, 2013
  */
 
 package com.cmozie.Libz;
@@ -42,11 +42,19 @@ public class FileStuff {
 	private static FileStuff m_instance;
 	
 	//constructor
+	/**
+	 * Instantiates a new file stuff.
+	 */
 	private FileStuff(){
 		
 		
 	}
 	
+	/**
+	 * Gets the single instance of FileStuff.
+	 *
+	 * @return single instance of FileStuff
+	 */
 	public static FileStuff getInstance(){
 		if (m_instance == null) {
 			m_instance = new FileStuff();
@@ -58,6 +66,15 @@ public class FileStuff {
 	}
 	
 	
+	/**
+	 * Store string file.
+	 *
+	 * @param context the context
+	 * @param filename the filename
+	 * @param content the content
+	 * @param external the external
+	 * @return the boolean
+	 */
 	@SuppressWarnings("resource")
 	public static Boolean storeStringFile(Context context, String filename, String content, Boolean external){
 		

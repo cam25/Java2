@@ -1,8 +1,16 @@
+/*
+ * project 			Java2Week1
+ * 
+ * package			com.cmozie.java2week1
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 3, 2013
+ */
 package com.cmozie.java2week1;
 
 import java.util.ArrayList;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -26,8 +34,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.cmozie.Libz.FileStuff;
 import com.cmozie.classes.*;
 
@@ -90,6 +96,9 @@ public class MainActivity extends Activity {
 	
 	ArrayList<String>_stacks = new ArrayList<String>();
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -199,6 +208,7 @@ public class MainActivity extends Activity {
 		
 		}
 		 
+		 //array adapter for my cities where i create new objects for each location
 		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
 				 
 				 new Cities("", "San Francisco", "CA"),
@@ -243,11 +253,12 @@ public class MainActivity extends Activity {
 		 							 					
 		 					String zipcode = "";
 		 					
+		 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
 		 					int position = spinner.getSelectedItemPosition();
 		 					switch (position) {
 		 					
 							case 0:
-								zipcode = "94105|94106";
+								zipcode = "94105|94107";
 								break;
 								
 							case 1:
@@ -269,19 +280,22 @@ public class MainActivity extends Activity {
 								break;
 							}
 		 							
-		 	
+		 					//my handler
 		 					Handler zipcodeHandler = new Handler() {
 
 								
 								@Override
 								public void handleMessage(Message msg) {
 									// TODO Auto-generated method stub
-									String selected = msg.obj.toString() ;
+									
+									//string selected is my query reply from my ZipcodeService
+									String selected = msg.obj.toString();
 									if (msg.arg1 == RESULT_OK && msg.obj != null) 
 										Log.i("Serv.Response", msg.obj.toString());
 									
 									{
 										try {
+											
 											Log.i("Second", "TEST");
 											JSONObject json = new JSONObject(selected);
 											
@@ -307,6 +321,8 @@ public class MainActivity extends Activity {
 											_region = one.getString("region");
 											_timezone = one.getString("time_zone");
 											
+											
+											//setting of values for my section array of data
 											_zipcode2 = two.getString("zip_code");
 											_area_code2 = two.getString("area_code");
 											_city2 = two.getString("city");
@@ -326,7 +342,7 @@ public class MainActivity extends Activity {
 										
 											Log.i("FIRST",_zipcode2 );
 											
-										
+										//calling the location functions and passing in the data from json
 											locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
 											locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
 											
@@ -360,6 +376,8 @@ public class MainActivity extends Activity {
 								
 								
 							};
+							
+							//my intent services
 							Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
 							
 							Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
@@ -393,6 +411,7 @@ public class MainActivity extends Activity {
 /**
  * Location info.
  *
+ * @param zipcode the zipcode
  * @param area_code the area_code
  * @param city the city
  * @param county the county
@@ -419,6 +438,21 @@ public void locationInfo(String zipcode,String area_code, String city, String co
 		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
 }
 
+/**
+ * Location info2.
+ *
+ * @param zipcode the zipcode
+ * @param area_code the area_code
+ * @param city the city
+ * @param county the county
+ * @param state the state
+ * @param latitude the latitude
+ * @param longitude the longitude
+ * @param csa_name the csa_name
+ * @param cbsa_name the cbsa_name
+ * @param region the region
+ * @param timezone the timezone
+ */
 public void locationInfo2(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 	
 	((TextView) findViewById(R.id.location_zipcode2)).setText(zipcode);

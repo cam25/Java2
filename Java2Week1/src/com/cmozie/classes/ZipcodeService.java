@@ -1,3 +1,12 @@
+/*
+ * project 			Java2Week1
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 3, 2013
+ */
 package com.cmozie.classes;
 
 import java.net.MalformedURLException;
@@ -16,20 +25,28 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ZipcodeService.
+ */
 public class ZipcodeService extends IntentService {
 	public static final String MESSENGER_KEY = "messenger";
 	public static final String enteredZipcode = "zipcode";
 
 
+	/**
+	 * Instantiates a new zipcode service.
+	 */
 	public ZipcodeService() {
 		super("ZipcodeService");
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param args
+	 * The main method.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -37,11 +54,14 @@ public class ZipcodeService extends IntentService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.IntentService#onHandleIntent(android.content.Intent)
+	 */
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		Log.i("ONHandleIntent", "Started");
-		//m_file = FileStuff.getInstance();
+
 		
 		Bundle extras = intent.getExtras();
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
@@ -79,7 +99,7 @@ public class ZipcodeService extends IntentService {
 					Log.i("URL",UrlResult.toString());
 					
 					queryReply = WebStuff.getURLStringResponse(UrlResult);
-					//storing of the 
+					//storing of the file to local storage
 					FileStuff.storeStringFile(this, "temp", queryReply, false);
 					
 					Log.i("STORED FILE", "saved");
@@ -89,6 +109,7 @@ public class ZipcodeService extends IntentService {
 				}
 				Log.i("OnHandleIntent","Done looking up zipcode");
 				
+				//setting my message
 		Message message = Message.obtain();
 		message.arg1 = Activity.RESULT_OK;
 		
