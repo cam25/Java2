@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.cmozie.java2week1.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,5 +28,6 @@
         </activity>
         <service android:name="com.cmozie.classes.ZipcodeService"></service>
     </application>
+    
 
 </manifest>

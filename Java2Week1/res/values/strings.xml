@@ -8,7 +8,7 @@
     <string name="searchButn">Search</string>
     <string name="enter_zipcode_here">Enter Zipcode Here</string>
     <string name="search">Search</string>
-    <string name="popular_zipcodes">Popular Zipcodes</string>
+    <string name="popular_zipcodes">Click here for locations</string>
     <string name="zipcode_banner">Zipcode Banner</string>
     <string name="areacode_">Areacode:</string>
     <string name="city_">City:</string>

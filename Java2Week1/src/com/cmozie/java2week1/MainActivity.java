@@ -106,12 +106,18 @@ public class MainActivity extends Activity {
 		 //webConnection jar file usage
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
+			 
+			 
 			Log.i("Network Connection", WebStuff.getConnectionType(_context));
 			
 			//if no connection
 		}else if(!_connected) {
 			
 			
+			FileStuff.readStringFile(_context, "temp", _connected);
+			Log.i("new", FileStuff.readStringFile(_context, "temp", _connected));
+			
+			 
 			//alert for connection
 			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 			alert.setTitle("Connection Required!");
@@ -152,7 +158,7 @@ public class MainActivity extends Activity {
 		 			//informing the user how to select a popular zipcode
 		 			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 		 			alert.setTitle("What to do?");
-		 			alert.setMessage("Click the yellow box to view the popular zipcodes");
+		 			alert.setMessage("Click the yellow box to view the locations and select one!");
 		 			alert.setCancelable(false);
 		 			alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
 		 				
@@ -261,7 +267,7 @@ public class MainActivity extends Activity {
 											locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
 											locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
 											//Trying to read the file stored.
-											Toast toast = Toast.makeText(getBaseContext(),"Stored In local Storage!  " + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
+											Toast toast = Toast.makeText(getBaseContext(),"Search Complete + Reading local Storage....  " + FileStuff.readStringFile(_context, "temp", false), Toast.LENGTH_SHORT);
 											
 											toast.show();
 											
@@ -313,13 +319,14 @@ public class MainActivity extends Activity {
 		 			});
 		 			
 		 			//sets button to non clickable once clicked once 
-		 			_pop.setClickable(false);	
+		 			_pop.setClickable(false);
+		 			_pop.setVisibility(View.GONE);
 		 			
 		 		}
 		 			
 		 	});
 
-		 _pop.setText("Click here for popular zipcodes");
+		 
 
 		 }
 	
