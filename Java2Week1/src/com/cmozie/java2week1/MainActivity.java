@@ -9,7 +9,6 @@
  */
 package com.cmozie.java2week1;
 
-import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -92,9 +91,6 @@ public class MainActivity extends Activity {
 	String _region2;
 	String _timezone2;
 	
-	
-	
-	ArrayList<String>_stacks = new ArrayList<String>();
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
