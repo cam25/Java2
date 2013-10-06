@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.cmozie.Libz.FileStuff;
@@ -55,6 +56,7 @@ public class MainActivity extends Activity {
 	static Spinner spinner = null;
 	
 	public int selected; 
+	
 	
 	FileStuff m_file;
 	
@@ -91,6 +93,7 @@ public class MainActivity extends Activity {
 	String _region2;
 	String _timezone2;
 	
+	ListView listview;
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -99,13 +102,16 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//inflating my form.xml
-		View view;
-		LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		view = layoutInflater.inflate(R.layout.form, null);
+		setContentView(R.layout.form);
+		listview = (ListView) this.findViewById(R.id.list);
 		
+		//inflating my form.xml
+		
+		
+		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
+		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
-		setContentView(view);
+		
 
 		_context = this;
 		
@@ -194,8 +200,8 @@ public class MainActivity extends Activity {
 			
 			
 		
-			locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
-			locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
+			//locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+			//locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
 			//Trying to read the file stored.
 			
 			
@@ -339,8 +345,8 @@ public class MainActivity extends Activity {
 											Log.i("FIRST",_zipcode2 );
 											
 										//calling the location functions and passing in the data from json
-											locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
-											locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
+											//locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
+											//locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
 											
 											
 											
@@ -403,6 +409,9 @@ public class MainActivity extends Activity {
 
 		 }
 	
+	
+	
+	
 		
 /**
  * Location info.
@@ -419,7 +428,7 @@ public class MainActivity extends Activity {
  * @param region the region
  * @param timezone the timezone
  */
-public void locationInfo(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+/*public void locationInfo(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 		
 		((TextView) findViewById(R.id.location_zipcode)).setText(zipcode);
 		((TextView) findViewById(R.id.location_areacode)).setText(area_code);
@@ -432,7 +441,7 @@ public void locationInfo(String zipcode,String area_code, String city, String co
 		((TextView) findViewById(R.id.location_cbsa_name)).setText(cbsa_name);
 		((TextView) findViewById(R.id.location_region)).setText(region);
 		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
-}
+}*/
 
 /**
  * Location info2.
@@ -449,7 +458,7 @@ public void locationInfo(String zipcode,String area_code, String city, String co
  * @param region the region
  * @param timezone the timezone
  */
-public void locationInfo2(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
+/*public void locationInfo2(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
 	
 	((TextView) findViewById(R.id.location_zipcode2)).setText(zipcode);
 	((TextView) findViewById(R.id.location_areacode2)).setText(area_code);
@@ -461,7 +470,7 @@ public void locationInfo2(String zipcode,String area_code, String city, String c
 	((TextView) findViewById(R.id.location_longitude2)).setText(longitude);
 	((TextView) findViewById(R.id.location_region2)).setText(region);
 	((TextView) findViewById(R.id.location_timezone2)).setText(timezone);
-}
+}*/
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
