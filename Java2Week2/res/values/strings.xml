@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Java2Week2</string>
+    <string name="app_name">Java2Week1</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="textFieldText">Enter Zipcode Here</string>
+    <string name="searchButn">Search</string>
+    <string name="enter_zipcode_here">Enter Zipcode Here</string>
+    <string name="search">Search</string>
+    <string name="popular_zipcodes">Click here for locations</string>
+    <string name="zipcode_banner">Zipcode Banner</string>
+    <string name="areacode_">Areacode:</string>
+    <string name="city_">City:</string>
+    <string name="county_">County:</string>
+    <string name="state_">State:</string>
+    <string name="latitude_">Latitude:</string>
+    <string name="longitude_">Longitude:</string>
+    <string name="csa_name_">Csa name:</string>
+    <string name="cbsa_name_">Cbsa name:</string>
+    <string name="region_">Region:</string>
+    <string name="timezone_">Timezone:</string>
+    <string name="zipcode">Zipcode:</string>
+    <string name="zipcode_2_">Zipcode 2:</string>
+    <string name="areacode_2_">AreaCode 2:</string>
+    <string name="city_2_">City 2:</string>
+    <string name="county_2_">County 2:</string>
+    <string name="state_2_">State 2:</string>
+    <string name="latitude_2_">Latitude 2:</string>
+    <string name="longitude_2_">Longitude 2:</string>
+    <string name="region_2_">Region 2:</string>
+    <string name="timezone_2_">Timezone 2:</string>
 
 </resources>
