@@ -273,7 +273,7 @@ try{
 											_city2 = two.getString("city");
 											_county2 = two.getString("county");
 											_state2 = two.getString("state");
-
+											_cbsa_name2 = two.getString("cbsa_name");
 
 											_latitude2 = two.getString("latitude");
 											_longitude2 = two.getString("longitude");
@@ -307,8 +307,10 @@ try{
 												 
 											mylist.add(displayMap);
 											
+											Log.e("List", mylist.toString());
+											
 											}
-											SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "Locaion1","Location2"}, new int[]{R.id.location1_header, R.id.location2_header});
+											SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{"city","zipCode"}, new int[]{R.id.location1, R.id.location2});
 											
 											listview.setAdapter(adapter);
 										} catch (Exception e) {

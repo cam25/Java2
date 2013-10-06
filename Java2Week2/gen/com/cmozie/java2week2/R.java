@@ -25,11 +25,13 @@ public final class R {
         public static final int zipcodebanner=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f080006;
+        public static final int action_settings=0x7f080008;
         public static final int banner=0x7f080000;
         public static final int favList=0x7f080002;
         public static final int list=0x7f080003;
+        public static final int location1=0x7f080006;
         public static final int location1_header=0x7f080004;
+        public static final int location2=0x7f080007;
         public static final int location2_header=0x7f080005;
         public static final int popularZipcodes=0x7f080001;
     }
