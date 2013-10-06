@@ -23,6 +23,12 @@
        
         </style>
         
+    <style name="listHeaderStyle">
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+        
     <style name="editTextStyle">
         <item name="android:textStyle">bold</item>   
         <item name="android:textSize">18sp</item>

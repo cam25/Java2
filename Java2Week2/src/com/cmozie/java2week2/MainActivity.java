@@ -9,6 +9,9 @@
  */
 package com.cmozie.java2week2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,6 +35,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.cmozie.Libz.FileStuff;
@@ -104,9 +108,7 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.form);
 		listview = (ListView) this.findViewById(R.id.list);
-		
-		//inflating my form.xml
-		
+	
 		
 		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(listHeader);
@@ -141,69 +143,8 @@ public class MainActivity extends Activity {
 			alert.show();
 		
 			//pulling in data from Local storage here
-			try {
-				JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-				
-				JSONArray ja = json.getJSONArray("zips");
-				
-				for (int i = 0; i < ja.length(); i++) {
-					//sets a json object to access object values inside array
-					
-					
-					JSONObject one = ja.getJSONObject(i);
-					JSONObject two = ja.getJSONObject(0);
-					
-				//setting my text to the values to the strings of the json data
-				_zipcode = one.getString("zip_code");
-				_areaCode = one.getString("area_code");
-				_city = one.getString("city");
-				_state = one.getString("state");
-				_county = one.getString("county");
-				_csa_name = one.getString("csa_name");
-				_cbsa_name = one.getString("cbsa_name");
-				_latitude = one.getString("latitude");
-				_longitude = one.getString("longitude");
-				_region = one.getString("region");
-				_timezone = one.getString("time_zone");
-				
-				_zipcode2 = two.getString("zip_code");
-				_area_code2 = two.getString("area_code");
-				_city2 = two.getString("city");
-				_county2 = two.getString("county");
-				_state2 = two.getString("state");
-
-
-				_latitude2 = two.getString("latitude");
-				_longitude2 = two.getString("longitude");
-				_region2 = two.getString("region");
-				_timezone2 = two.getString("time_zone");
-				
-				
-					 
-				}
-			} catch (Exception e) {
-				AlertDialog.Builder alert1 = new AlertDialog.Builder(_context);
-	 			alert.setTitle("Local Storage");
-	 			alert.setMessage("Error in converting local storage to screen. Restart app with a connection.");
-	 			alert.setCancelable(false);
-	 			alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
-	 				
-	 				@Override
-	 				public void onClick(DialogInterface dialog, int which) {
-
-	 					dialog.cancel();
-	 				}
-	 			});
-	 			alert1.show();
-			
-			}
-			
-			
-		
-			//locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
-			//locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
-			//Trying to read the file stored.
-			
+			display();
+	
 			
 			 
 			
@@ -252,7 +193,7 @@ public class MainActivity extends Activity {
 		 				
 		 				
 						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
-		 							 					
+		 							Log.i("HIT","THE SPINNER");
 		 					String zipcode = "";
 		 					
 		 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
@@ -262,6 +203,7 @@ public class MainActivity extends Activity {
 							case 0:
 								zipcode = "94105|94107";
 								break;
+								
 								
 							case 1:
 								zipcode = "33133|33132";
@@ -280,8 +222,9 @@ public class MainActivity extends Activity {
 
 							default:
 								break;
+								
 							}
-		 							
+		 					Log.i("hit", zipcode);	
 		 					//my handler
 		 					Handler zipcodeHandler = new Handler() {
 
@@ -289,16 +232,18 @@ public class MainActivity extends Activity {
 								@Override
 								public void handleMessage(Message msg) {
 									// TODO Auto-generated method stub
+									Log.i("HIT","HANDLER");
 									
 									//string selected is my query reply from my ZipcodeService
 									String selected = msg.obj.toString();
+									Log.i("hit", selected);
 									if (msg.arg1 == RESULT_OK && msg.obj != null) 
 										Log.i("Serv.Response", msg.obj.toString());
 									
 									{
-										try {
+try{
 											
-											Log.i("Second", "TEST");
+											ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 											JSONObject json = new JSONObject(selected);
 											
 											JSONArray ja = json.getJSONArray("zips");
@@ -323,52 +268,51 @@ public class MainActivity extends Activity {
 											_region = one.getString("region");
 											_timezone = one.getString("time_zone");
 											
-											
-											//setting of values for my section array of data
 											_zipcode2 = two.getString("zip_code");
 											_area_code2 = two.getString("area_code");
 											_city2 = two.getString("city");
 											_county2 = two.getString("county");
 											_state2 = two.getString("state");
-										
+
 
 											_latitude2 = two.getString("latitude");
 											_longitude2 = two.getString("longitude");
 											_region2 = two.getString("region");
 											_timezone2 = two.getString("time_zone");
 											
+											HashMap<String, String> displayMap = new HashMap<String, String>();
 											
+											displayMap.put("zipCode", _zipcode);
+											displayMap.put("zipCode2", _zipcode2);
+											displayMap.put("areaCode", _areaCode);
+											displayMap.put("areaCode2", _area_code2);
+											displayMap.put("city", _city);
+											displayMap.put("city2", _city2);
+											displayMap.put("county", _county);
+											displayMap.put("county2", _county2);
+											displayMap.put("state", _state);
+											displayMap.put("state2", _state2);
+											displayMap.put("latitude", _latitude);
+											displayMap.put("latitude2", _latitude2);
+											displayMap.put("longitude", _longitude);
+											displayMap.put("longitude2", _longitude2);
+											displayMap.put("csa_name", _csa_name);
+											displayMap.put("csa_name2", _csa_name2);
+											displayMap.put("cbsa_name", _cbsa_name);
+											displayMap.put("cbsa_name2", _cbsa_name2);
+											displayMap.put("region", _region);
+											displayMap.put("region2", _region2);
+											displayMap.put("timezone", _timezone);
+											displayMap.put("timezone2", _timezone2);
 												 
+											mylist.add(displayMap);
+											
 											}
-											Log.i("one", _areaCode + _city + _state + _county + _csa_name + _cbsa_name + _latitude + _longitude + _region + _timezone);
-										
-											Log.i("FIRST",_zipcode2 );
+											SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "Locaion1","Location2"}, new int[]{R.id.location1_header, R.id.location2_header});
 											
-										//calling the location functions and passing in the data from json
-											//locationInfo(_zipcode, _areaCode, _city, _county, _state, _latitude, _longitude, _csa_name, _cbsa_name, _region, _timezone);
-											//locationInfo2(_zipcode2, _area_code2, _city2, _county2, _state2, _latitude2, _longitude2, _csa_name2, _cbsa_name2, _region2, _timezone2);
-											
-											
-											
-											
+											listview.setAdapter(adapter);
 										} catch (Exception e) {
-											// TODO: handle exception
-											//Alert for any error in entering into textfield if not a zipcode
-											
-											AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-											alert.setTitle("Error");
-											alert.setMessage("There was an error searching for your request. Check connections or make sure zipcode is correct. USA zipcodes only.");
-											alert.setCancelable(false);
-											alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
-												
-												@Override
-												public void onClick(DialogInterface dialog, int which) {
-
-													dialog.cancel();
-												}
-											});
-											alert.show();
-											Log.e("Handle Message", e.getMessage().toString());
+											Log.e("Buffer Error", "Error converting result " + e.toString());
 										}
 										
 										
@@ -386,7 +330,7 @@ public class MainActivity extends Activity {
 							startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
 							startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
 							startService(startZipcodeIntent);
-		 					
+						
 		 				}
 		 			
 		 				public void onNothingSelected(AdapterView<?>parent){
@@ -408,10 +352,88 @@ public class MainActivity extends Activity {
 		 
 
 		 }
+	public void display(){
+		
+		//String JSONString = FileStuff.readStringFile(_context, "temp", false);
+		
+		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+		
+		
+		try{
+		JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
+		
+		JSONArray ja = json.getJSONArray("zips");
+		
+		for (int i = 0; i < ja.length(); i++) {
+			//sets a json object to access object values inside array
+			
+			
+			JSONObject one = ja.getJSONObject(i);
+			JSONObject two = ja.getJSONObject(0);
+			
+		//setting my text to the values to the strings of the json data
+		_zipcode = one.getString("zip_code");
+		_areaCode = one.getString("area_code");
+		_city = one.getString("city");
+		_state = one.getString("state");
+		_county = one.getString("county");
+		_csa_name = one.getString("csa_name");
+		_cbsa_name = one.getString("cbsa_name");
+		_latitude = one.getString("latitude");
+		_longitude = one.getString("longitude");
+		_region = one.getString("region");
+		_timezone = one.getString("time_zone");
+		
+		_zipcode2 = two.getString("zip_code");
+		_area_code2 = two.getString("area_code");
+		_city2 = two.getString("city");
+		_county2 = two.getString("county");
+		_state2 = two.getString("state");
+
+
+		_latitude2 = two.getString("latitude");
+		_longitude2 = two.getString("longitude");
+		_region2 = two.getString("region");
+		_timezone2 = two.getString("time_zone");
+		
+		HashMap<String, String> displayMap = new HashMap<String, String>();
+		
+		displayMap.put("zipCode", _zipcode);
+		displayMap.put("zipCode2", _zipcode2);
+		displayMap.put("areaCode", _areaCode);
+		displayMap.put("areaCode2", _area_code2);
+		displayMap.put("city", _city);
+		displayMap.put("city2", _city2);
+		displayMap.put("county", _county);
+		displayMap.put("county2", _county2);
+		displayMap.put("state", _state);
+		displayMap.put("state2", _state2);
+		displayMap.put("latitude", _latitude);
+		displayMap.put("latitude2", _latitude2);
+		displayMap.put("longitude", _longitude);
+		displayMap.put("longitude2", _longitude2);
+		displayMap.put("csa_name", _csa_name);
+		displayMap.put("csa_name2", _csa_name2);
+		displayMap.put("cbsa_name", _cbsa_name);
+		displayMap.put("cbsa_name2", _cbsa_name2);
+		displayMap.put("region", _region);
+		displayMap.put("region2", _region2);
+		displayMap.put("timezone", _timezone);
+		displayMap.put("timezone2", _timezone2);
+			 
+		mylist.add(displayMap);
+		
+		}
+		SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "Locaion1","Location2"}, new int[]{R.id.location1_header, R.id.location2_header});
+		
+		listview.setAdapter(adapter);
+	} catch (Exception e) {
+		Log.e("Buffer Error", "Error converting result " + e.toString());
+	}
+	}
 	
 	
-	
-	
+
 		
 /**
  * Location info.

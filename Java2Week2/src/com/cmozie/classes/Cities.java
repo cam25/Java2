@@ -16,6 +16,8 @@ package com.cmozie.classes;
  */
 public class Cities {
 
+	private static Cities _instance = null;
+	
 	
 	public String zipcode = "";
 	public String city = "";
@@ -29,6 +31,7 @@ public class Cities {
 	 * @param _city the _city
 	 * @param _state the _state
 	 */
+	//should be protected or private in a singleton.
 	public Cities(String _zipcode, String _city, String _state){
 		
 		zipcode = _zipcode;
@@ -36,6 +39,17 @@ public class Cities {
 		state = _state;
 		
 	}
+	
+	public Cities getInstance()
+	{
+		if (_instance == null)
+		{
+			//return new Cities()
+		}
+		
+		return _instance;
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
