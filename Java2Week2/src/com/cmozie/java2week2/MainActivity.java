@@ -168,7 +168,7 @@ public class MainActivity extends Activity {
 		 spinner = (Spinner) findViewById(R.id.favList);
 		spinner.setAdapter(listAdapter);
 		
-		_history.setText(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+		
 		
 		_history = (Button) findViewById(R.id.getHistory);
 		
