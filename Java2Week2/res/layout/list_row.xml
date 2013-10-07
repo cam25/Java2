@@ -5,21 +5,30 @@
               
               
   <TextView 
-      			android:id="@+id/location1"
+      			android:id="@+id/row1"
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
-		        android:text="Location1"
+		        android:text="Zipcodes:"
 		        style="@style/textLabels"/>
   
   <TextView 
-      			android:id="@+id/location2"
+      			android:id="@+id/row2"
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
-		        android:text="Location2_"
+		        android:text="Areacode:"
+		        style="@style/textLabels"/>
+  
+  <TextView 
+      			android:id="@+id/row3"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:paddingLeft="5dp"
+		        android:text="Region"
 		        style="@style/textLabels"/>
   
   </LinearLayout>

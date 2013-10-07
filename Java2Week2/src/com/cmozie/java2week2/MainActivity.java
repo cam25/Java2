@@ -26,7 +26,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -201,22 +200,22 @@ public class MainActivity extends Activity {
 		 					switch (position) {
 		 					
 							case 0:
-								zipcode = "94105|94107";
+								zipcode = "94105|94107|94108|94122|94103|94116|94110";
 								break;
 								
 								
 							case 1:
-								zipcode = "33133|33132";
+								zipcode = "33133|33132|33134|33127|33109|33129|33101";
 								break;
 							
 							case 2:
-								zipcode =  "20001|20002";
+								zipcode =  "20001|20002|20003|20020|20018|20037|20032";
 								break;
 							case 3:
-								zipcode = "10001|10002";
+								zipcode = "10001|10002|10005|10004|10006|10007|10009";
 								break;
 							case 4:
-								zipcode = "60018|60068";
+								zipcode = "60018|60068|60067|60106|60131|60602|60603";
 								break;
 							
 
@@ -310,7 +309,7 @@ try{
 											Log.e("List", mylist.toString());
 											
 											}
-											SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{"city","zipCode"}, new int[]{R.id.location1, R.id.location2});
+											SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{"zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 											
 											listview.setAdapter(adapter);
 										} catch (Exception e) {
@@ -426,7 +425,7 @@ try{
 		mylist.add(displayMap);
 		
 		}
-		SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "Locaion1","Location2"}, new int[]{R.id.location1_header, R.id.location2_header});
+		SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
 		listview.setAdapter(adapter);
 	} catch (Exception e) {
