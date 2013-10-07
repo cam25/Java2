@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -66,7 +67,7 @@ public class MainActivity extends Activity {
 	//layout
 	TextView _popularZips;
 	Button _pop;
-	
+	Button _history;
 	//bool
 	Boolean _connected = false;
 	
@@ -105,6 +106,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		
+		
 		setContentView(R.layout.form);
 		listview = (ListView) this.findViewById(R.id.list);
 	
@@ -113,6 +116,7 @@ public class MainActivity extends Activity {
 		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
 		
+
 
 		_context = this;
 		
@@ -163,6 +167,20 @@ public class MainActivity extends Activity {
 		
 		 spinner = (Spinner) findViewById(R.id.favList);
 		spinner.setAdapter(listAdapter);
+		
+		_history.setText(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+		
+		_history = (Button) findViewById(R.id.getHistory);
+		
+		_history.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+				
+			}
+		});
 	
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
@@ -240,7 +258,7 @@ public class MainActivity extends Activity {
 										Log.i("Serv.Response", msg.obj.toString());
 									
 									{
-try{
+										try{
 											
 											ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 											JSONObject json = new JSONObject(selected);
@@ -309,6 +327,8 @@ try{
 											Log.e("List", mylist.toString());
 											
 											}
+											Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+											
 											SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{"zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 											
 											listview.setAdapter(adapter);
@@ -357,9 +377,10 @@ try{
 		
 		//String JSONString = FileStuff.readStringFile(_context, "temp", false);
 		
+		
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 		
-		
+	
 		try{
 		JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
 		
@@ -425,6 +446,8 @@ try{
 		mylist.add(displayMap);
 		
 		}
+		
+		
 		SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
 		listview.setAdapter(adapter);
