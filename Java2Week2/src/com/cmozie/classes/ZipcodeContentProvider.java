@@ -42,12 +42,14 @@ public class ZipcodeContentProvider extends ContentProvider {
 	
 	public static final int ITEMS = 1;
 	public static final int ITEMS_ID = 2;
+	public static final int ITEMS_REGION = 3;
 	
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	
 	static  {
 		uriMatcher.addURI(AUTHORITY, "zipcodes/", ITEMS);
 		uriMatcher.addURI(AUTHORITY, "zipcodes/#", ITEMS_ID);
+		uriMatcher.addURI(AUTHORITY, "zipcodes/region/*", ITEMS_REGION);
 	}
 	
 	@Override
@@ -131,8 +133,8 @@ public class ZipcodeContentProvider extends ContentProvider {
 				String _area_code2 = two.getString("area_code");
 				String _region2 = one.getString("region");
 				
-				
-				result.addRow(new Object[] {i + 1, _areaCode, _zipcode,_region});
+				//i was passing too many values in my object which was causing crash here.
+				result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -144,16 +146,48 @@ public class ZipcodeContentProvider extends ContentProvider {
 		}	
 			break;
 		case ITEMS_ID:
+			String itemId = uri.getLastPathSegment();
+			Log.i("queryId", itemId);
 			
+			int index;
 			
 			try {
+				index = Integer.parseInt(itemId);
 				
 			} catch (Exception e) {
-				// TODO: handle exception
+				
+				Log.e("Query", "Index format error");
+				
+				break;
+			}
+			if (index <= 0 || index > ja.length()) {
+				
+				Log.e("query", "index out of range for " + uri.toString());
 				break;
 			}
 			
-
+			try {
+				JSONObject one = ja.getJSONObject(index - 1);
+				JSONObject two = ja.getJSONObject(0);
+				String _areaCode = one.getString("area_code");
+				String _zipcode = one.getString("zip_code");
+				String _region = one.getString("region");
+				
+				String _zipcode2 = two.getString("zip_code");
+				String _area_code2 = two.getString("area_code");
+				String _region2 = one.getString("region");
+				
+				//i was passing too many values in my object which was causing crash here.
+				result.addRow(new Object[] {index, _areaCode, _zipcode,_region});
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			break;
+			default:
+				Log.e("query", "Invalid uri = " + uri.toString());
 		}
 		return result;
 		

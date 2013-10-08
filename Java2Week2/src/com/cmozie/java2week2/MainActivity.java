@@ -432,67 +432,7 @@ SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, n
 		listview.setAdapter(adapter);
 	}
 	
-	
 
-		
-/**
- * Location info.
- *
- * @param zipcode the zipcode
- * @param area_code the area_code
- * @param city the city
- * @param county the county
- * @param state the state
- * @param latitude the latitude
- * @param longitude the longitude
- * @param csa_name the csa_name
- * @param cbsa_name the cbsa_name
- * @param region the region
- * @param timezone the timezone
- */
-/*public void locationInfo(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
-		
-		((TextView) findViewById(R.id.location_zipcode)).setText(zipcode);
-		((TextView) findViewById(R.id.location_areacode)).setText(area_code);
-		((TextView) findViewById(R.id.location_city)).setText(city);;
-		((TextView) findViewById(R.id.location_county)).setText(county);
-		((TextView) findViewById(R.id.location_state)).setText(state);
-		((TextView) findViewById(R.id.location_latitude)).setText(latitude);
-		((TextView) findViewById(R.id.location_longitude)).setText(longitude);
-		((TextView) findViewById(R.id.location_csa_name)).setText(csa_name);
-		((TextView) findViewById(R.id.location_cbsa_name)).setText(cbsa_name);
-		((TextView) findViewById(R.id.location_region)).setText(region);
-		((TextView) findViewById(R.id.location_timezone)).setText(timezone);
-}*/
-
-/**
- * Location info2.
- *
- * @param zipcode the zipcode
- * @param area_code the area_code
- * @param city the city
- * @param county the county
- * @param state the state
- * @param latitude the latitude
- * @param longitude the longitude
- * @param csa_name the csa_name
- * @param cbsa_name the cbsa_name
- * @param region the region
- * @param timezone the timezone
- */
-/*public void locationInfo2(String zipcode,String area_code, String city, String county, String state, String latitude, String longitude, String csa_name, String cbsa_name, String region, String timezone) {
-	
-	((TextView) findViewById(R.id.location_zipcode2)).setText(zipcode);
-	((TextView) findViewById(R.id.location_areacode2)).setText(area_code);
-	((TextView) findViewById(R.id.location_city2)).setText(city);
-	((TextView) findViewById(R.id.location_county2)).setText(county);
-	((TextView) findViewById(R.id.location_state2)).setText(state);
-
-	((TextView) findViewById(R.id.location_latitude2)).setText(latitude);
-	((TextView) findViewById(R.id.location_longitude2)).setText(longitude);
-	((TextView) findViewById(R.id.location_region2)).setText(region);
-	((TextView) findViewById(R.id.location_timezone2)).setText(timezone);
-}*/
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
