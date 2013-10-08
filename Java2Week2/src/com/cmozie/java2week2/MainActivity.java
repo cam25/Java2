@@ -146,11 +146,7 @@ public class MainActivity extends Activity {
 				}
 			});
 			alert.show();
-			Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
-			//pulling in data from Local storage here
-			display(cursor);
-			Log.i("CONTENTPROVIDERURI", ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
-			Log.i("CURSOR", cursor.toString());
+			
 	
 			
 			 
@@ -264,7 +260,15 @@ public class MainActivity extends Activity {
 										Log.i("Serv.Response", msg.obj.toString());
 									
 									{
-										try{
+										
+										
+										
+										Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+										//pulling in data from Local storage here
+										display(cursor);
+										Log.i("CONTENTPROVIDERURI", ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+										Log.i("CURSOR", cursor.toString());
+										/*try{
 											
 											ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 											JSONObject json = new JSONObject(selected);
@@ -338,7 +342,7 @@ public class MainActivity extends Activity {
 											listview.setAdapter(adapter);
 										} catch (Exception e) {
 											Log.i("Buffer Error", "Error converting result " + e.toString());
-										}
+										}*/
 										
 										
 									}						
