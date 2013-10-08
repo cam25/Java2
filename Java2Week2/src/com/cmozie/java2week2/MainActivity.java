@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentQueryMap;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -68,6 +70,8 @@ public class MainActivity extends Activity {
 	//layout
 	TextView _popularZips;
 	Button _pop;
+	public static Button getRegion;
+	EditText contentQuery;
 	
 	//bool
 	Boolean _connected = false;
@@ -168,6 +172,22 @@ public class MainActivity extends Activity {
 		 spinner = (Spinner) findViewById(R.id.favList);
 		spinner.setAdapter(listAdapter);
 	
+		getRegion = (Button) findViewById(R.id.getHistory);
+		 contentQuery = (EditText) findViewById(R.id.contentQuery);
+		 contentQuery.setText(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+		getRegion.setOnClickListener(new OnClickListener() {
+			
+			
+		
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+				//pulling in data from Local storage here
+				display(cursor);
+			}
+		});
+		
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
 		 _pop.setOnClickListener(new OnClickListener() {
@@ -317,7 +337,7 @@ public class MainActivity extends Activity {
 											
 											listview.setAdapter(adapter);
 										} catch (Exception e) {
-											Log.e("Buffer Error", "Error converting result " + e.toString());
+											Log.i("Buffer Error", "Error converting result " + e.toString());
 										}
 										
 										
@@ -421,9 +441,9 @@ public class MainActivity extends Activity {
 				displayMap.put("region", cursor.getString(3));
 				
 				cursor.moveToNext();
-				
+				//Log.i("CURSOR", cursor.toString());
 				mylist.add(displayMap);
-				Log.i("LIST", mylist.toString());
+				//Log.i("LIST", mylist.toString());
 			}
 		}
 		

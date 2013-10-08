@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cmozie.Libz.FileStuff;
+import com.cmozie.java2week2.MainActivity;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -21,7 +22,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 	
 	public static class RegionData implements BaseColumns {
 		
-		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/zipcodes");
+		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/zipcodes/");
 		
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.cmozie.classes.item";
 		
@@ -120,21 +121,36 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
+			
+			String placeRequested = uri.getLastPathSegment();
+			
+			
 		for (int i = 0; i < ja.length(); i++) {
 			
 			try {
-				JSONObject one = ja.getJSONObject(i);
+				
+				
+				JSONObject one = ja.getJSONObject(1);
 				JSONObject two = ja.getJSONObject(0);
 				String _areaCode = one.getString("area_code");
 				String _zipcode = one.getString("zip_code");
 				String _region = one.getString("region");
 				
+				
+				
+					
+				
 				String _zipcode2 = two.getString("zip_code");
 				String _area_code2 = two.getString("area_code");
 				String _region2 = one.getString("region");
 				
+				//result.addRow(new Object[] {i + 1, _zipcode2, _area_code2,_region2});
+				
+				
+	
 				//i was passing too many values in my object which was causing crash here.
 				result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
+			
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -153,6 +169,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			try {
 				index = Integer.parseInt(itemId);
+				Log.i("index", itemId);
 				
 			} catch (Exception e) {
 				
@@ -166,16 +183,14 @@ public class ZipcodeContentProvider extends ContentProvider {
 				break;
 			}
 			
+			
 			try {
 				JSONObject one = ja.getJSONObject(index - 1);
 				JSONObject two = ja.getJSONObject(0);
-				String _areaCode = one.getString("area_code");
-				String _zipcode = one.getString("zip_code");
-				String _region = one.getString("region");
-				
-				String _zipcode2 = two.getString("zip_code");
-				String _area_code2 = two.getString("area_code");
-				String _region2 = one.getString("region");
+				String _areaCode = two.getString("area_code");
+				String _zipcode = two.getString("zip_code");
+				String _region = two.getString("region");
+			
 				
 				//i was passing too many values in my object which was causing crash here.
 				result.addRow(new Object[] {index, _areaCode, _zipcode,_region});
