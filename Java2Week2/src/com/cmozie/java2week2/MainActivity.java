@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -141,9 +142,11 @@ public class MainActivity extends Activity {
 				}
 			});
 			alert.show();
-		
+			Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
 			//pulling in data from Local storage here
-			display();
+			display(cursor);
+			Log.i("CONTENTPROVIDERURI", ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+			Log.i("CURSOR", cursor.toString());
 	
 			
 			 
@@ -354,7 +357,7 @@ public class MainActivity extends Activity {
 		 
 
 		 }
-	public void display(){
+	public void display(Cursor cursor){
 		
 		//String JSONString = FileStuff.readStringFile(_context, "temp", false);
 		
@@ -398,40 +401,35 @@ public class MainActivity extends Activity {
 		_region2 = two.getString("region");
 		_timezone2 = two.getString("time_zone");
 		
-		HashMap<String, String> displayMap = new HashMap<String, String>();
-		
-		displayMap.put("zipCode", _zipcode);
-		displayMap.put("zipCode2", _zipcode2);
-		displayMap.put("areaCode", _areaCode);
-		displayMap.put("areaCode2", _area_code2);
-		displayMap.put("city", _city);
-		displayMap.put("city2", _city2);
-		displayMap.put("county", _county);
-		displayMap.put("county2", _county2);
-		displayMap.put("state", _state);
-		displayMap.put("state2", _state2);
-		displayMap.put("latitude", _latitude);
-		displayMap.put("latitude2", _latitude2);
-		displayMap.put("longitude", _longitude);
-		displayMap.put("longitude2", _longitude2);
-		displayMap.put("csa_name", _csa_name);
-		displayMap.put("csa_name2", _csa_name2);
-		displayMap.put("cbsa_name", _cbsa_name);
-		displayMap.put("cbsa_name2", _cbsa_name2);
-		displayMap.put("region", _region);
-		displayMap.put("region2", _region2);
-		displayMap.put("timezone", _timezone);
-		displayMap.put("timezone2", _timezone2);
-			 
-		mylist.add(displayMap);
+	
 		
 		}
-		SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
-		listview.setAdapter(adapter);
 	} catch (Exception e) {
 		Log.e("Buffer Error", "Error converting result " + e.toString());
 	}
+		//cursor
+		cursor.moveToFirst();
+		if (cursor.moveToFirst()) {
+			
+			for (int i = 0; i < cursor.getCount(); i++) {
+				;
+				HashMap<String, String> displayMap = new HashMap<String, String>();
+				
+				displayMap.put("zipCode", cursor.getString(1));
+				displayMap.put("areaCode", cursor.getString(2));
+				displayMap.put("region", cursor.getString(3));
+				
+				cursor.moveToNext();
+				
+				mylist.add(displayMap);
+				Log.i("LIST", mylist.toString());
+			}
+		}
+		
+SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+		
+		listview.setAdapter(adapter);
 	}
 	
 	

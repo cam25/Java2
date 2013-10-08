@@ -59,6 +59,10 @@ public class ZipcodeContentProvider extends ContentProvider {
 	@Override
 	public String getType(Uri uri) {
 		// TODO Auto-generated method stub
+		String ret = getContext().getContentResolver().getType(RegionData.CONTENT_URI);
+		
+		Log.d("type", "Get something" + ret);
+		
 		String type = null;
 		
 		switch (uriMatcher.match(uri)) {
@@ -126,9 +130,9 @@ public class ZipcodeContentProvider extends ContentProvider {
 				String _zipcode2 = two.getString("zip_code");
 				String _area_code2 = two.getString("area_code");
 				String _region2 = one.getString("region");
-				Log.i("Region", _region2);
 				
-				result.addRow(new Object[] {i + 1, _areaCode, _area_code2,_zipcode,_zipcode2,_region,_region2});
+				
+				result.addRow(new Object[] {i + 1, _areaCode, _zipcode,_region});
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -141,11 +145,9 @@ public class ZipcodeContentProvider extends ContentProvider {
 			break;
 		case ITEMS_ID:
 			
-			String itemId = uri.getLastPathSegment();
 			
-			int index;
 			try {
-				index = Integer.parseInt(itemId);
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 				break;

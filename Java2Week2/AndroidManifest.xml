@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <service android:name="com.cmozie.classes.ZipcodeService"></service>
-        <provider android:name="com.cmozie.classes.ZipcodeContentProvider" android:authorities="com.cmozie.classes.zipcodecontentprovider"></provider>
+        <provider android:name="com.cmozie.classes.ZipcodeContentProvider" android:authorities="com.cmozie.classes.zipcodecontentprovider" android:exported="false"></provider>
     </application>
 
 </manifest>
