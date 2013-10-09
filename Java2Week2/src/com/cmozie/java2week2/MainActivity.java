@@ -385,12 +385,8 @@ public class MainActivity extends Activity {
 							Log.i("HIT","HANDLER");
 							
 							//string selected is my query reply from my ZipcodeService
-							String selected = msg.obj.toString();
-							Log.i("hit", selected);
-							if (msg.arg1 == RESULT_OK && msg.obj != null) 
-								Log.i("Serv.Response", msg.obj.toString());
 							
-							{
+							
 								
 								
 								
@@ -401,12 +397,14 @@ public class MainActivity extends Activity {
 									Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
 									//pulling in data from Local storage here
 									display(cursor);
+									
+									Log.e("CURSOR",cursor.toString());
 								} catch (Exception e) {
-									//Log.i("Buffer Error", "Error converting result " + e.toString());
+									Log.i("Buffer Error", "Error converting result " + e.toString());
 								}
 								
 								
-							}						
+											
 							
 						}
 						

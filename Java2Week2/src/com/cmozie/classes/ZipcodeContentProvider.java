@@ -104,22 +104,26 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 		MatrixCursor result = new MatrixCursor (RegionData.PROJECTION);
 		
-		String JSONString = FileStuff.readStringFile(getContext(),"temp2", false);
-		//String JSONString2 = FileStuff.readStringFile(getContext(),"temp2", false);
-		Log.i("Content STRING", JSONString);
-		JSONObject json;
+		//String JSONString = FileStuff.readStringFile(getContext(),"temp", false);
+		String JSONString2 = FileStuff.readStringFile(getContext(),"temp2", false);
+		//Log.i("Content STRING", JSONString);
+		Log.i("Content STRING", JSONString2);
+		//JSONObject json;
+		JSONObject json2;
 		JSONArray ja = null;
+		JSONArray ja2 = null;
 		
 		try {
-			json = new JSONObject(JSONString);
-			 ja = json.getJSONArray("zips");
-			 
+			//json = new JSONObject(JSONString);
+			json2 = new JSONObject(JSONString2);
+			// ja = json.getJSONArray("zips");
+			 ja2 = json2.getJSONArray("zips");
 			 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (ja == null) {
+		if (ja2 == null) {
 			return result;
 		}
 		
@@ -129,13 +133,17 @@ public class ZipcodeContentProvider extends ContentProvider {
 			String placeRequested = uri.getLastPathSegment();
 			
 			Log.i("place",placeRequested);
-		for (int i = 0; i < ja.length(); i++) {
+		for (int i = 0; i < ja2.length(); i++) {
 			
 			try {
 				
 				
-				JSONObject one = ja.getJSONObject(i);
-				JSONObject two = ja.getJSONObject(0);
+				JSONObject one = ja2.getJSONObject(i);
+				
+				if (one.getString("zip_code").contentEquals("10001")|| one.getString("zip_code").contentEquals("10002")||one.getString("zip_code").contentEquals("10004")) {
+					
+				
+				
 				String _areaCode = one.getString("area_code");
 				String _zipcode = one.getString("zip_code");
 				String _region = one.getString("region");
@@ -144,7 +152,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 					
 			result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
-					
+				}
 				
 				
 				

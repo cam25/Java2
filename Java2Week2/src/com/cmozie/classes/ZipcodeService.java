@@ -100,7 +100,7 @@ public class ZipcodeService extends IntentService {
 					UrlResult = new URL (baseURL + key + "&zips=" + qs);
 					UrlResult2 = new URL (baseURL + key + "&zips=" + searchAll);
 					//logs the final url query
-					Log.i("URL",UrlResult.toString());
+					Log.i("URL",UrlResult2.toString());
 					
 					
 					queryReply = WebStuff.getURLStringResponse(UrlResult);
