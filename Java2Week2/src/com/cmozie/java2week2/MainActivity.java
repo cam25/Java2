@@ -181,10 +181,20 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				String finalUrlstring;
-				finalUrlstring = ZipcodeContentProvider.RegionData.CONTENT_TYPE;
+				finalUrlstring = ZipcodeContentProvider.RegionData.CONTENT_URI + "ITEMS";
+				String[] zips = {"22314", "22312", "11221"};
+				StringBuilder sb = new StringBuilder(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+
+				for (int i = 0; i < zips.length; i++)
+				sb.append(zips[i] + "|");
+
+				//remove the last pipe (|) from the last zip code.
+				sb.deleteCharAt(sb.length() - 1);
+
+				Log.i("string", sb.toString());
 				
-				searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/items");
-				Log.i("CONTENTSTRING", searchALL.toString());
+				searchALL = Uri.parse(sb.toString());
+				//Log.i("CONTENTSTRING", searchALL.toString());
 				Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 				//pulling in data from Local storage here
 				display(cursor);
