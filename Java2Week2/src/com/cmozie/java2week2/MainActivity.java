@@ -180,7 +180,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				String finalUrlstring;
+				/*String finalUrlstring;
 				finalUrlstring = ZipcodeContentProvider.RegionData.CONTENT_URI + "ITEMS";
 				String[] zips = {"22314", "22312", "11221"};
 				StringBuilder sb = new StringBuilder(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
@@ -193,9 +193,11 @@ public class MainActivity extends Activity {
 
 				Log.i("string", sb.toString());
 				
-				searchALL = Uri.parse(sb.toString());
+				searchALL = Uri.parse(sb.toString());*/
+				
+				
 				//Log.i("CONTENTSTRING", searchALL.toString());
-				Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+				Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
 				//pulling in data from Local storage here
 				display(cursor);
 			}

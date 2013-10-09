@@ -142,7 +142,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 					String _area_code2 = two.getString("area_code");
 					String _region2 = one.getString("region");
 					
-					/*String[] zips = {"22314", "22312", "11221"};
+					String[] zips = {"22314", "22312", "11221"};
 					StringBuilder sb = new StringBuilder("http://zipfeeder.us/zip?key=EN4GbNMq&zips=");
 
 					for (int s = 0; i < zips.length; i++)
@@ -151,7 +151,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 					//remove the last pipe (|) from the last zip code.
 					sb.deleteCharAt(sb.length() - 1);
 
-					Log.i("string", sb.toString());*/
+					Log.i("string", sb.toString());
 					
 					result.addRow(new Object[] {i + 1, _zipcode2, _area_code2,_region2});
 				}
