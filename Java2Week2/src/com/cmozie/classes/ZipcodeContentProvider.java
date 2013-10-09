@@ -104,28 +104,31 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 		MatrixCursor result = new MatrixCursor (RegionData.PROJECTION);
 		
-		//String JSONString = FileStuff.readStringFile(getContext(),"temp", false);
+		String JSONString = FileStuff.readStringFile(getContext(),"temp", false);
 		String JSONString2 = FileStuff.readStringFile(getContext(),"temp2", false);
 		//Log.i("Content STRING", JSONString);
-		Log.i("Content STRING", JSONString2);
-		//JSONObject json;
+		//Log.i("Content STRING", JSONString2);
+		JSONObject json;
 		JSONObject json2;
 		JSONArray ja = null;
 		JSONArray ja2 = null;
 		
 		try {
-			//json = new JSONObject(JSONString);
-			json2 = new JSONObject(JSONString2);
-			// ja = json.getJSONArray("zips");
-			 ja2 = json2.getJSONArray("zips");
-			 
+			json = new JSONObject(JSONString);
+			
+			 //Log.i("TEST", json2.toString());
+			 ja = json.getJSONArray("zips");
+			
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (ja2 == null) {
+		if (ja == null) {
 			return result;
 		}
+		
+		
 		
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
@@ -133,14 +136,12 @@ public class ZipcodeContentProvider extends ContentProvider {
 			String placeRequested = uri.getLastPathSegment();
 			
 			Log.i("place",placeRequested);
-		for (int i = 0; i < ja2.length(); i++) {
+		for (int i = 0; i < ja.length(); i++) {
 			
 			try {
+				JSONObject one = ja.getJSONObject(i);
 				
-				
-				JSONObject one = ja2.getJSONObject(i);
-				
-				if (one.getString("zip_code").contentEquals("10001")|| one.getString("zip_code").contentEquals("10002")||one.getString("zip_code").contentEquals("10004")) {
+				if (one.getString("zip_code").contentEquals("20001")||one.getString("zip_code").contentEquals("94105")||one.getString("zip_code").contentEquals("33133")||one.getString("zip_code").contentEquals("10001")||one.getString("zip_code").contentEquals("60018")) {
 					
 				
 				
@@ -152,15 +153,42 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 					
 			result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
-				}
-				
-				
-				
-				
-	
-				//i was passing too many values in my object which was causing crash here.
-				
 			
+			if (MainActivity.getRegion.isPressed()) {
+				try {
+					json2 = new JSONObject(JSONString2);
+					
+					Log.i("ZIPS", json2.toString());
+					 ja2 = json2.getJSONArray("zips");
+						for (int j = 0; j < ja2.length(); j++) {
+							
+						
+						
+						JSONObject two1 = ja2.getJSONObject(i);
+						
+							
+						
+						
+						String _areaCode2 = two1.getString("area_code");
+						String _zipcode2 = two1.getString("zip_code");
+						String _region2 = two1.getString("region");
+					
+						
+						//i was passing too many values in my object which was causing crash here.
+						result.addRow(new Object[] {i, _zipcode2,_areaCode2,_region2});
+						
+						}
+					
+				
+					 Log.i("TEST", json2.toString());
+				} catch (Exception e) {
+					Log.e("error", e.toString());
+				}
+			}
+				
+				 
+			
+				}
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -170,7 +198,11 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			
 		}	
+		
+		
 			break;
+			
+			
 		case ITEMS_ID:
 			String itemId = uri.getLastPathSegment();
 			Log.i("queryId", itemId);
@@ -187,7 +219,8 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 				break;
 			}
-			if (index <= 0 || index > ja.length()) {
+			
+			if (index <= 0 || index > ja2.length()) {
 				
 				Log.e("query", "index out of range for " + uri.toString());
 				break;
@@ -195,11 +228,18 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			
 			try {
-				
+				json2 = new JSONObject(JSONString2);
+				 
+				 ja2 = json2.getJSONArray("zips");
+					for (int j = 0; j < ja2.length(); j++) {
+						
 					
 					Log.i("requested place", itemId);
+					JSONObject two1 = ja2.getJSONObject(index -1);
 					
-					JSONObject two1 = ja.getJSONObject(index -1);
+						
+					
+					
 					String _areaCode2 = two1.getString("area_code");
 					String _zipcode2 = two1.getString("zip_code");
 					String _region2 = two1.getString("region");
@@ -208,7 +248,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 					//i was passing too many values in my object which was causing crash here.
 					result.addRow(new Object[] {index, _zipcode2,_areaCode2,_region2});
 					
-				
+					}
 					
 					
 					//result.addRow(new Object[] {i-1, _zipcode2, _area_code2,_region2});

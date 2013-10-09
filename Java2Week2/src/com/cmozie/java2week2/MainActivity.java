@@ -386,22 +386,14 @@ public class MainActivity extends Activity {
 							
 							//string selected is my query reply from my ZipcodeService
 							
-							
-								
-								
-								
-								
-								try{
 									
 									ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 									Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
 									//pulling in data from Local storage here
 									display(cursor);
 									
-									Log.e("CURSOR",cursor.toString());
-								} catch (Exception e) {
-									Log.i("Buffer Error", "Error converting result " + e.toString());
-								}
+									Log.i("CURSOR",cursor.toString());
+								
 								
 								
 											
@@ -437,9 +429,27 @@ public class MainActivity extends Activity {
 		
 		try{
 		JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-		
+		JSONObject json2 = new JSONObject(FileStuff.readStringFile(_context, "temp2", false));
 		JSONArray ja = json.getJSONArray("zips");
+		JSONArray ja2 = json2.getJSONArray("zips");
 		
+		for (int s = 0; s < ja2.length(); s++) {
+			JSONObject one = ja2.getJSONObject(s);
+			JSONObject two = ja2.getJSONObject(0);
+			
+			_zipcode = one.getString("zip_code");
+			_areaCode = one.getString("area_code");
+			
+			_region = one.getString("region");
+			
+			
+			_zipcode2 = two.getString("zip_code");
+			_area_code2 = two.getString("area_code");
+			
+			_region2 = two.getString("region");
+			
+			
+		}
 		for (int i = 0; i < ja.length(); i++) {
 			//sets a json object to access object values inside array
 			
@@ -450,27 +460,15 @@ public class MainActivity extends Activity {
 		//setting my text to the values to the strings of the json data
 		_zipcode = one.getString("zip_code");
 		_areaCode = one.getString("area_code");
-		_city = one.getString("city");
-		_state = one.getString("state");
-		_county = one.getString("county");
-		_csa_name = one.getString("csa_name");
-		_cbsa_name = one.getString("cbsa_name");
-		_latitude = one.getString("latitude");
-		_longitude = one.getString("longitude");
+		
 		_region = one.getString("region");
-		_timezone = one.getString("time_zone");
+		
 		
 		_zipcode2 = two.getString("zip_code");
 		_area_code2 = two.getString("area_code");
-		_city2 = two.getString("city");
-		_county2 = two.getString("county");
-		_state2 = two.getString("state");
-
-
-		_latitude2 = two.getString("latitude");
-		_longitude2 = two.getString("longitude");
+		
 		_region2 = two.getString("region");
-		_timezone2 = two.getString("time_zone");
+		
 		
 	
 		

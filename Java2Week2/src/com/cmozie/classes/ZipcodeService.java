@@ -112,6 +112,7 @@ public class ZipcodeService extends IntentService {
 				}catch (MalformedURLException e){
 					Log.e("BAD URL", "Malformed URL");
 					UrlResult = null;
+					UrlResult2 = null;
 				}
 				Log.i("OnHandleIntent","Done looking up zipcode");
 				
