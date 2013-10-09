@@ -130,21 +130,23 @@ public class ZipcodeContentProvider extends ContentProvider {
 			try {
 				
 				
-				JSONObject one = ja.getJSONObject(1);
+				JSONObject one = ja.getJSONObject(i);
 				JSONObject two = ja.getJSONObject(0);
 				String _areaCode = one.getString("area_code");
 				String _zipcode = one.getString("zip_code");
 				String _region = one.getString("region");
 				
 				
-				
+				if (MainActivity.getRegion.isClickable()) {
+					String _zipcode2 = two.getString("zip_code");
+					String _area_code2 = two.getString("area_code");
+					String _region2 = one.getString("region");
+					
+					result.addRow(new Object[] {i + 1, _zipcode2, _area_code2,_region2});
+				}
 					
 				
-				String _zipcode2 = two.getString("zip_code");
-				String _area_code2 = two.getString("area_code");
-				String _region2 = one.getString("region");
 				
-				//result.addRow(new Object[] {i + 1, _zipcode2, _area_code2,_region2});
 				
 				
 	

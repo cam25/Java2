@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
 	Button _pop;
 	public static Button getRegion;
 	EditText contentQuery;
+	Uri searchALL;
 	
 	//bool
 	Boolean _connected = false;
@@ -169,16 +171,21 @@ public class MainActivity extends Activity {
 		spinner.setAdapter(listAdapter);
 	
 		getRegion = (Button) findViewById(R.id.getHistory);
-		 contentQuery = (EditText) findViewById(R.id.contentQuery);
-		 contentQuery.setText(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+		
+		
 		getRegion.setOnClickListener(new OnClickListener() {
-			
+			//combine all the zipcodes and place call the query on all of them?
 			
 		
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+				String finalUrlstring;
+				finalUrlstring = ZipcodeContentProvider.RegionData.CONTENT_TYPE;
+				
+				searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/items");
+				Log.i("CONTENTSTRING", searchALL.toString());
+				Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 				//pulling in data from Local storage here
 				display(cursor);
 			}

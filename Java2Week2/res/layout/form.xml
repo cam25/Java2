@@ -15,18 +15,12 @@
             android:contentDescription="@string/zipcode_banner"
             android:src="@drawable/zipcodebanner">
             </ImageView>
-           <EditText 
-	 	    android:id="@+id/contentQuery"
-	 	    android:layout_width="wrap_content"
-	 	    android:layout_height="wrap_content"
-	 	    android:hint="search"
-	 	    android:text="Get History"/>
-    
+         
    <Button 
 	 	    android:id="@+id/getHistory"
 	 	    android:layout_width="wrap_content"
 	 	    android:layout_height="wrap_content"
-	 	    android:text="Get History"/>
+	 	    android:text="Search All Regions"/>
    
    
    
