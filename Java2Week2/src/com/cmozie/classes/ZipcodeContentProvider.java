@@ -137,24 +137,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 				String _region = one.getString("region");
 				
 				
-				if (MainActivity.getRegion.isPressed()) {
-					String _zipcode2 = two.getString("zip_code");
-					String _area_code2 = two.getString("area_code");
-					String _region2 = one.getString("region");
-					
-					String[] zips = {"22314", "22312", "11221"};
-					StringBuilder sb = new StringBuilder("http://zipfeeder.us/zip?key=EN4GbNMq&zips=");
-
-					for (int s = 0; i < zips.length; i++)
-					sb.append(zips[s] + "|");
-
-					//remove the last pipe (|) from the last zip code.
-					sb.deleteCharAt(sb.length() - 1);
-
-					Log.i("string", sb.toString());
-					
-					result.addRow(new Object[] {i + 1, _zipcode2, _area_code2,_region2});
-				}
+				
 					
 				
 				
@@ -198,15 +181,34 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			
 			try {
-				JSONObject one = ja.getJSONObject(index - 1);
-				JSONObject two = ja.getJSONObject(0);
-				String _areaCode = two.getString("area_code");
-				String _zipcode = two.getString("zip_code");
-				String _region = two.getString("region");
-			
+				if (MainActivity.getRegion.isPressed()) {
+					
+					
+					JSONObject one1 = ja.getJSONObject(index -1);
+					JSONObject two1 = ja.getJSONObject(index -3);
+					String _areaCode2 = two1.getString("area_code");
+					String _zipcode2 = two1.getString("zip_code");
+					String _region2 = two1.getString("region");
 				
-				//i was passing too many values in my object which was causing crash here.
-				result.addRow(new Object[] {index, _areaCode, _zipcode,_region});
+					
+					//i was passing too many values in my object which was causing crash here.
+					result.addRow(new Object[] {index,_region2});
+					
+					/*String[] zips = {"22314", "22312", "11221"};
+					StringBuilder sb = new StringBuilder("http://zipfeeder.us/zip?key=EN4GbNMq&zips=");
+
+					for (int s = 0; i < zips.length; i++)
+					sb.append(zips[s] + "|");
+
+					//remove the last pipe (|) from the last zip code.
+					sb.deleteCharAt(sb.length() - 1);
+
+					Log.i("string", sb.toString());*/
+					
+					
+					
+					//result.addRow(new Object[] {i-1, _zipcode2, _area_code2,_region2});
+				}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

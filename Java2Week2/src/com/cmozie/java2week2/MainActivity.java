@@ -173,35 +173,7 @@ public class MainActivity extends Activity {
 		getRegion = (Button) findViewById(R.id.getHistory);
 		
 		
-		getRegion.setOnClickListener(new OnClickListener() {
-			//combine all the zipcodes and place call the query on all of them?
-			
 		
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				/*String finalUrlstring;
-				finalUrlstring = ZipcodeContentProvider.RegionData.CONTENT_URI + "ITEMS";
-				String[] zips = {"22314", "22312", "11221"};
-				StringBuilder sb = new StringBuilder(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
-
-				for (int i = 0; i < zips.length; i++)
-				sb.append(zips[i] + "|");
-
-				//remove the last pipe (|) from the last zip code.
-				sb.deleteCharAt(sb.length() - 1);
-
-				Log.i("string", sb.toString());
-				
-				searchALL = Uri.parse(sb.toString());*/
-				
-				
-				//Log.i("CONTENTSTRING", searchALL.toString());
-				Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
-				//pulling in data from Local storage here
-				display(cursor);
-			}
-		});
 		
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
@@ -397,7 +369,35 @@ public class MainActivity extends Activity {
 		 			
 		 	});
 
-		 
+		 getRegion.setOnClickListener(new OnClickListener() {
+				//combine all the zipcodes and place call the query on all of them?
+				
+			
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					/*String finalUrlstring;
+					finalUrlstring = ZipcodeContentProvider.RegionData.CONTENT_URI + "ITEMS";
+					String[] zips = {"22314", "22312", "11221"};
+					StringBuilder sb = new StringBuilder(ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+
+					for (int i = 0; i < zips.length; i++)
+					sb.append(zips[i] + "|");
+
+					//remove the last pipe (|) from the last zip code.
+					sb.deleteCharAt(sb.length() - 1);
+
+					Log.i("string", sb.toString());
+					
+					searchALL = Uri.parse(sb.toString());*/
+					
+					
+					//Log.i("CONTENTSTRING", searchALL.toString());
+					Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+					//pulling in data from Local storage here
+					display(cursor);
+				}
+			});
 
 		 }
 	public void display(Cursor cursor){
