@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.hardware.Camera.Area;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -71,6 +72,8 @@ public class ZipcodeContentProvider extends ContentProvider {
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
 			type = RegionData.CONTENT_TYPE;
+			
+			Log.i("TYPE", type);
 			break;
 			
 		case ITEMS_ID:
@@ -124,7 +127,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			String placeRequested = uri.getLastPathSegment();
 			
-			
+			Log.i("place",placeRequested);
 		for (int i = 0; i < ja.length(); i++) {
 			
 			try {
@@ -139,13 +142,15 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 				
 					
+			result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
+					
 				
 				
 				
 				
 	
 				//i was passing too many values in my object which was causing crash here.
-				result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
+				
 			
 				
 			} catch (JSONException e) {
@@ -181,34 +186,24 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			
 			try {
-				if (MainActivity.getRegion.isPressed()) {
+				
 					
+					Log.i("requested place", itemId);
 					
-					JSONObject one1 = ja.getJSONObject(index -1);
-					JSONObject two1 = ja.getJSONObject(index -3);
+					JSONObject two1 = ja.getJSONObject(index -1);
 					String _areaCode2 = two1.getString("area_code");
 					String _zipcode2 = two1.getString("zip_code");
 					String _region2 = two1.getString("region");
 				
 					
 					//i was passing too many values in my object which was causing crash here.
-					result.addRow(new Object[] {index,_region2});
+					result.addRow(new Object[] {index, _zipcode2,_areaCode2,_region2});
 					
-					/*String[] zips = {"22314", "22312", "11221"};
-					StringBuilder sb = new StringBuilder("http://zipfeeder.us/zip?key=EN4GbNMq&zips=");
-
-					for (int s = 0; i < zips.length; i++)
-					sb.append(zips[s] + "|");
-
-					//remove the last pipe (|) from the last zip code.
-					sb.deleteCharAt(sb.length() - 1);
-
-					Log.i("string", sb.toString());*/
-					
+				
 					
 					
 					//result.addRow(new Object[] {i-1, _zipcode2, _area_code2,_region2});
-				}
+				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -387,11 +387,11 @@ public class MainActivity extends Activity {
 					//remove the last pipe (|) from the last zip code.
 					sb.deleteCharAt(sb.length() - 1);
 
-					Log.i("string", sb.toString());
+					Log.i("string", sb.toString());*/
 					
-					searchALL = Uri.parse(sb.toString());*/
+					//searchALL = Uri.parse(ZipcodeContentProvider.RegionData.CONTENT_URI);
 					
-					
+					//Log.i("URI", searchALL.toString());
 					//Log.i("CONTENTSTRING", searchALL.toString());
 					Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
 					//pulling in data from Local storage here
