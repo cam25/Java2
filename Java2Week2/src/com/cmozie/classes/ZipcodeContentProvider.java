@@ -104,7 +104,8 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 		MatrixCursor result = new MatrixCursor (RegionData.PROJECTION);
 		
-		String JSONString = FileStuff.readStringFile(getContext(),"temp", false);
+		String JSONString = FileStuff.readStringFile(getContext(),"temp2", false);
+		//String JSONString2 = FileStuff.readStringFile(getContext(),"temp2", false);
 		Log.i("Content STRING", JSONString);
 		JSONObject json;
 		JSONArray ja = null;

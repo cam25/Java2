@@ -398,52 +398,11 @@ public class MainActivity extends Activity {
 								try{
 									
 									ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
-									JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp2", false));
-									
-									JSONArray ja = json.getJSONArray("zips");
-									
-									for (int i = 0; i < ja.length(); i++) {
-										//sets a json object to access object values inside array
-										
-										
-										JSONObject one = ja.getJSONObject(i);
-										JSONObject two = ja.getJSONObject(0);
-										
-									//setting my text to the values to the strings of the json data
-									_zipcode = one.getString("zip_code");
-									_areaCode = one.getString("area_code");
-								
-									_region = one.getString("region");
-								
-									
-									_zipcode2 = two.getString("zip_code");
-									_area_code2 = two.getString("area_code");
-								
-									_region2 = two.getString("region");
-									
-									
-									HashMap<String, String> displayMap = new HashMap<String, String>();
-									
-									displayMap.put("zipCode", _zipcode);
-									displayMap.put("zipCode2", _zipcode2);
-									displayMap.put("areaCode", _areaCode);
-									displayMap.put("areaCode2", _area_code2);
-							
-									displayMap.put("region", _region);
-									displayMap.put("region2", _region2);
-									displayMap.put("timezone", _timezone);
-									displayMap.put("timezone2", _timezone2);
-										 
-									mylist.add(displayMap);
-									
-									Log.e("List", mylist.toString());
-									
-									}
-									SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{"zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-									
-									listview.setAdapter(adapter);
+									Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+									//pulling in data from Local storage here
+									display(cursor);
 								} catch (Exception e) {
-									Log.i("Buffer Error", "Error converting result " + e.toString());
+									//Log.i("Buffer Error", "Error converting result " + e.toString());
 								}
 								
 								
@@ -459,11 +418,9 @@ public class MainActivity extends Activity {
 					
 					Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
 					startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,listview.toString());
+					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,ZipcodeService.queryReply2);
 					startService(startZipcodeIntent);
-					Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
-					//pulling in data from Local storage here
-					display(cursor);
+					
 				}
 				
 				

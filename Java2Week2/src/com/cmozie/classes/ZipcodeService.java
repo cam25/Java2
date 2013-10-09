@@ -33,7 +33,7 @@ import android.util.Log;
 public class ZipcodeService extends IntentService {
 	public static final String MESSENGER_KEY = "messenger";
 	public static final String enteredZipcode = "zipcode";
-
+	public static  String queryReply2;
 
 	/**
 	 * Instantiates a new zipcode service.
@@ -67,7 +67,8 @@ public class ZipcodeService extends IntentService {
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
 		String zips = extras.getString(enteredZipcode);
 	
-		
+		String searchAll = "33127|20001|20002|20003|10001|10002|10005|10004|60018|60068|60067|60106|60131|60602|60603";
+
 		
 		//this is the base url of the api
 				String baseURL = "http://zipfeeder.us/zip?";
@@ -76,7 +77,7 @@ public class ZipcodeService extends IntentService {
 				String key = "key=EN4GbNMq";
 				//this empty string accepts an empty string which will be for zipcodes entered
 				String qs = "";
-				String searchAll = "33127|20001|20002|20003|10001|10002|10005|10004|60018|60068|60067|60106|60131|60602|60603";
+				//String searchAll = "33127|20001|20002|20003|10001|10002|10005|10004|60018|60068|60067|60106|60131|60602|60603";
 				try{
 				qs = URLEncoder.encode(zips, "UTF-8");
 					
@@ -93,7 +94,7 @@ public class ZipcodeService extends IntentService {
 				URL UrlResult;
 				URL UrlResult2;
 				String queryReply = null;
-				String queryReply2 = null;
+				queryReply2 = null;
 				try{
 					//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
 					UrlResult = new URL (baseURL + key + "&zips=" + qs);
