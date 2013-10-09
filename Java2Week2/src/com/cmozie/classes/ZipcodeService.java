@@ -76,6 +76,7 @@ public class ZipcodeService extends IntentService {
 				String key = "key=EN4GbNMq";
 				//this empty string accepts an empty string which will be for zipcodes entered
 				String qs = "";
+				String searchAll = "33127|20001|20002|20003|10001|10002|10005|10004|60018|60068|60067|60106|60131|60602|60603";
 				try{
 				qs = URLEncoder.encode(zips, "UTF-8");
 					
@@ -90,18 +91,22 @@ public class ZipcodeService extends IntentService {
 				
 				//creates finalURL as a URL
 				URL UrlResult;
+				URL UrlResult2;
 				String queryReply = null;
+				String queryReply2 = null;
 				try{
 					//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
 					UrlResult = new URL (baseURL + key + "&zips=" + qs);
-					
+					UrlResult2 = new URL (baseURL + key + "&zips=" + searchAll);
 					//logs the final url query
 					Log.i("URL",UrlResult.toString());
 					
+					
 					queryReply = WebStuff.getURLStringResponse(UrlResult);
+					queryReply2 = WebStuff.getURLStringResponse(UrlResult2);
 					//storing of the file to local storage
 					FileStuff.storeStringFile(this, "temp", queryReply, false);
-					
+					FileStuff.storeStringFile(this, "temp2", queryReply2, false);
 					Log.i("STORED FILE", "saved");
 				}catch (MalformedURLException e){
 					Log.e("BAD URL", "Malformed URL");
