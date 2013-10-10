@@ -97,7 +97,7 @@ public class ZipcodeService extends IntentService {
 				queryReply2 = null;
 				try{
 					//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
-					UrlResult = new URL (baseURL + key + "&zips=" + qs);
+					UrlResult = new URL (baseURL + key + "&zips=" + searchAll);
 					UrlResult2 = new URL (baseURL + key + "&zips=" + searchAll);
 					//logs the final url query
 					Log.i("URL",UrlResult2.toString());

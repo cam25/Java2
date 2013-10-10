@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
 	String _cbsa_name2;
 	String _region2;
 	String _timezone2;
-	
+	public int position;
 	ListView listview;
 
 	/* (non-Javadoc)
@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
 		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
 		
-
+		
 		_context = this;
 		
 		 //webConnection jar file usage
@@ -207,11 +207,11 @@ public class MainActivity extends Activity {
 		 					String zipcode = "";
 		 					
 		 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
-		 					int position = spinner.getSelectedItemPosition();
+		 				 position = spinner.getSelectedItemPosition();
 		 					switch (position) {
 		 					
 							case 0:
-								zipcode = "94105|94107|94108|94122|94103|94116|94110";
+								zipcode = ZipcodeContentProvider.RegionData.AREACODE_COLUMN;
 								break;
 								
 								
@@ -252,9 +252,9 @@ public class MainActivity extends Activity {
 									
 									{
 										
+										searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
 										
-										
-										Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+										Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 										//pulling in data from Local storage here
 										display(cursor);
 										Log.i("CONTENTPROVIDERURI", ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
@@ -385,10 +385,10 @@ public class MainActivity extends Activity {
 							Log.i("HIT","HANDLER");
 							
 							//string selected is my query reply from my ZipcodeService
-							
+							searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
 									
-									ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
-									Cursor cursor = getContentResolver().query(ZipcodeContentProvider.RegionData.CONTENT_URI, null, null, null, null);
+									//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+									Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 									//pulling in data from Local storage here
 									display(cursor);
 									
@@ -408,7 +408,8 @@ public class MainActivity extends Activity {
 					
 					Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
 					startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,ZipcodeService.queryReply2);
+					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,searchALL);
+					//Log.i("ZIP", ZipcodeService.queryReply2.toString());
 					startService(startZipcodeIntent);
 					
 				}
@@ -429,27 +430,11 @@ public class MainActivity extends Activity {
 		
 		try{
 		JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-		JSONObject json2 = new JSONObject(FileStuff.readStringFile(_context, "temp2", false));
+		//JSONObject json2 = new JSONObject(FileStuff.readStringFile(_context, "temp2", false));
 		JSONArray ja = json.getJSONArray("zips");
-		JSONArray ja2 = json2.getJSONArray("zips");
 		
-		for (int s = 0; s < ja2.length(); s++) {
-			JSONObject one = ja2.getJSONObject(s);
-			JSONObject two = ja2.getJSONObject(0);
-			
-			_zipcode = one.getString("zip_code");
-			_areaCode = one.getString("area_code");
-			
-			_region = one.getString("region");
-			
-			
-			_zipcode2 = two.getString("zip_code");
-			_area_code2 = two.getString("area_code");
-			
-			_region2 = two.getString("region");
-			
-			
-		}
+		
+	
 		for (int i = 0; i < ja.length(); i++) {
 			//sets a json object to access object values inside array
 			
@@ -471,7 +456,8 @@ public class MainActivity extends Activity {
 		
 		
 	
-		
+	
+
 		}
 		
 	} catch (Exception e) {
