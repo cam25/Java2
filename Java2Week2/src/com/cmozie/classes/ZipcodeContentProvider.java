@@ -195,7 +195,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 				break;
 			}
 			
-			if (index <= 0 || index > ja.length()) {
+			if (index < 0 || index > ja.length()) {
 				Log.e("query", "index out of range for" + uri.toString());
 				break;
 			}
