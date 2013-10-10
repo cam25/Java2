@@ -156,6 +156,8 @@ public class MainActivity extends Activity {
 		
 		}
 		 
+		 
+		 
 		 //array adapter for my cities where i create new objects for each location
 		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
 				 
@@ -173,6 +175,7 @@ public class MainActivity extends Activity {
 		getRegion = (Button) findViewById(R.id.getHistory);
 		
 		
+		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 		
 		
 		 //popular zipcodes onclick
@@ -202,31 +205,76 @@ public class MainActivity extends Activity {
 		 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		 				
 		 				
+		 			
+		 				
 						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
 		 							Log.i("HIT","THE SPINNER");
 		 					String zipcode = "";
 		 					
+		 					try{
+		 						JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
+		 						//JSONObject json2 = new JSONObject(FileStuff.readStringFile(_context, "temp2", false));
+		 						JSONArray ja = json.getJSONArray("zips");
+		 						
+		 						
+		 					
+		 						for (int i = 0; i < ja.length(); i++) {
+		 							//sets a json object to access object values inside array
+		 							
+		 							
+		 							JSONObject one = ja.getJSONObject(i);
+		 							JSONObject two = ja.getJSONObject(0);
+		 							
+		 							
+		 								_zipcode = one.getString("zip_code");
+		 								_areaCode = one.getString("area_code");
+		 								
+		 								_region = one.getString("region");
+		 								
+		 								
+		 								_zipcode2 = two.getString("zip_code");
+		 								_area_code2 = two.getString("area_code");
+		 								
+		 								_region2 = two.getString("region");
+		 								
+		 								
+		 							
+		 						//setting my text to the values to the strings of the json data
+		 					
+		 						
+		 						
+		 							
+
+		 						
 		 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
 		 				 position = spinner.getSelectedItemPosition();
 		 					switch (position) {
 		 					
-							case 0:
-								zipcode = ZipcodeContentProvider.RegionData.CONTENT_ITEM_TYPE ;
+							case 1:
+								if (one.getString("zip_code").contentEquals("94105")) {
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
+								}
+								
 								break;
 								
 								
-							case 1:
-								zipcode = "33133|33132|33134|33127|33109|33129|33101";
+							case 2:
+								if (one.getString("zip_code").contentEquals("33101")) {
+									
+									Log.i("ZIP", "WORKED");
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+								}
+								
 								break;
 							
-							case 2:
-								zipcode =  "20001|20002|20003|20020|20018|20037|20032";
-								break;
 							case 3:
-								zipcode = "10001|10002|10005|10004|10006|10007|10009";
+								zipcode =  "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
 								break;
 							case 4:
-								zipcode = "60018|60068|60067|60106|60131|60602|60603";
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
+								break;
+							case 5:
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 5;
 								break;
 							
 
@@ -234,6 +282,12 @@ public class MainActivity extends Activity {
 								break;
 								
 							}
+		 					
+}
+		 						
+		 					} catch (Exception e) {
+		 						Log.e("Buffer Error", "Error converting result " + e.toString());
+		 					}
 		 					Log.i("hit", zipcode);	
 		 					//my handler
 		 					Handler zipcodeHandler = new Handler() {
@@ -252,12 +306,12 @@ public class MainActivity extends Activity {
 									
 									{
 										
-										searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
+										searchALL = Uri.parse("content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + position);
 										
 										Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 										//pulling in data from Local storage here
 										display(cursor);
-										Log.i("CONTENTPROVIDERURI", ZipcodeContentProvider.RegionData.CONTENT_URI.toString());
+										Log.i("CONTENTPROVIDERURI",searchALL.toString());
 										Log.i("CURSOR", cursor.toString());
 										/*try{
 											
@@ -387,11 +441,13 @@ public class MainActivity extends Activity {
 							//string selected is my query reply from my ZipcodeService
 							searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
 									
-									//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+									ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 									Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 									//pulling in data from Local storage here
 									display(cursor);
 									
+									
+								
 									Log.i("CURSOR",cursor.toString());
 								
 								
@@ -442,21 +498,25 @@ public class MainActivity extends Activity {
 			JSONObject one = ja.getJSONObject(i);
 			JSONObject two = ja.getJSONObject(0);
 			
+			
+				_zipcode = one.getString("zip_code");
+				_areaCode = one.getString("area_code");
+				
+				_region = one.getString("region");
+				
+				
+				_zipcode2 = two.getString("zip_code");
+				_area_code2 = two.getString("area_code");
+				
+				_region2 = two.getString("region");
+				
+				
+			
 		//setting my text to the values to the strings of the json data
-		_zipcode = one.getString("zip_code");
-		_areaCode = one.getString("area_code");
-		
-		_region = one.getString("region");
-		
-		
-		_zipcode2 = two.getString("zip_code");
-		_area_code2 = two.getString("area_code");
-		
-		_region2 = two.getString("region");
-		
-		
 	
-	
+		
+		
+			
 
 		}
 		
@@ -471,6 +531,10 @@ public class MainActivity extends Activity {
 				;
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				
+				if (cursor.getString(0).contentEquals("1000133333")) {
+					
+					Log.i("CURSOR", cursor.getString(0));
+				}
 				displayMap.put("zipCode", cursor.getString(1));
 				displayMap.put("areaCode", cursor.getString(2));
 				displayMap.put("region", cursor.getString(3));

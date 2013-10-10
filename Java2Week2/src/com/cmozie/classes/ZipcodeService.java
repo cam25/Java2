@@ -67,7 +67,7 @@ public class ZipcodeService extends IntentService {
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
 		String zips = extras.getString(enteredZipcode);
 	
-		String searchAll = "33127|20001|20002|20003|10001|10002|10005|10004|60018|60068|60067|60106|60131|60602|60603";
+		String searchAll = "94105|94107|94108|94122|94103|94116|94110|33133|33132|33134|33127|33109|33129|33101|20001|20002|20003|20020|20018|20037|20032|10001|10002|10005|10004|10006|10007|10009|60018|60068|60067|60106|60131|60602|60603";
 
 		
 		//this is the base url of the api

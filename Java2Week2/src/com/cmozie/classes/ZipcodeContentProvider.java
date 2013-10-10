@@ -141,19 +141,21 @@ public class ZipcodeContentProvider extends ContentProvider {
 			Log.i("place",placeRequested);
 		for (int i = 0; i < ja.length(); i++) {
 			
+			
+			
 			try {
 				JSONObject one = ja.getJSONObject(i);
 				
 				//if (one.getString("zip_code").contentEquals("20001")||one.getString("zip_code").contentEquals("94105")||one.getString("zip_code").contentEquals("33133")||one.getString("zip_code").contentEquals("10001")||one.getString("zip_code").contentEquals("60018")) {
 					
-				
+			
 				
 				String _areaCode = one.getString("area_code");
 				String _zipcode = one.getString("zip_code");
 				String _region = one.getString("region");
 				
 				
-					
+				Log.i("all", String.valueOf(i));
 			result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
 			
 		
@@ -173,14 +175,15 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 		
 	
-			
+			break;
 			
 		case ITEMS_ID:
 			String itemId = uri.getLastPathSegment();
+			
 			Log.i("queryId", itemId);
 			
-			int index;
-			
+			int index = 1;
+			//Log.i("all2", String.valueOf(index));
 			try {
 				index = Integer.parseInt(itemId);
 				Log.i("index", itemId);
@@ -194,20 +197,26 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			if (index <= 0 || index > ja.length()) {
 				Log.e("query", "index out of range for" + uri.toString());
-				
+				break;
+			}
 				try {
 					
-					JSONObject two = ja.getJSONObject(index -1);
+					JSONObject two = ja.getJSONObject(index - 1);
 					
-					if (two.getString("zip_code").contentEquals("10001")) {
+					//if (two.getString("zip_code").contentEquals("10001")|| two.getString("zip_code").contentEquals("33127")) {
+						
+							
+					
+							
 						
 						String _areaCode = two.getString("area_code");
 						String _zipcode = two.getString("zip_code");
 						String _region = two.getString("region");
 						
+						
 						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
-					}
 					
+						
 					
 					
 				} catch (JSONException e) {
@@ -217,15 +226,12 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 				Log.e("query", "index out of range for " + uri.toString());
 				break;
-			}
+			
 			
 			
 				
 			
-			
-			break;
-			default:
-				Log.e("query", "Invalid uri = " + uri.toString());
+		
 		}
 		return result;
 		
