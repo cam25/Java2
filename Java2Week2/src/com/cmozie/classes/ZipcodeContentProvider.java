@@ -47,7 +47,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 	public static final int ITEMS_REGION = 3;
 	
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-	private static final int MIAMI = 0;
+	private static int index ;
 	
 	static  {
 		uriMatcher.addURI(AUTHORITY, "zipcodes/", ITEMS);
@@ -108,7 +108,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 		String JSONString = FileStuff.readStringFile(getContext(),"temp", false);
 		String JSONString2 = FileStuff.readStringFile(getContext(),"temp2", false);
 		//Log.i("Content STRING", JSONString);
-		Log.i("Content STRING", JSONString2);
+		//Log.i("Content STRING", JSONString2);
 		JSONObject json;
 		
 		
@@ -121,7 +121,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			 //Log.i("TEST", json2.toString());
 			 ja = json.getJSONArray("zips");
-			Log.i("JSON", ja.toString());
+			
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -182,8 +182,8 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			Log.i("queryId", itemId);
 			
-			int index = 1;
-			//Log.i("all2", String.valueOf(index));
+			int index = 0;
+			Log.i("all2", String.valueOf(index));
 			try {
 				index = Integer.parseInt(itemId);
 				Log.i("index", itemId);
@@ -201,11 +201,21 @@ public class ZipcodeContentProvider extends ContentProvider {
 			}
 				try {
 					
-					JSONObject two = ja.getJSONObject(index - 1);
+					JSONObject two = ja.getJSONObject(index);
 					
-					//if (two.getString("zip_code").contentEquals("10001")|| two.getString("zip_code").contentEquals("33127")) {
 						
-							
+					
+						
+					
+					//JSONObject two = ja.getJSONObject(index);
+					
+					if (two.getString("zip_code").contentEquals("20001")) {
+						Log.i("WORKS", "WORKS");
+					}
+					
+					
+						Log.i("all", String.valueOf(index));
+							Log.i("JSON ARRAY", two.toString(index));
 					
 							
 						
@@ -224,7 +234,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 					e.printStackTrace();
 				}
 				
-				Log.e("query", "index out of range for " + uri.toString());
+				
 				break;
 			
 			

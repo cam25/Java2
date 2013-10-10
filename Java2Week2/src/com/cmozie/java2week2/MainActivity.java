@@ -155,11 +155,11 @@ public class MainActivity extends Activity {
 		 //array adapter for my cities where i create new objects for each location
 		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
 				 
-				 new Cities("", "San Francisco", "CA"),
-				 new Cities("", "Miami", "FL"),
-				 new Cities("", "Washington", "DC"),
 				 new Cities("", "New York", "NY"),
-				 new Cities("", "Chicago", "IL")
+				 new Cities("", "Washington", "DC"),
+				 new Cities("", "Miami", "FL"),
+				 new Cities("", "Chicago", "IL"),
+				 new Cities("", "San Francisco", "CA")
 		 });
 		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
 		
@@ -216,8 +216,8 @@ public class MainActivity extends Activity {
 		 							//sets a json object to access object values inside array
 		 							
 		 							
-		 							JSONObject one = ja.getJSONObject(i);
-		 							JSONObject two = ja.getJSONObject(0);
+		 							JSONObject one = ja.getJSONObject(2);
+		 							JSONObject two = ja.getJSONObject(2);
 		 							
 		 							
 		 								_zipcode = one.getString("zip_code");
@@ -232,39 +232,35 @@ public class MainActivity extends Activity {
 		 								_region2 = two.getString("region");
 		 								
 		 								
-		 							
-		 						//setting my text to the values to the strings of the json data
-		 					
 		 						
 		 						
 		 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
 		 				 position = spinner.getSelectedItemPosition();
+		 				 
+		 				Log.i("all", String.valueOf(position));
+		 				//Log.i("Pos", parent.getItemAtPosition(pos).toString());
 		 					switch (position) {
 		 					
-							case 1:
-								if (one.getString("zip_code").contentEquals("94105")) {
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
-								}
-								
+							case 0:
+						
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
+
 								break;
 								
 								
-							case 2:
-								if (one.getString("zip_code").contentEquals("33101")) {
-									
-									Log.i("ZIP", "WORKED");
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
-								}
+							case 1:
 								
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
 								break;
 							
-							case 3:
+							case 2:
+								
 								zipcode =  "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
 								break;
-							case 4:
+							case 3:
 								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
 								break;
-							case 5:
+							case 4:
 								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 5;
 								break;
 							
@@ -367,9 +363,6 @@ public class MainActivity extends Activity {
 								
 									Log.i("CURSOR",cursor.toString());
 								
-								
-								
-											
 							
 						}
 						
@@ -468,29 +461,28 @@ public class MainActivity extends Activity {
 					 					
 										case 1:
 											if (one.getString("zip_code").contentEquals("94105")) {
-												zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
+												zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" ;
 											}
 											
 											break;
-											
 											
 										case 2:
 											if (one.getString("zip_code").contentEquals("33101")) {
 												
 												Log.i("ZIP", "WORKED");
-												zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+												zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/";
 											}
 											
 											break;
 										
 										case 3:
-											zipcode =  "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
+											zipcode =  "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/";
 											break;
 										case 4:
-											zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
+											zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/";
 											break;
 										case 5:
-											zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 5;
+											zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" ;
 											break;
 										
 
