@@ -211,7 +211,7 @@ public class MainActivity extends Activity {
 		 					switch (position) {
 		 					
 							case 0:
-								zipcode = ZipcodeContentProvider.RegionData.AREACODE_COLUMN;
+								zipcode = ZipcodeContentProvider.RegionData.CONTENT_ITEM_TYPE ;
 								break;
 								
 								
