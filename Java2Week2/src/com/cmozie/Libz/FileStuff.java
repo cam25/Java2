@@ -1,11 +1,11 @@
 /*
- * project 			Java2Week1
+ * project 			Java2Week2
  * 
  * package			com.cmozie.Libz
  * 
  * name				cameronmozie
  * 
- * date				Oct 3, 2013
+ * date				Oct 10, 2013
  */
 
 package com.cmozie.Libz;

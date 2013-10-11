@@ -30,5 +30,7 @@
     <string name="longitude_2_">Longitude 2:</string>
     <string name="region_2_">Region 2:</string>
     <string name="timezone_2_">Timezone 2:</string>
+    <string name="zipcodes_">Zipcodes:</string>
+    <string name="region">Region</string>
 
 </resources>

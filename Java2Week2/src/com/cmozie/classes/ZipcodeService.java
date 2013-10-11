@@ -1,18 +1,17 @@
 /*
- * project 			Java2Week1
+ * project 			Java2Week2
  * 
  * package			com.cmozie.classes
  * 
  * name				cameronmozie
  * 
- * date				Oct 3, 2013
+ * date				Oct 10, 2013
  */
+
 package com.cmozie.classes;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-
 import webConnections.WebStuff;
 
 import com.cmozie.Libz.FileStuff;
@@ -34,7 +33,7 @@ public class ZipcodeService extends IntentService {
 	public static final String MESSENGER_KEY = "messenger";
 	public static final String enteredZipcode = "zipcode";
 	public static  String queryReply2;
-
+	public static String searchAll;
 	/**
 	 * Instantiates a new zipcode service.
 	 */
@@ -65,9 +64,9 @@ public class ZipcodeService extends IntentService {
 		
 		Bundle extras = intent.getExtras();
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
-		String zips = extras.getString(enteredZipcode);
+		//String zips = extras.getString(enteredZipcode);
 	
-		String searchAll = "94105|33133|20001|10001|60602";
+		 searchAll = "94105|33133|20001|10001|60602";
 
 		
 		//this is the base url of the api
@@ -75,44 +74,27 @@ public class ZipcodeService extends IntentService {
 				
 				//key needed to use api
 				String key = "key=EN4GbNMq";
-				//this empty string accepts an empty string which will be for zipcodes entered
-				String qs = "";
-				//String searchAll = "33127|20001|20002|20003|10001|10002|10005|10004|60018|60068|60067|60106|60131|60602|60603";
-				try{
-				qs = URLEncoder.encode(zips, "UTF-8");
-					
-				}catch (Exception e) {
-					
-					//if an error in the api show the bad url alert
-					
 				
-					Log.e("Bad URL","Encoding Problem");
-					qs = "";
-				}
 				
 				//creates finalURL as a URL
 				URL UrlResult;
-				URL UrlResult2;
+				//URL UrlResult2;
 				String queryReply = null;
 				queryReply2 = null;
 				try{
 					//sets the final url to the base plus the api key with the string parameter needed for search as well as the empty string that recieves a zipcode.
 					UrlResult = new URL (baseURL + key + "&zips=" + searchAll);
-					UrlResult2 = new URL (baseURL + key + "&zips=" + searchAll);
-					//logs the final url query
-					Log.i("URL",UrlResult2.toString());
-					
+				
 					
 					queryReply = WebStuff.getURLStringResponse(UrlResult);
-					queryReply2 = WebStuff.getURLStringResponse(UrlResult2);
 					//storing of the file to local storage
 					FileStuff.storeStringFile(this, "temp", queryReply, false);
-					FileStuff.storeStringFile(this, "temp2", queryReply2, false);
+					//FileStuff.storeStringFile(this, "temp2", queryReply2, false);
 					Log.i("STORED FILE", "saved");
 				}catch (MalformedURLException e){
 					Log.e("BAD URL", "Malformed URL");
 					UrlResult = null;
-					UrlResult2 = null;
+					//UrlResult2 = null;
 				}
 				Log.i("OnHandleIntent","Done looking up zipcode");
 				

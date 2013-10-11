@@ -10,7 +10,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
-		        android:text="Zipcodes:"
+		        android:text="@string/zipcodes_"
 		        style="@style/textLabels"/>
   
   <TextView 
@@ -19,7 +19,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
-		        android:text="Areacode:"
+		        android:text="@string/areacode_"
 		        style="@style/textLabels"/>
   
   <TextView 
@@ -28,7 +28,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
-		        android:text="Region"
+		        android:text="@string/region"
 		        style="@style/textLabels"/>
   
   </LinearLayout>

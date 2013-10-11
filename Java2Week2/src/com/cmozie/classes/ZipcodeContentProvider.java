@@ -1,3 +1,12 @@
+/*
+ * project 			Java2Week2
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 10, 2013
+ */
 package com.cmozie.classes;
 
 import org.json.JSONArray;
@@ -5,22 +14,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cmozie.Libz.FileStuff;
-import com.cmozie.java2week2.MainActivity;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.hardware.Camera.Area;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ZipcodeContentProvider.
+ */
 public class ZipcodeContentProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.cmozie.classes.zipcodecontentprovider";
 	
+	/**
+	 * The Class RegionData.
+	 */
 	public static class RegionData implements BaseColumns {
 		
 		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/zipcodes/");
@@ -38,6 +51,9 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 		public static final String[] PROJECTION = {"_Id",ZIP_COLUMN,AREACODE_COLUMN,REGION_COLUMN};
 		
+		/**
+		 * Instantiates a new region data.
+		 */
 		private RegionData() {};
 		
 	}
@@ -47,20 +63,24 @@ public class ZipcodeContentProvider extends ContentProvider {
 	public static final int ITEMS_REGION = 3;
 	
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-	private static int index ;
-	
 	static  {
 		uriMatcher.addURI(AUTHORITY, "zipcodes/", ITEMS);
 		uriMatcher.addURI(AUTHORITY, "zipcodes/#", ITEMS_ID);
 		uriMatcher.addURI(AUTHORITY, "zipcodes/region/*", ITEMS_REGION);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#delete(android.net.Uri, java.lang.String, java.lang.String[])
+	 */
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#getType(android.net.Uri)
+	 */
 	@Override
 	public String getType(Uri uri) {
 		// TODO Auto-generated method stub
@@ -86,18 +106,27 @@ public class ZipcodeContentProvider extends ContentProvider {
 		return type;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#insert(android.net.Uri, android.content.ContentValues)
+	 */
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#onCreate()
+	 */
 	@Override
 	public boolean onCreate() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#query(android.net.Uri, java.lang.String[], java.lang.String, java.lang.String[], java.lang.String)
+	 */
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
@@ -106,7 +135,6 @@ public class ZipcodeContentProvider extends ContentProvider {
 		MatrixCursor result = new MatrixCursor (RegionData.PROJECTION);
 		
 		String JSONString = FileStuff.readStringFile(getContext(),"temp", false);
-		String JSONString2 = FileStuff.readStringFile(getContext(),"temp2", false);
 		//Log.i("Content STRING", JSONString);
 		//Log.i("Content STRING", JSONString2);
 		JSONObject json;
@@ -247,6 +275,9 @@ public class ZipcodeContentProvider extends ContentProvider {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#update(android.net.Uri, android.content.ContentValues, java.lang.String, java.lang.String[])
+	 */
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {

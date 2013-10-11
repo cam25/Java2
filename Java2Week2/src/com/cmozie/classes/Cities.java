@@ -1,12 +1,13 @@
 /*
- * project 			Java2Week1
+ * project 			Java2Week2
  * 
  * package			com.cmozie.classes
  * 
  * name				cameronmozie
  * 
- * date				Oct 3, 2013
+ * date				Oct 10, 2013
  */
+
 package com.cmozie.classes;
 
 // TODO: Auto-generated Javadoc
@@ -31,7 +32,7 @@ public class Cities {
 	 * @param _city the _city
 	 * @param _state the _state
 	 */
-	//should be protected or private in a singleton.
+	
 	public Cities(String _zipcode, String _city, String _state){
 		
 		zipcode = _zipcode;
@@ -40,6 +41,11 @@ public class Cities {
 		
 	}
 	
+	/**
+	 * Gets the single instance of Cities.
+	 *
+	 * @return single instance of Cities
+	 */
 	public Cities getInstance()
 	{
 		if (_instance == null)

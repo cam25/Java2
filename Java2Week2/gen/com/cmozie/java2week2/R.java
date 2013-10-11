@@ -64,6 +64,7 @@ public final class R {
         public static final int longitude_=0x7f05000e;
         public static final int longitude_2_=0x7f05001a;
         public static final int popular_zipcodes=0x7f050007;
+        public static final int region=0x7f05001e;
         public static final int region_=0x7f050011;
         public static final int region_2_=0x7f05001b;
         public static final int search=0x7f050006;
@@ -76,6 +77,7 @@ public final class R {
         public static final int zipcode=0x7f050013;
         public static final int zipcode_2_=0x7f050014;
         public static final int zipcode_banner=0x7f050008;
+        public static final int zipcodes_=0x7f05001d;
     }
     public static final class style {
         /** 
