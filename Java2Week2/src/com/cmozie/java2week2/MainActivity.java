@@ -251,6 +251,31 @@ public class MainActivity extends Activity {
 		 					
 		 						}
 		 					} catch (Exception e) {
+		 						_connected = WebStuff.getConnectionStatus(_context);
+		 						 if (_connected) {
+		 							 
+		 							 
+		 							Log.i("Network Connection", WebStuff.getConnectionType(_context));
+		 							
+		 							//if no connection
+		 						}else if(!_connected) {
+		 							
+		 							//alert for connection
+		 							AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+		 							alert.setTitle("Connection Required!");
+		 							alert.setMessage("You need to connect to an internet service!");
+		 							alert.setCancelable(false);
+		 							alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+		 							
+		 								@Override
+		 								public void onClick(DialogInterface dialog, int which) {
+
+		 									dialog.cancel();
+		 								}
+		 							});
+		 							alert.show();
+		 							
+		 						}
 		 						Log.e("Buffer Error", "Error converting result " + e.toString());
 		 					}
 		 					Log.i("hit", zipcode);	
@@ -321,6 +346,33 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					
+					_connected = WebStuff.getConnectionStatus(_context);
+					 if (_connected) {
+						 
+						 
+						Log.i("Network Connection", WebStuff.getConnectionType(_context));
+						
+						//if no connection
+					}else if(!_connected) {
+						
+						//alert for connection
+						AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+						alert.setTitle("Connection Required!");
+						alert.setMessage("You need to connect to an internet service!");
+						alert.setCancelable(false);
+						alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+						
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+
+								dialog.cancel();
+							}
+						});
+						alert.show();
+						
+					}
+					
 					Handler zipcodeHandler = new Handler() {
 
 						
