@@ -399,13 +399,7 @@ public class MainActivity extends Activity {
 							_area_code2 = two.getString("area_code");
 							
 							_region2 = two.getString("region");
-							
-							
-						
-					//setting my text to the values to the strings of the json data
-				
-					
-					
+			
 						
 
 					}
@@ -420,22 +414,23 @@ public class MainActivity extends Activity {
 				
 					//Log.i("CURSOR", cursor.toString());
 					mylist.add(displayMap);
-					
+					if (savedInstanceState != null) {
+						
+						savedInstanceState.getStringArray(mylist.toString());
+					}
 				} catch (Exception e) {
 					Log.e("Buffer Error", "Error converting result " + e.toString());
 				}
 					//cursor
-					
-							SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-					
-					listview.setAdapter(adapter);
-					
-		
-				
-				
-				
-				
+					if (savedInstanceState != null) {
+						SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+						
+						listview.setAdapter(adapter);
+					}
+							
+				spinner.setSelection(savedInstanceState.getInt("spinner"));
 			
+					
 			}else{
 				
 				
@@ -501,6 +496,8 @@ public class MainActivity extends Activity {
 				//Log.i("CURSOR", cursor.toString());
 				mylist.add(displayMap);
 				
+				
+				
 				//Log.i("LIST", mylist.toString());
 			}
 		}
@@ -520,6 +517,8 @@ SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, n
 		outState.putString("zip_code",_zipcode);
 		outState.putString("area_code", _areaCode);
 		outState.putString("region", _region);
+		outState.putInt("spinner", spinner.getSelectedItemPosition());
+		
 		
 	}
 
