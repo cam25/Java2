@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cmozie.Libz.FileStuff;
+import com.cmozie.java2week2.MainActivity;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -61,11 +63,13 @@ public class ZipcodeContentProvider extends ContentProvider {
 	public static final int ITEMS = 1;
 	public static final int ITEMS_ID = 2;
 	public static final int ITEMS_REGION = 3;
-	
+	public static final int MIAMI = 4;
+	public JSONObject two;
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	static  {
 		uriMatcher.addURI(AUTHORITY, "zipcodes/", ITEMS);
 		uriMatcher.addURI(AUTHORITY, "zipcodes/#", ITEMS_ID);
+		uriMatcher.addURI(AUTHORITY, "zipcodes/*", MIAMI);
 		uriMatcher.addURI(AUTHORITY, "zipcodes/region/*", ITEMS_REGION);
 	}
 	
@@ -243,7 +247,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 					
 					
 						Log.i("all", String.valueOf(index));
-							Log.i("JSON ARRAY", two.toString(index));
+							//Log.i("JSON ARRAY", two.toString(index));
 					
 							
 						
@@ -261,12 +265,54 @@ public class ZipcodeContentProvider extends ContentProvider {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				break;
+		case MIAMI:
+			String itemId2 = uri.getLastPathSegment();
+			
+			Log.i("queryId", itemId2);
+			
+			int index2 = 0;
+			Log.i("all2", String.valueOf(index2));
+			try {
+				index = Integer.parseInt(itemId2);
+				Log.i("index", itemId2);
 				
+			} catch (Exception e) {
+				
+				Log.e("Query", "Index format error");
 				
 				break;
+			}
+			
+			if (index < 0 || index > ja.length()) {
+				Log.e("query", "index out of range for" + uri.toString());
+				break;
+			}
+			try {
+				if (two.getString("_zip_code").contentEquals("33133")) {
+					
+					Log.i("MIAMI", "WOrks");
+					boolean zippy = two.getString("zip_code").equals("33133");
+					
+					String _areaCode = two.getString("area_code");
+					String _zipcode = two.getString("zip_code");
+					String _region = two.getString("region");
+					
+					
+					result.addRow(new Object[] {index,zippy,_areaCode, _region});
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			break;
 			
 			
 			
+		
+			
+		
 				
 			
 		
@@ -274,6 +320,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 		return result;
 		
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see android.content.ContentProvider#update(android.net.Uri, android.content.ContentValues, java.lang.String, java.lang.String[])

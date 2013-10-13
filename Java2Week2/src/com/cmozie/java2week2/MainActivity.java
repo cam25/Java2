@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 	public static Button searchButton;
 	
 	static Spinner spinner = null;
-	private int selected;
+	public int selected;
 	//public int selected; 
 	public static boolean IsButtonPress;
 	//layout
@@ -94,6 +94,7 @@ public class MainActivity extends Activity {
 
 	public int position;
 	ListView listview;
+	public String zipcode;
 	
 
 	/* (non-Javadoc)
@@ -111,7 +112,7 @@ public class MainActivity extends Activity {
 		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
-		selected = Spinner.INVALID_POSITION;
+		position = Spinner.INVALID_POSITION;
 		_context = this;
 		
 		
@@ -166,10 +167,7 @@ public class MainActivity extends Activity {
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
 		
 		 			
-		 			if (_pop.isPressed()) {
-		 				IsButtonPress = true;
-		 				_pop.setVisibility(View.GONE);
-		 			}
+		 			
 		 			
 		 			if (savedInstanceState != null) {
 		 				
@@ -178,6 +176,13 @@ public class MainActivity extends Activity {
 		 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		 					
 		 					listview.setAdapter(adapter);
+		 					
+		 					
+		 					//spinner.setVisibility(View.GONE);
+		 					
+		 				
+		 					
+		 					
 		 				}
 
 		 			}
@@ -187,7 +192,7 @@ public class MainActivity extends Activity {
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							
+						
 						
 		 			spinner.setVisibility(View.VISIBLE);
 		 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -195,7 +200,7 @@ public class MainActivity extends Activity {
 		 				
 						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
 		 							Log.i("HIT","THE SPINNER");
-		 					String zipcode = "";
+		 					 zipcode = "";
 		 					
 		 					try{
 		 						JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
@@ -235,17 +240,28 @@ public class MainActivity extends Activity {
 		 					
 							case 0:
 						
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
+								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
 
 								break;
 								
 							case 1:
 								
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+								if (two.getString("zip_code").contentEquals("20001")) {
+									Log.i("WORKS", "WORKS");
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+								}
+								
+							
+								
 								break;
 							
 							case 2:
 								
+								if (two.getString("zip_code").contentEquals("33133")&&two.getString("zip_code").contentEquals("33132")) {
+									Log.i("WORKS", "WORKS");
+								
+								}
 								zipcode =  "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
 								break;
 							case 3:
@@ -336,7 +352,7 @@ public class MainActivity extends Activity {
 						
 							if (savedInstanceState != null) {
 								
-								_pop.setVisibility(View.VISIBLE);
+								_pop.setSelected(savedInstanceState.getBoolean("button"));
 							}
 		 				}
 		 			
@@ -519,6 +535,7 @@ public class MainActivity extends Activity {
 		outState.putString("region", _region);
 		outState.putInt("spinner", spinner.getSelectedItemPosition());
 		outState.putSerializable("mylist", mylist);
+		outState.putBoolean("button", _pop.isSelected());
 	
 		
 		
@@ -538,6 +555,7 @@ public class MainActivity extends Activity {
 	   
 	    _zipcode = savedInstanceState.getString("_zip_code");
 	    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+	   
 	   
 	   Log.i("TEST", mylist + "was saved");
 	   Log.i("TEST", _areaCode + "was saved");
