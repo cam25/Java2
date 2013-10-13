@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -24,11 +25,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaMuxer.OutputFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
+
 
 import android.util.Log;
 import android.view.Menu;
@@ -63,18 +66,20 @@ public class MainActivity extends Activity {
 	public static Button searchButton;
 	
 	static Spinner spinner = null;
-	
-	public int selected; 
-	
+	private int selected;
+	//public int selected; 
+	public static boolean IsButtonPress;
 	//layout
 	TextView _popularZips;
 	Button _pop;
 	public static Button getRegion;
 	EditText contentQuery;
 	Uri searchALL;
-	
+	public ArrayList<HashMap<String, String>> mylist;
 	//bool
 	Boolean _connected = false;
+	public static SimpleAdapter adapter;
+	public static Cursor cursor;
 	
 
 	//strings
@@ -94,6 +99,7 @@ public class MainActivity extends Activity {
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
+	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -105,8 +111,9 @@ public class MainActivity extends Activity {
 		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
-
+		selected = Spinner.INVALID_POSITION;
 		_context = this;
+		
 		
 		 //webConnection jar file usage
 		 _connected = WebStuff.getConnectionStatus(_context);
@@ -139,7 +146,7 @@ public class MainActivity extends Activity {
 		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
 				 
 			
-				 
+				
 				 new Cities("", "New York", "NY"),
 				 new Cities("", "Washington", "DC"),
 				 new Cities("", "Miami", "FL"),
@@ -153,30 +160,35 @@ public class MainActivity extends Activity {
 		spinner.setAdapter(listAdapter);
 	
 		getRegion = (Button) findViewById(R.id.getHistory);
-				
+				IsButtonPress = false;
 		
 		 //popular zipcodes onclick
 		 _pop = (Button) findViewById(R.id.popularZipcodes);
-		 _pop.setOnClickListener(new OnClickListener() {
-		 		
-		 		public void onClick(View v) {
-		 			// TODO Auto-generated method stub
+		
 		 			
-		 			//informing the user how to select a popular zipcode
-		 			AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-		 			alert.setTitle("What to do?");
-		 			alert.setMessage("Click the yellow box to view the locations and select one!");
-		 			alert.setCancelable(false);
-		 			alert.setPositiveButton("Thanks!", new DialogInterface.OnClickListener() {
+		 			if (_pop.isPressed()) {
+		 				IsButtonPress = true;
+		 				_pop.setVisibility(View.GONE);
+		 			}
+		 			
+		 			if (savedInstanceState != null) {
 		 				
-		 				@Override
-		 				public void onClick(DialogInterface dialog, int which) {
-
-		 					dialog.cancel();
+		 			    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+		 			    if (mylist != null) {
+		 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+		 					
+		 					listview.setAdapter(adapter);
 		 				}
-		 			});
-		 			alert.show();
 
+		 			}
+					
+		 			_pop.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							
+						
 		 			spinner.setVisibility(View.VISIBLE);
 		 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 		 				
@@ -246,6 +258,7 @@ public class MainActivity extends Activity {
 
 							default:
 								break;
+								
 								
 							}
 		 					
@@ -321,8 +334,13 @@ public class MainActivity extends Activity {
 							startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
 							startService(startZipcodeIntent);
 						
+							if (savedInstanceState != null) {
+								
+								_pop.setVisibility(View.VISIBLE);
+							}
 		 				}
 		 			
+						
 		 				public void onNothingSelected(AdapterView<?>parent){
 		 					Log.i("Aborted", "None Selected");
 		 					
@@ -335,9 +353,10 @@ public class MainActivity extends Activity {
 		 			_pop.setClickable(false);
 		 			_pop.setVisibility(View.GONE);
 		 			
-		 		}
-		 			
-		 	});
+						
+						}
+					});
+		 	
 
 		 getRegion.setOnClickListener(new OnClickListener() {
 				//combine all the zipcodes and place call the query on all of them?
@@ -393,7 +412,7 @@ public class MainActivity extends Activity {
 								
 									Log.i("CURSOR",cursor.toString());
 								
-							
+						
 						}
 						
 						
@@ -408,85 +427,13 @@ public class MainActivity extends Activity {
 					//Log.i("ZIP", ZipcodeService.queryReply2.toString());
 					startService(startZipcodeIntent);
 					
+					
 				}
-				
+			
 				
 			});
 		
-		 if (savedInstanceState != null) {
-				
-				Log.i("Bundle","Test");
-			
-				ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
-				//ArrayList<HashMap<String, String>> mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("saved");
-					
-				
-					Bundle bundle = new Bundle();
-					
-					
-					try{
-					JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-					JSONArray ja = json.getJSONArray("zips");
-					
-					bundle.putString("json", json.toString());
-					
-					savedInstanceState.putString("saved", json.toString());
-					Log.i("JSONBUNDLE", bundle.toString());
-				
-					for (int i = 0; i < ja.length(); i++) {
-						//sets a json object to access object values inside array
-						
-						
-						JSONObject one = ja.getJSONObject(i);
-						JSONObject two = ja.getJSONObject(i);
-						
-						
-							_zipcode = one.getString("zip_code");
-							_areaCode = one.getString("area_code");
-							
-							_region = one.getString("region");
-							
-							
-							_zipcode2 = two.getString("zip_code");
-							_area_code2 = two.getString("area_code");
-							
-							_region2 = two.getString("region");
-			
-						
-
-					}
-					
-					HashMap<String, String> displayMap = new HashMap<String, String>();
-					
-					
-					displayMap.put("zipCode", ja.getString(1));
-					displayMap.put("areaCode", ja.getString(2));
-					displayMap.put("region", ja.getString(3));
-					
-				
-					//Log.i("CURSOR", cursor.toString());
-					mylist.add(displayMap);
-					if (savedInstanceState != null) {
-						
-						savedInstanceState.getStringArray(mylist.toString());
-					}
-				} catch (Exception e) {
-					Log.e("Buffer Error", "Error converting result " + e.toString());
-				}
-					//cursor
-					if (savedInstanceState != null) {
-						SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-						
-						listview.setAdapter(adapter);
-					}
-							
-				spinner.setSelection(savedInstanceState.getInt("spinner"));
-			
-					
-			}else{
-				
-				
-			} 
+		
 			
 
 		 }
@@ -499,7 +446,7 @@ public class MainActivity extends Activity {
 	public void display(Cursor cursor){
 		
 		
-		  ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+		  mylist = new ArrayList<HashMap<String,String>>();
 		
 		
 		try{
@@ -550,13 +497,14 @@ public class MainActivity extends Activity {
 				
 				
 				
-				//Log.i("LIST", mylist.toString());
+				
 			}
 		}
 		
-SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+		adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
 		listview.setAdapter(adapter);
+		
 	}
 	
 	/* (non-Javadoc)
@@ -565,12 +513,16 @@ SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, n
 	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
-		super.onSaveInstanceState(outState);
+		
 		outState.putString("zip_code",_zipcode);
 		outState.putString("area_code", _areaCode);
 		outState.putString("region", _region);
 		outState.putInt("spinner", spinner.getSelectedItemPosition());
+		outState.putSerializable("mylist", mylist);
+	
 		
+		
+		super.onSaveInstanceState(outState);
 		
 	}
 
@@ -580,18 +532,18 @@ SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, n
  	 */
  	@Override  
 	 public void onRestoreInstanceState(Bundle savedInstanceState) {  
-	   super.onRestoreInstanceState(savedInstanceState);  
+	     
 	   // Restore UI state from the savedInstanceState.  
 	   // This bundle has also been passed to onCreate.  
 	   
-	  savedInstanceState.get("saved");
-	  savedInstanceState.get(_areaCode);
-	  savedInstanceState.get(_region);
-	   Log.i("TEST", "saved" + "was saved");
+	    _zipcode = savedInstanceState.getString("_zip_code");
+	    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+	   
+	   Log.i("TEST", mylist + "was saved");
 	   Log.i("TEST", _areaCode + "was saved");
 	   Log.i("TEST", _region + "was saved");
 	   
-	   
+	   super.onRestoreInstanceState(savedInstanceState);
 	   Log.i("Bundle",savedInstanceState.toString());
 	  
 	 }

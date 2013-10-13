@@ -19,6 +19,8 @@
         <activity
             android:name="com.cmozie.java2week2.MainActivity"
             android:label="@string/app_name" >
+            
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

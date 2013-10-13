@@ -69,6 +69,7 @@ public final class R {
         public static final int region_2_=0x7f05001b;
         public static final int search=0x7f050006;
         public static final int searchButn=0x7f050004;
+        public static final int search_all_regions=0x7f05001f;
         public static final int state_=0x7f05000c;
         public static final int state_2_=0x7f050018;
         public static final int textFieldText=0x7f050003;

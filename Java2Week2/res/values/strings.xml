@@ -32,5 +32,6 @@
     <string name="timezone_2_">Timezone 2:</string>
     <string name="zipcodes_">Zipcodes:</string>
     <string name="region">Region</string>
+    <string name="search_all_regions">Search All Regions</string>
 
 </resources>
