@@ -32,8 +32,10 @@ import android.os.Messenger;
 
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -42,6 +44,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.TextView;
 import com.cmozie.Libz.FileStuff;
 import com.cmozie.classes.*;
@@ -120,7 +123,288 @@ public class MainActivity extends Activity {
 			 
 			 
 			Log.i("Network Connection", WebStuff.getConnectionType(_context));
+			Handler myHandler = new Handler() {
+
+				@Override
+				public void handleMessage(Message msg) {
+					Log.i("MAIN","Data Stored");
+					Toast.makeText(_context, "JSON stored", Toast.LENGTH_SHORT).show();
+					_pop.setVisibility(1);
+					
+				}
+			};
+
+			//my intent services
+			//_pop.setVisibility(0);
+			Messenger zipcodeMessenger = new Messenger(myHandler);
+			Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+			startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
+			startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,searchALL);
+			startService(startZipcodeIntent);
 			
+			 
+			 //array adapter for my cities where i create new objects for each location
+			 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
+					 
+				
+					
+					 new Cities("", "New York", "NY"),
+					 new Cities("", "Washington", "DC"),
+					 new Cities("", "Miami", "FL"),
+					 new Cities("", "Chicago", "IL"),
+					 new Cities("", "San Francisco", "CA")
+			 });
+			 
+			 listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			
+			 spinner = (Spinner) findViewById(R.id.favList);
+			spinner.setAdapter(listAdapter);
+		
+			getRegion = (Button) findViewById(R.id.getHistory);
+					IsButtonPress = false;
+			
+			 //popular zipcodes onclick
+			 _pop = (Button) findViewById(R.id.popularZipcodes);
+			
+			 			
+			 			
+			 			
+			 			if (savedInstanceState != null) {
+			 				
+			 			    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+			 			    if (mylist != null) {
+			 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+			 					
+			 					listview.setAdapter(adapter);
+			 					
+			 					
+			 					//spinner.setVisibility(View.GONE);
+			 					
+			 				
+			 					
+			 					
+			 				}
+
+			 			}
+						
+			 		
+								// TODO Auto-generated method stub
+							_pop.setOnClickListener(new OnClickListener() {
+								
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									
+
+									
+								
+							
+			 			spinner.setVisibility(View.VISIBLE);
+			 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+			 				
+			 				
+							public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
+			 							Log.i("HIT","THE SPINNER");
+			 				
+			 					
+			 					try{
+			 						JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
+			 						
+			 						JSONArray ja = json.getJSONArray("zips");
+			 						
+			 						
+			 					
+			 						for (int i = 0; i < ja.length(); i++) {
+			 							//sets a json object to access object values inside array
+			 							
+			 							
+			 							JSONObject one = ja.getJSONObject(0);
+			 							JSONObject two = ja.getJSONObject(0);
+			 							
+			 							
+			 								_zipcode = one.getString("zip_code");
+			 								_areaCode = one.getString("area_code");
+			 								
+			 								_region = one.getString("region");
+			 								
+			 								
+			 								_zipcode2 = two.getString("zip_code");
+			 								_area_code2 = two.getString("area_code");
+			 								
+			 								_region2 = two.getString("region");
+			 								
+			 								
+			 						
+			 						
+			 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
+			 				 position = spinner.getSelectedItemPosition();
+			 				 
+			 	
+			 					switch (position) {
+			 					
+								case 0:
+							
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/NY";
+									//Log.i("Main","uri = "+zipcode);
+									searchFilter = Uri.parse(zipcode);
+									
+									Cursor NY = getContentResolver().query(searchFilter, null, null, null, null);
+									//pulling in data from Local storage here
+									display(NY);
+									break;
+									
+								case 1://washington
+									
+									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+									
+									searchFilter = Uri.parse(zipcode);
+									
+									Log.i("MAIN", "uri="+zipcode);
+									cursor = getContentResolver().query(searchFilter, null, null, null, null);
+									if (cursor != null ) {
+										display(cursor);
+									}
+
+									
+									break;
+								
+								case 2: // Miami
+									
+									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/2";
+									searchFilter = Uri.parse(zipcode);
+									cursor = getContentResolver().query(searchFilter, null, null, null, null);
+									if (cursor != null ) {
+										display(cursor);
+									}
+
+									Log.i("MAIN", "uri="+zipcode);
+									//Toast.makeText(_context, "Miami!", Toast.LENGTH_SHORT).show();
+									break;
+									
+								case 3: //Chicago
+									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/3";
+									searchFilter = Uri.parse(zipcode);
+									cursor = getContentResolver().query(searchFilter, null, null, null, null);
+									if (cursor != null ) {
+										display(cursor);
+									}
+									Log.i("MAIN", "uri="+zipcode);
+									//Toast.makeText(_context, "Chicago!", Toast.LENGTH_SHORT).show();
+									break;
+								case 4: //San Francisco
+									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/4";
+									searchFilter = Uri.parse(zipcode);
+									cursor = getContentResolver().query(searchFilter, null, null, null, null);
+									if (cursor != null ) {
+										display(cursor);
+									}
+									Log.i("MAIN", "uri="+zipcode);
+									//Toast.makeText(_context, "San Fran!", Toast.LENGTH_SHORT).show();
+									break;
+
+								default:
+									Toast.makeText(_context, "default!", Toast.LENGTH_SHORT).show();
+									break;
+									
+									
+								}
+			 					
+			 						}
+			 					} catch (Exception e) {
+			 						_connected = WebStuff.getConnectionStatus(_context);
+			 						 if (_connected) {
+			 							 
+			 							 
+			 							Log.i("Network Connection", WebStuff.getConnectionType(_context));
+			 							
+			 							//if no connection
+			 						}else if(!_connected) {
+			 							
+			 							//alert for connection
+			 							AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+			 							alert.setTitle("Connection Required!");
+			 							alert.setMessage("You need to connect to an internet service!");
+			 							alert.setCancelable(false);
+			 							alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+			 							
+			 								@Override
+			 								public void onClick(DialogInterface dialog, int which) {
+
+			 									dialog.cancel();
+			 								}
+			 							});
+			 							alert.show();
+			 							
+			 						}
+			 						Log.e("Buffer Error", "Error converting result " + e.toString());
+			 					}
+			 						
+			 					//my handler
+			 					Handler zipcodeHandler = new Handler() {
+
+									
+									@Override
+									public void handleMessage(Message msg) {
+										// TODO Auto-generated method stub
+										Log.i("HIT","HANDLER");
+										
+										//string selected is my query reply from my ZipcodeService
+										String selected = msg.obj.toString();
+										Log.i("hit", selected);
+										if (msg.arg1 == RESULT_OK && msg.obj != null) 
+											Log.i("Serv.Response", msg.obj.toString());
+										
+										{
+											
+											searchALL = Uri.parse("content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + position);
+											
+											Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+											//pulling in data from Local storage here
+											display(cursor);
+											Log.i("CONTENTPROVIDERURI",searchALL.toString());
+											Log.i("CURSOR", cursor.toString());
+										
+											
+											
+										}		
+										
+										
+									}
+									
+									
+								};
+								
+								//my intent services
+								Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
+								
+								Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+								startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
+								startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
+								startService(startZipcodeIntent);
+							
+								if (savedInstanceState != null) {
+									
+									_pop.setSelected(savedInstanceState.getBoolean("button"));
+								}
+			 				}
+			 			
+							
+			 				public void onNothingSelected(AdapterView<?>parent){
+			 					Log.i("Aborted", "None Selected");
+			 					
+			 				}
+			 				
+			 				
+			 			});
+			 			
+			 			//sets button to non clickable once clicked once 
+			 			_pop.setClickable(false);
+			 			_pop.setVisibility(View.GONE);
+			 			
+							
+							
+								}
+							});
 			//if no connection
 		}else if(!_connected) {
 			
@@ -140,253 +424,7 @@ public class MainActivity extends Activity {
 			alert.show();
 			
 		}
-		 
-		 //array adapter for my cities where i create new objects for each location
-		 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
-				 
-			
-				
-				 new Cities("", "New York", "NY"),
-				 new Cities("", "Washington", "DC"),
-				 new Cities("", "Miami", "FL"),
-				 new Cities("", "Chicago", "IL"),
-				 new Cities("", "San Francisco", "CA")
-		 });
-		 
-		 listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
-		 spinner = (Spinner) findViewById(R.id.favList);
-		spinner.setAdapter(listAdapter);
-	
-		getRegion = (Button) findViewById(R.id.getHistory);
-				IsButtonPress = false;
-		
-		 //popular zipcodes onclick
-		 _pop = (Button) findViewById(R.id.popularZipcodes);
-		
-		 			
-		 			
-		 			
-		 			if (savedInstanceState != null) {
-		 				
-		 			    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
-		 			    if (mylist != null) {
-		 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-		 					
-		 					listview.setAdapter(adapter);
-		 					
-		 					
-		 					//spinner.setVisibility(View.GONE);
-		 					
-		 				
-		 					
-		 					
-		 				}
-
-		 			}
-					
-		 		
-							// TODO Auto-generated method stub
-						
-						
-		 			spinner.setVisibility(View.VISIBLE);
-		 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-		 				
-		 				
-						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
-		 							Log.i("HIT","THE SPINNER");
-		 				
-		 					
-		 					try{
-		 						JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-		 						
-		 						JSONArray ja = json.getJSONArray("zips");
-		 						
-		 						
-		 					
-		 						for (int i = 0; i < ja.length(); i++) {
-		 							//sets a json object to access object values inside array
-		 							
-		 							
-		 							JSONObject one = ja.getJSONObject(0);
-		 							JSONObject two = ja.getJSONObject(0);
-		 							
-		 							
-		 								_zipcode = one.getString("zip_code");
-		 								_areaCode = one.getString("area_code");
-		 								
-		 								_region = one.getString("region");
-		 								
-		 								
-		 								_zipcode2 = two.getString("zip_code");
-		 								_area_code2 = two.getString("area_code");
-		 								
-		 								_region2 = two.getString("region");
-		 								
-		 								
-		 						
-		 						
-		 					//setting of my switch case to work behind the scenes which switch at position of the cells of the spinner and query the api based on selected postion
-		 				 position = spinner.getSelectedItemPosition();
-		 				 
-		 				Log.i("all", String.valueOf(position));
-		 				//Log.i("Pos", parent.getItemAtPosition(pos).toString());
-		 					switch (position) {
-		 					
-							case 0:
-						
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/NY";
-								Log.i("Main","uri = "+zipcode);
-								searchFilter = Uri.parse(zipcode);
-								
-								Cursor NY = getContentResolver().query(searchFilter, null, null, null, null);
-								//pulling in data from Local storage here
-								display(NY);
-								break;
-								
-							case 1://washington
-								
-								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
-								
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/WA";
-									
-								
-									searchFilter = Uri.parse(zipcode);
-									
-									Cursor WA = getContentResolver().query(searchFilter, null, null, null, null);
-									//pulling in data from Local storage here
-									display(WA);
-								
-								
-								break;
-							
-							case 2:
-								
-								if (two.getString("city").contentEquals("Miami")) {
-									Log.i("WORKS", "WORKS");
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
-									
-									searchALL = Uri.parse("content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/*" );
-									
-									//Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
-									//pulling in data from Local storage here
-									//display(cursor);
-									
-									
-								}
-								
-								break;
-							case 3:
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
-								
-								
-								break;
-							case 4:
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
-								break;
-							
-
-							default:
-								break;
-								
-								
-							}
-		 					
-		 						}
-		 					} catch (Exception e) {
-		 						_connected = WebStuff.getConnectionStatus(_context);
-		 						 if (_connected) {
-		 							 
-		 							 
-		 							Log.i("Network Connection", WebStuff.getConnectionType(_context));
-		 							
-		 							//if no connection
-		 						}else if(!_connected) {
-		 							
-		 							//alert for connection
-		 							AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-		 							alert.setTitle("Connection Required!");
-		 							alert.setMessage("You need to connect to an internet service!");
-		 							alert.setCancelable(false);
-		 							alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
-		 							
-		 								@Override
-		 								public void onClick(DialogInterface dialog, int which) {
-
-		 									dialog.cancel();
-		 								}
-		 							});
-		 							alert.show();
-		 							
-		 						}
-		 						Log.e("Buffer Error", "Error converting result " + e.toString());
-		 					}
-		 						
-		 					//my handler
-		 					Handler zipcodeHandler = new Handler() {
-
-								
-								@Override
-								public void handleMessage(Message msg) {
-									// TODO Auto-generated method stub
-									Log.i("HIT","HANDLER");
-									
-									//string selected is my query reply from my ZipcodeService
-									String selected = msg.obj.toString();
-									Log.i("hit", selected);
-									if (msg.arg1 == RESULT_OK && msg.obj != null) 
-										Log.i("Serv.Response", msg.obj.toString());
-									
-									{
-										
-										searchALL = Uri.parse("content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + position);
-										
-										Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
-										//pulling in data from Local storage here
-										display(cursor);
-										Log.i("CONTENTPROVIDERURI",searchALL.toString());
-										Log.i("CURSOR", cursor.toString());
-									
-										
-										
-									}		
-									
-									
-								}
-								
-								
-							};
-							
-							//my intent services
-							Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
-							
-							Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
-							startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-							startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
-							startService(startZipcodeIntent);
-						
-							if (savedInstanceState != null) {
-								
-								_pop.setSelected(savedInstanceState.getBoolean("button"));
-							}
-		 				}
-		 			
-						
-		 				public void onNothingSelected(AdapterView<?>parent){
-		 					Log.i("Aborted", "None Selected");
-		 					
-		 				}
-		 				
-		 				
-		 			});
-		 			
-		 			//sets button to non clickable once clicked once 
-		 			_pop.setClickable(false);
-		 			_pop.setVisibility(View.GONE);
-		 			
-						
-						
-					
 		 	
 
 		 getRegion.setOnClickListener(new OnClickListener() {

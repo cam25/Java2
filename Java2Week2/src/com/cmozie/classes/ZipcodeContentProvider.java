@@ -76,7 +76,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 	public static final int ITEMS_ID = 2;
 	public static final int ITEMS_REGION = 3;
 	public static final int MIAMI = 4;
-	public JSONObject two;
+	
 	public JSONObject one;
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	static  {
@@ -193,17 +193,39 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 				//if (one.getString("zip_code").contentEquals("20001")||one.getString("zip_code").contentEquals("94105")||one.getString("zip_code").contentEquals("33133")||one.getString("zip_code").contentEquals("10001")||one.getString("zip_code").contentEquals("60018")) {
 					
-				if (one.getString("zip_code").contentEquals("20001")|| one.getString("zip_code").contentEquals("10001")|| one.getString("zip_code").contentEquals("33133")|| one.getString("zip_code").contentEquals("60602")|| one.getString("zip_code").contentEquals("94105")|| one.getString("zip_code").contentEquals("20002")) {
-					Log.i("WORKS", "WORKS");
-					Log.i("allIndex", String.valueOf(one));
-				
+				if 	(one.getString("zip_code").contentEquals("20001")|| 
+						one.getString("zip_code").contentEquals("10001")||
+						one.getString("zip_code").contentEquals("33133")|| 
+						one.getString("zip_code").contentEquals("60602")|| 
+						one.getString("zip_code").contentEquals("94105")|| 
+						one.getString("zip_code").contentEquals("20002")||
+						one.getString("zip_code").contentEquals("94107")||
+						one.getString("zip_code").contentEquals("94108")||
+						one.getString("zip_code").contentEquals("94110")||
+						one.getString("zip_code").contentEquals("33132")||
+						one.getString("zip_code").contentEquals("33134")||
+						one.getString("zip_code").contentEquals("33127")||
+						one.getString("zip_code").contentEquals("20001")||
+						one.getString("zip_code").contentEquals("20002")||
+						one.getString("zip_code").contentEquals("20018")||
+						one.getString("zip_code").contentEquals("20032")||
+						one.getString("zip_code").contentEquals("10002")||
+						one.getString("zip_code").contentEquals("10005")||
+						one.getString("zip_code").contentEquals("60018")||
+						one.getString("zip_code").contentEquals("60068")||
+						one.getString("zip_code").contentEquals("60067")||
+						one.getString("zip_code").contentEquals("60106")||
+						one.getString("zip_code").contentEquals("60131")||
+						one.getString("zip_code").contentEquals("60602")||
+						one.getString("zip_code").contentEquals("60603")) {
+
 				
 				String _areaCode = one.getString("area_code");
 				String _zipcode = one.getString("zip_code");
 				String _region = one.getString("region");
 				
 				
-				Log.i("all", String.valueOf(i));
+			
 			result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
 				}
 		
@@ -228,23 +250,24 @@ public class ZipcodeContentProvider extends ContentProvider {
 		case ITEMS_ID:
 			String itemId = uri.getLastPathSegment();
 			
-			Log.i("CP","City enum value for NY=" + City.NY.name());
+		//	Log.i("CP","City enum value for NY=" + City.NY.name());
 			
 			Log.i("queryId", itemId);
 			
 			
 			
 			int index = 0;
+			
 			index = Integer.parseInt(itemId);
 			Log.i("index", itemId);
-			Log.i("all2", String.valueOf(index));
+			//Log.i("all2", String.valueOf(index));
 			try {
 				
 				
 			} catch (Exception e) {
 				
 				Log.e("Query", "Index format error");
-				Log.e("Query2", "here");
+			
 				
 				break;
 			}
@@ -256,44 +279,137 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			
 				
-			
+					
+			Log.d("CP", "index="+index);
+			switch(index) {
+			case 0: //NY
 				try {
-					
-					JSONObject two = ja.getJSONObject(index);
-					
-				if (two.getString("zip_code").contentEquals("20001")||two.getString("zip_code").contentEquals("20002")) {
-					Log.i("DC", "DC location");
-					Log.i("allIndex", String.valueOf(two));
-						
-					String _zipcode2 = one.getString("zip_code");
-					Log.i("zipcode1", _zipcode2);
-						String _areaCode = two.getString("area_code");
-						String _zipcode = two.getString("zip_code");
-						String _region = two.getString("region");
-						
-						
-						result.addRow(new Object[] {index ,_zipcode,_areaCode, _region});
-					
-				}
-				if (two.get("state").equals("NY")) {
-					Log.i("NY", "NY location");
-				
-						
-						String _areaCode = two.getString("area_code");
-						String _zipcode = two.getString("zip_code");
-						String _region = two.getString("region");
-						
-						
-						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
-				
-				}
-					
-					
+					for (int i = 0; i < ja.length(); i++) {
+
+						JSONObject two = ja.getJSONObject(i);
+
+						if (two.get("city").equals("New York")) {
+							Log.i("CP", "NY");
+
+							String _zipcode = two.getString("zip_code");
+							String _areaCode = two.getString("area_code");
+							String _region = two.getString("region");
+							result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
+						} else {
+							//Log.i("CP", "No Match in JSON file");
+						}
+					}
+
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
+					Log.e("CP", "JSON Exception, filtered request");
 					e.printStackTrace();
 				}
-			
+
+				break;
+				
+			case 1: //DC
+				try {
+					for (int i = 0; i < ja.length(); i++) {
+
+						JSONObject two = ja.getJSONObject(i);
+
+						//Log.d("CP", "two.get(city)="+two.get("city"));
+						if (two.get("city").equals("Washington")) {
+							//Log.i("CP", "DC");
+						
+						String _zipcode = two.getString("zip_code");
+						String _areaCode = two.getString("area_code");
+						String _region = two.getString("region");
+						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
+						} else {
+						//	Log.i("CP", "No Match in JSON file");
+						}
+					}
+
+				} catch (JSONException e) {
+					Log.e("CP", "JSON Exception, filtered request");
+					e.printStackTrace();
+				}
+
+
+				break;
+			case 2: //FL
+				try {
+					for (int i = 0; i < ja.length(); i++) {
+
+						JSONObject two = ja.getJSONObject(i);
+
+						//Log.d("CP", "two.get(city)="+two.get("city"));
+						if (two.get("city").equals("Miami")) {
+							//Log.i("CP", "DC");
+						
+						String _zipcode = two.getString("zip_code");
+						String _areaCode = two.getString("area_code");
+						String _region = two.getString("region");
+						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
+						} else {
+						//	Log.i("CP", "No Match in JSON file");
+						}
+					}
+
+				} catch (JSONException e) {
+					Log.e("CP", "JSON Exception, filtered request");
+					e.printStackTrace();
+				}
+				break;
+			case 3: //IL
+				try {
+					for (int i = 0; i < ja.length(); i++) {
+
+						JSONObject two = ja.getJSONObject(i);
+
+						//Log.d("CP", "two.get(city)="+two.get("city"));
+						if (two.get("state").equals("IL")) {
+							//Log.i("CP", "DC");
+						
+						String _zipcode = two.getString("zip_code");
+						String _areaCode = two.getString("area_code");
+						String _region = two.getString("region");
+						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
+						} else {
+						//	Log.i("CP", "No Match in JSON file");
+						}
+					}
+
+				} catch (JSONException e) {
+					Log.e("CP", "JSON Exception, filtered request");
+					e.printStackTrace();
+				}
+				break;
+			case 4: //CA
+				try {
+					for (int i = 0; i < ja.length(); i++) {
+
+						JSONObject two = ja.getJSONObject(i);
+
+						//Log.d("CP", "two.get(city)="+two.get("city"));
+						if (two.get("state").equals("CA")) {
+							//Log.i("CP", "DC");
+						
+						String _zipcode = two.getString("zip_code");
+						String _areaCode = two.getString("area_code");
+						String _region = two.getString("region");
+						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
+						} else {
+						//	Log.i("CP", "No Match in JSON file");
+						}
+					}
+
+				} catch (JSONException e) {
+					Log.e("CP", "JSON Exception, filtered request");
+					e.printStackTrace();
+				}
+				break;
+			default:
+				Log.d("CP", "default");
+				break;
+			}
+				
 				break;
 		/*case MIAMI:
 			String itemId2 = uri.getLastPathSegment();
