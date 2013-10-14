@@ -16,8 +16,6 @@ import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,7 +23,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaMuxer.OutputFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -200,7 +197,7 @@ public class MainActivity extends Activity {
 		 				
 						public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
 		 							Log.i("HIT","THE SPINNER");
-		 					 zipcode = "";
+		 				
 		 					
 		 					try{
 		 						JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
@@ -213,8 +210,8 @@ public class MainActivity extends Activity {
 		 							//sets a json object to access object values inside array
 		 							
 		 							
-		 							JSONObject one = ja.getJSONObject(2);
-		 							JSONObject two = ja.getJSONObject(2);
+		 							JSONObject one = ja.getJSONObject(0);
+		 							JSONObject two = ja.getJSONObject(0);
 		 							
 		 							
 		 								_zipcode = one.getString("zip_code");
@@ -240,19 +237,20 @@ public class MainActivity extends Activity {
 		 					
 							case 0:
 						
-								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
 
 								break;
 								
 							case 1:
 								
 								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
-								if (two.getString("zip_code").contentEquals("20001")) {
+								if (two.getString("zip_code").contentEquals("20001")&&two.getString("zip_code").contentEquals("20002")) {
 									Log.i("WORKS", "WORKS");
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
+									
 								}
 								
-							
+								
 								
 								break;
 							
@@ -260,12 +258,20 @@ public class MainActivity extends Activity {
 								
 								if (two.getString("zip_code").contentEquals("33133")&&two.getString("zip_code").contentEquals("33132")) {
 									Log.i("WORKS", "WORKS");
-								
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + "MIAMI";
+									display(cursor);
+									Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+									startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
+									startService(startZipcodeIntent);
 								}
-								zipcode =  "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
+								
 								break;
 							case 3:
 								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
+								
+								Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+								startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
+								startService(startZipcodeIntent);
 								break;
 							case 4:
 								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 5;
@@ -307,7 +313,7 @@ public class MainActivity extends Activity {
 		 						}
 		 						Log.e("Buffer Error", "Error converting result " + e.toString());
 		 					}
-		 					Log.i("hit", zipcode);	
+		 						
 		 					//my handler
 		 					Handler zipcodeHandler = new Handler() {
 
@@ -335,7 +341,8 @@ public class MainActivity extends Activity {
 									
 										
 										
-									}						
+									}		
+									
 									
 								}
 								

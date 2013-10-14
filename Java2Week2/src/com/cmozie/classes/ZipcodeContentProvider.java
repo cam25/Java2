@@ -180,7 +180,10 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 				//if (one.getString("zip_code").contentEquals("20001")||one.getString("zip_code").contentEquals("94105")||one.getString("zip_code").contentEquals("33133")||one.getString("zip_code").contentEquals("10001")||one.getString("zip_code").contentEquals("60018")) {
 					
-			
+				if (one.getString("zip_code").contentEquals("20001")|| one.getString("zip_code").contentEquals("10001")|| one.getString("zip_code").contentEquals("33133")|| one.getString("zip_code").contentEquals("60602")|| one.getString("zip_code").contentEquals("94105")) {
+					Log.i("WORKS", "WORKS");
+					Log.i("allIndex", String.valueOf(one));
+				
 				
 				String _areaCode = one.getString("area_code");
 				String _zipcode = one.getString("zip_code");
@@ -189,7 +192,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 				
 				Log.i("all", String.valueOf(i));
 			result.addRow(new Object[] {i + 1, _zipcode, _areaCode,_region});
-			
+				}
 		
 			
 		
@@ -241,12 +244,10 @@ public class ZipcodeContentProvider extends ContentProvider {
 					
 					//JSONObject two = ja.getJSONObject(index);
 					
-					if (two.getString("zip_code").contentEquals("20001")) {
-						Log.i("WORKS", "WORKS");
-					}
 					
 					
-						Log.i("all", String.valueOf(index));
+					
+						
 							//Log.i("JSON ARRAY", two.toString(index));
 					
 							
@@ -289,7 +290,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 				break;
 			}
 			try {
-				if (two.getString("_zip_code").contentEquals("33133")) {
+				if (two.getString("city").contentEquals(itemId2)) {
 					
 					Log.i("MIAMI", "WOrks");
 					boolean zippy = two.getString("zip_code").equals("33133");
