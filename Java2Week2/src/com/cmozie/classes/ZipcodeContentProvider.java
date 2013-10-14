@@ -237,20 +237,9 @@ public class ZipcodeContentProvider extends ContentProvider {
 				try {
 					
 					JSONObject two = ja.getJSONObject(index);
-					
-						
-					
-						
-					
-					//JSONObject two = ja.getJSONObject(index);
-					
-					
-					
-					
-						
-							//Log.i("JSON ARRAY", two.toString(index));
-					
-							
+				if (two.get("city").equals("Miami")) {
+					Log.i("Miami", "Miami");
+				}
 						
 						String _areaCode = two.getString("area_code");
 						String _zipcode = two.getString("zip_code");
@@ -290,18 +279,20 @@ public class ZipcodeContentProvider extends ContentProvider {
 				break;
 			}
 			try {
-				if (two.getString("city").contentEquals(itemId2)) {
+				
+					if (two.getString("city").contentEquals("Miami")) {
+						
 					
 					Log.i("MIAMI", "WOrks");
-					boolean zippy = two.getString("zip_code").equals("33133");
+					//boolean zippy = two.getString("zip_code").equals("33133");
 					
 					String _areaCode = two.getString("area_code");
 					String _zipcode = two.getString("zip_code");
 					String _region = two.getString("region");
 					
 					
-					result.addRow(new Object[] {index,zippy,_areaCode, _region});
-				}
+					result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
+					}
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

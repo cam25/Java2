@@ -237,16 +237,16 @@ public class MainActivity extends Activity {
 		 					
 							case 0:
 						
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1 ;
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 0 ;
 
 								break;
 								
 							case 1:
 								
 								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
-								if (two.getString("zip_code").contentEquals("20001")&&two.getString("zip_code").contentEquals("20002")) {
+								if (two.getString("zip_code").contentEquals("20001")||two.getString("zip_code").contentEquals("20002")) {
 									Log.i("WORKS", "WORKS");
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1;
 									
 								}
 								
@@ -256,25 +256,27 @@ public class MainActivity extends Activity {
 							
 							case 2:
 								
-								if (two.getString("zip_code").contentEquals("33133")&&two.getString("zip_code").contentEquals("33132")) {
+								if (two.getString("city").contentEquals("Miami")) {
 									Log.i("WORKS", "WORKS");
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + "MIAMI";
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+									
+									searchALL = Uri.parse("content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/*" );
+									
+									Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+									//pulling in data from Local storage here
 									display(cursor);
-									Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
-									startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
-									startService(startZipcodeIntent);
+									
+									
 								}
 								
 								break;
 							case 3:
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 3;
 								
-								Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
-								startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
-								startService(startZipcodeIntent);
+								
 								break;
 							case 4:
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 5;
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 4;
 								break;
 							
 
