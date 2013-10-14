@@ -31,6 +31,18 @@ import android.util.Log;
  */
 public class ZipcodeContentProvider extends ContentProvider {
 
+	
+	public enum City {
+		NY,
+		WA,
+		MI,
+		CG,
+		SF
+		
+		
+	}
+	
+	City searchCity;
 	public static final String AUTHORITY = "com.cmozie.classes.zipcodecontentprovider";
 	
 	/**
@@ -65,6 +77,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 	public static final int ITEMS_REGION = 3;
 	public static final int MIAMI = 4;
 	public JSONObject two;
+	public JSONObject one;
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 	static  {
 		uriMatcher.addURI(AUTHORITY, "zipcodes/", ITEMS);
@@ -176,11 +189,11 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 			
 			try {
-				JSONObject one = ja.getJSONObject(i);
+				one = ja.getJSONObject(i);
 				
 				//if (one.getString("zip_code").contentEquals("20001")||one.getString("zip_code").contentEquals("94105")||one.getString("zip_code").contentEquals("33133")||one.getString("zip_code").contentEquals("10001")||one.getString("zip_code").contentEquals("60018")) {
 					
-				if (one.getString("zip_code").contentEquals("20001")|| one.getString("zip_code").contentEquals("10001")|| one.getString("zip_code").contentEquals("33133")|| one.getString("zip_code").contentEquals("60602")|| one.getString("zip_code").contentEquals("94105")) {
+				if (one.getString("zip_code").contentEquals("20001")|| one.getString("zip_code").contentEquals("10001")|| one.getString("zip_code").contentEquals("33133")|| one.getString("zip_code").contentEquals("60602")|| one.getString("zip_code").contentEquals("94105")|| one.getString("zip_code").contentEquals("20002")) {
 					Log.i("WORKS", "WORKS");
 					Log.i("allIndex", String.valueOf(one));
 				
@@ -215,17 +228,23 @@ public class ZipcodeContentProvider extends ContentProvider {
 		case ITEMS_ID:
 			String itemId = uri.getLastPathSegment();
 			
+			Log.i("CP","City enum value for NY=" + City.NY.name());
+			
 			Log.i("queryId", itemId);
 			
+			
+			
 			int index = 0;
+			index = Integer.parseInt(itemId);
+			Log.i("index", itemId);
 			Log.i("all2", String.valueOf(index));
 			try {
-				index = Integer.parseInt(itemId);
-				Log.i("index", itemId);
+				
 				
 			} catch (Exception e) {
 				
 				Log.e("Query", "Index format error");
+				Log.e("Query2", "here");
 				
 				break;
 			}
@@ -234,12 +253,31 @@ public class ZipcodeContentProvider extends ContentProvider {
 				Log.e("query", "index out of range for" + uri.toString());
 				break;
 			}
+			
+			
+				
+			
 				try {
 					
 					JSONObject two = ja.getJSONObject(index);
-				if (two.get("city").equals("Miami")) {
-					Log.i("Miami", "Miami");
+					
+				if (two.getString("zip_code").contentEquals("20001")||two.getString("zip_code").contentEquals("20002")) {
+					Log.i("DC", "DC location");
+					Log.i("allIndex", String.valueOf(two));
+						
+					String _zipcode2 = one.getString("zip_code");
+					Log.i("zipcode1", _zipcode2);
+						String _areaCode = two.getString("area_code");
+						String _zipcode = two.getString("zip_code");
+						String _region = two.getString("region");
+						
+						
+						result.addRow(new Object[] {index ,_zipcode,_areaCode, _region});
+					
 				}
+				if (two.get("state").equals("NY")) {
+					Log.i("NY", "NY location");
+				
 						
 						String _areaCode = two.getString("area_code");
 						String _zipcode = two.getString("zip_code");
@@ -247,16 +285,17 @@ public class ZipcodeContentProvider extends ContentProvider {
 						
 						
 						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
-					
-						
+				
+				}
 					
 					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			
 				break;
-		case MIAMI:
+		/*case MIAMI:
 			String itemId2 = uri.getLastPathSegment();
 			
 			Log.i("queryId", itemId2);
@@ -298,7 +337,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 				e.printStackTrace();
 			}
 
-			break;
+			break;*/
 			
 			
 			

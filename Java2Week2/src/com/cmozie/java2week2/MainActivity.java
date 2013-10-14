@@ -72,6 +72,7 @@ public class MainActivity extends Activity {
 	public static Button getRegion;
 	EditText contentQuery;
 	Uri searchALL;
+	Uri searchFilter;
 	public ArrayList<HashMap<String, String>> mylist;
 	//bool
 	Boolean _connected = false;
@@ -152,7 +153,7 @@ public class MainActivity extends Activity {
 				 new Cities("", "San Francisco", "CA")
 		 });
 		 
-		 listAdapter.setDropDownViewResource(android.R.layout.simple_list_item_checked);
+		 listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 		 spinner = (Spinner) findViewById(R.id.favList);
 		spinner.setAdapter(listAdapter);
@@ -184,10 +185,7 @@ public class MainActivity extends Activity {
 
 		 			}
 					
-		 			_pop.setOnClickListener(new OnClickListener() {
-						
-						@Override
-						public void onClick(View v) {
+		 		
 							// TODO Auto-generated method stub
 						
 						
@@ -237,19 +235,27 @@ public class MainActivity extends Activity {
 		 					
 							case 0:
 						
-								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 0 ;
-
+								zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/NY";
+								Log.i("Main","uri = "+zipcode);
+								searchFilter = Uri.parse(zipcode);
+								
+								Cursor NY = getContentResolver().query(searchFilter, null, null, null, null);
+								//pulling in data from Local storage here
+								display(NY);
 								break;
 								
-							case 1:
+							case 1://washington
 								
 								//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
-								if (two.getString("zip_code").contentEquals("20001")||two.getString("zip_code").contentEquals("20002")) {
-									Log.i("WORKS", "WORKS");
-									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 1;
-									
-								}
 								
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/WA";
+									
+								
+									searchFilter = Uri.parse(zipcode);
+									
+									Cursor WA = getContentResolver().query(searchFilter, null, null, null, null);
+									//pulling in data from Local storage here
+									display(WA);
 								
 								
 								break;
@@ -262,9 +268,9 @@ public class MainActivity extends Activity {
 									
 									searchALL = Uri.parse("content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/*" );
 									
-									Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+									//Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 									//pulling in data from Local storage here
-									display(cursor);
+									//display(cursor);
 									
 									
 								}
@@ -379,8 +385,8 @@ public class MainActivity extends Activity {
 		 			_pop.setVisibility(View.GONE);
 		 			
 						
-						}
-					});
+						
+					
 		 	
 
 		 getRegion.setOnClickListener(new OnClickListener() {
