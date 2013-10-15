@@ -14,10 +14,10 @@
             android:contentDescription="@string/zipcode_banner"
             android:src="@drawable/zipcodebanner">
             </ImageView>
-         
+          
    
 		<ListView 
-		    android:id="@+id/list"
+		    android:id="@+id/list2"
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
 		    android:layout_weight="1"

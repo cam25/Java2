@@ -34,5 +34,9 @@
     <string name="region">Region</string>
     <string name="search_all_regions">Search All Regions</string>
     <string name="title_activity_info">InfoActivity</string>
+    <string name="county">county</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="timezone">Timezone</string>
 
 </resources>

@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
      <TextView 
       			android:id="@+id/row1_2"
-		        android:layout_width="1dp"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
@@ -14,7 +14,7 @@
   
   <TextView 
       			android:id="@+id/row2_2"
-		        android:layout_width="1dp"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
@@ -22,12 +22,45 @@
 		        style="@style/textLabels"/>
   
   <TextView 
-      			android:id="@+id/row3_3"
-		        android:layout_width="1dp"
+      			android:id="@+id/row3_2"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"
 		        android:paddingLeft="5dp"
 		        android:text="@string/region"
+		        style="@style/textLabels"/>
+  
+   <TextView 
+      			android:id="@+id/row4_2"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:paddingLeft="5dp"
+		        android:text="@string/timezone"
+		        style="@style/textLabels"/>
+   <TextView 
+      			android:id="@+id/row5_2"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:paddingLeft="5dp"
+		        android:text="@string/latitude"
+		        style="@style/textLabels"/>
+   <TextView 
+      			android:id="@+id/row6_2"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:paddingLeft="5dp"
+		        android:text="@string/longitude"
+		        style="@style/textLabels"/>
+   <TextView 
+      			android:id="@+id/row7_2"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:paddingLeft="5dp"
+		        android:text="@string/county"
 		        style="@style/textLabels"/>
 
 </LinearLayout>

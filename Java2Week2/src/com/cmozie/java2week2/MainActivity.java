@@ -544,7 +544,7 @@ public class MainActivity extends Activity {
 			_county = one.getString("county");
 			_latitude = one.getString("latitude");
 			_longitude = one.getString("longitude");
-			_timezone = one.getString("timezone");
+			_timezone = one.getString("time_zone");
 			
 			
 			_zipcode2 = two.getString("zip_code");
@@ -571,6 +571,7 @@ public class MainActivity extends Activity {
 				displayMap.put("zipCode", cursor.getString(1));
 				displayMap.put("areaCode", cursor.getString(2));
 				displayMap.put("region", cursor.getString(3));
+				
 				
 				cursor.moveToNext();
 				//Log.i("CURSOR", cursor.toString());
@@ -599,17 +600,23 @@ public class MainActivity extends Activity {
 					long arg3) {
 				Log.i("Row","Selected ="+ arg2 + "clicked");
 
-				
+				//array adapter for listview cells
+				HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
 					if (arg2 == 1) {
+						
 						
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
 						
-					infoIntent.putExtra("zipCode", displayMap.get("zipCode"));
-					infoIntent.putExtra("areaCode", displayMap.get("areaCode"));
-					infoIntent.putExtra("region", displayMap.get("region"));
+						infoIntent.putExtra("zipCode", intentMap.get("zip_code"));
+						infoIntent.putExtra("areaCode", intentMap.get("area_code"));
+						infoIntent.putExtra("county", intentMap.get("county"));
+						infoIntent.putExtra("timezone", intentMap.get("time_zone"));
+						infoIntent.putExtra("latitude", intentMap.get("latitude"));
+						infoIntent.putExtra("longitude", intentMap.get("longitude"));
+						infoIntent.putExtra("region", intentMap.get("region"));
 					
 						startActivity(infoIntent);
-						
+						Log.i("Map", intentMap.toString());
 						Log.i("INTENT", infoIntent.toString());
 					}
 			}
