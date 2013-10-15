@@ -1,13 +1,15 @@
 package com.cmozie.java2week2;
 
-public class InfoActivity {
+import android.app.Activity;
+import android.os.Bundle;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+public class InfoActivity extends Activity{
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.form2);
+		
 	}
 
 }

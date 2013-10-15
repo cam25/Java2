@@ -573,8 +573,30 @@ public class MainActivity extends Activity {
 		adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
 		listview.setAdapter(adapter);
+		rowSelect();
 		
 	}
+	
+	private void rowSelect (){
+		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			
+			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Log.i("Row","Selected ="+ arg2 + "clicked");
+
+					if (arg2 == 0) {
+						
+						Intent infoIntent = new Intent(_context,InfoActivity.class);
+						startActivity(infoIntent);
+					}
+			}
+		});
+		
+		
+	};
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)

@@ -40,11 +40,13 @@ public final class R {
     }
     public static final class layout {
         public static final int form=0x7f030000;
-        public static final int list_header=0x7f030001;
-        public static final int list_row=0x7f030002;
+        public static final int form2=0x7f030001;
+        public static final int list_header=0x7f030002;
+        public static final int list_row=0x7f030003;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int info=0x7f070000;
+        public static final int main=0x7f070001;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -75,6 +77,7 @@ public final class R {
         public static final int textFieldText=0x7f050003;
         public static final int timezone_=0x7f050012;
         public static final int timezone_2_=0x7f05001c;
+        public static final int title_activity_info=0x7f050020;
         public static final int zipcode=0x7f050013;
         public static final int zipcode_2_=0x7f050014;
         public static final int zipcode_banner=0x7f050008;
