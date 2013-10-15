@@ -25,7 +25,7 @@ public final class R {
         public static final int zipcodebanner=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000b;
+        public static final int action_settings=0x7f08000e;
         public static final int banner=0x7f080000;
         public static final int favList=0x7f080003;
         public static final int getHistory=0x7f080001;
@@ -35,14 +35,18 @@ public final class R {
         public static final int location3_header=0x7f080007;
         public static final int popularZipcodes=0x7f080002;
         public static final int row1=0x7f080008;
+        public static final int row1_2=0x7f08000b;
         public static final int row2=0x7f080009;
+        public static final int row2_2=0x7f08000c;
         public static final int row3=0x7f08000a;
+        public static final int row3_3=0x7f08000d;
     }
     public static final class layout {
         public static final int form=0x7f030000;
         public static final int form2=0x7f030001;
         public static final int list_header=0x7f030002;
         public static final int list_row=0x7f030003;
+        public static final int list_row2=0x7f030004;
     }
     public static final class menu {
         public static final int info=0x7f070000;

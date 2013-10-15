@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.NetworkInfo.DetailedState;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -87,6 +88,11 @@ public class MainActivity extends Activity {
 	String _zipcode;
 	String _areaCode;
 	String _region;
+	String _county;
+	String _timezone;
+	String _latitude;
+	String _longitude;
+	
 	String _zipcode2;
 	String _area_code2;
 	String _region2;
@@ -96,7 +102,7 @@ public class MainActivity extends Activity {
 	public int position;
 	ListView listview;
 	public String zipcode;
-	
+	public HashMap<String, String> displayMap;
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -535,6 +541,12 @@ public class MainActivity extends Activity {
 			_zipcode = one.getString("zip_code");
 			_areaCode = one.getString("area_code");
 			_region = one.getString("region");
+			_county = one.getString("county");
+			_latitude = one.getString("latitude");
+			_longitude = one.getString("longitude");
+			_timezone = one.getString("timezone");
+			
+			
 			_zipcode2 = two.getString("zip_code");
 			_area_code2 = two.getString("area_code");
 			_region2 = two.getString("region");
@@ -550,7 +562,7 @@ public class MainActivity extends Activity {
 			
 			for (int i = 0; i < cursor.getCount(); i++) {
 				;
-				HashMap<String, String> displayMap = new HashMap<String, String>();
+				displayMap = new HashMap<String, String>();
 				
 				if (cursor.getString(0).contentEquals("95105")) {
 					
@@ -587,10 +599,18 @@ public class MainActivity extends Activity {
 					long arg3) {
 				Log.i("Row","Selected ="+ arg2 + "clicked");
 
-					if (arg2 == 0) {
+				
+					if (arg2 == 1) {
 						
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
+						
+					infoIntent.putExtra("zipCode", displayMap.get("zipCode"));
+					infoIntent.putExtra("areaCode", displayMap.get("areaCode"));
+					infoIntent.putExtra("region", displayMap.get("region"));
+					
 						startActivity(infoIntent);
+						
+						Log.i("INTENT", infoIntent.toString());
 					}
 			}
 		});
