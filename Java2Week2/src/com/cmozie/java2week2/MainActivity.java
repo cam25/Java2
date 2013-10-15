@@ -571,19 +571,19 @@ public class MainActivity extends Activity {
 				displayMap.put("zipCode", cursor.getString(1));
 				displayMap.put("areaCode", cursor.getString(2));
 				displayMap.put("region", cursor.getString(3));
-				
+				//displayMap.put("county", cursor.getString(4));
 				
 				cursor.moveToNext();
-				//Log.i("CURSOR", cursor.toString());
+				
 				mylist.add(displayMap);
 				
-				
+				Log.i("mylist", mylist.toString());
 				
 				
 			}
 		}
 		
-		adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+		adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region","county"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
 		listview.setAdapter(adapter);
 		rowSelect();
@@ -608,7 +608,7 @@ public class MainActivity extends Activity {
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
 						
 						infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
-						//infoIntent.putExtra("zipCode", "10001");
+				
 						
 						infoIntent.putExtra("area_code", intentMap.get("areaCode"));
 						infoIntent.putExtra("county", intentMap.get("county"));

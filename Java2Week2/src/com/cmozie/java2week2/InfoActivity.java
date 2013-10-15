@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -43,9 +44,20 @@ public class InfoActivity extends Activity{
 		Intent activityInfo = getIntent();
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
+			
+			//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+			
 			String zipp = activityInfo.getExtras().getString("zip_code");
 			String area = activityInfo.getExtras().getString("area_code");
 			String reg = activityInfo.getExtras().getString("region");
+			
+			/*HashMap<String, String> displayMap = new HashMap<String, String>();
+			
+			displayMap.put("zipp", zipp);
+			displayMap.put("area", area);
+			displayMap.put("reg", reg);
+			
+			mylist.add(displayMap);*/
 			if (zipp == null) {
 				
 			zipp = "No String Found";
@@ -54,8 +66,19 @@ public class InfoActivity extends Activity{
 			Log.i("Zipp", zipp);
 			Log.i("area", area);
 			Log.i("reg", reg);
+			  
 			
+					
+					
+					
+				
 			
+		//	SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+			
+			//listview.setAdapter(adapter);
+			//SimpleAdapter adapter = new SimpleAdapter(_context, null, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(_context, R.id.list2);
+			listview.setAdapter(adapter);
 			
 		}
 			//cursor
