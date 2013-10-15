@@ -607,8 +607,10 @@ public class MainActivity extends Activity {
 						
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
 						
-						infoIntent.putExtra("zipCode", intentMap.get("zip_code"));
-						infoIntent.putExtra("areaCode", intentMap.get("area_code"));
+						infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
+						//infoIntent.putExtra("zipCode", "10001");
+						
+						infoIntent.putExtra("area_code", intentMap.get("areaCode"));
 						infoIntent.putExtra("county", intentMap.get("county"));
 						infoIntent.putExtra("timezone", intentMap.get("time_zone"));
 						infoIntent.putExtra("latitude", intentMap.get("latitude"));
