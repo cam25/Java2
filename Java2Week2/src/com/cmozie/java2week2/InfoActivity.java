@@ -98,11 +98,11 @@ public class InfoActivity extends Activity{
 			listview.setAdapter(adapter);
 			
 			
+			//showGPS(zipp);
+			
 					
 				}
-			//SimpleAdapter adapter = new SimpleAdapter(_context, null, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
-			//ArrayAdapter<String> adapter = new ArrayAdapter<String>(_context, R.id.list2);
-			//listview.setAdapter(adapter);
+	
 			
 		}
 			//cursor
