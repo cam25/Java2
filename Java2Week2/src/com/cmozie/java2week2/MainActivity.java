@@ -481,19 +481,19 @@ public class MainActivity extends Activity {
 							//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 							Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 							
-							Intent infoIntent = new Intent(_context,InfoActivity.class);
+							//Intent infoIntent = new Intent(_context,InfoActivity.class);
 							
-							infoIntent.putExtra("uri", cursor.toString());
+							//infoIntent.putExtra("uri", cursor.toString());
 							
 							//string selected is my query reply from my ZipcodeService
 							
 									//pulling in data from Local storage here
-									//display(cursor);
+									display(cursor);
 									
 									
 								
 									Log.i("CURSOR",cursor.toString());
-									startActivityForResult(infoIntent, 0);
+									//startActivityForResult(infoIntent, 0);
 								
 						
 						}
