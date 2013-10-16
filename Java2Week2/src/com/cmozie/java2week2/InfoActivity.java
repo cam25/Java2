@@ -7,11 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.cmozie.Libz.FileStuff;
+import com.cmozie.classes.ZipcodeContentProvider;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +26,8 @@ public class InfoActivity extends Activity{
 	
 	public static Context _context;
 	ListView listview;
+	Uri finalUri;
+	public String zipp;
 	
 	
 	
@@ -41,23 +45,29 @@ public class InfoActivity extends Activity{
 		
 		_context = this;
 		
+		
+		
+		
 		Intent activityInfo = getIntent();
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
 			
-			//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+			ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 			
-			String zipp = activityInfo.getExtras().getString("zip_code");
+			 zipp = activityInfo.getExtras().getString("zip_code");
 			String area = activityInfo.getExtras().getString("area_code");
 			String reg = activityInfo.getExtras().getString("region");
 			
-			/*HashMap<String, String> displayMap = new HashMap<String, String>();
+		/*	finalUri = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
+			Cursor cursor = getContentResolver().query(finalUri, null, null, null, null);
+			display(cursor);*/
+			HashMap<String, String> displayMap = new HashMap<String, String>();
 			
 			displayMap.put("zipp", zipp);
 			displayMap.put("area", area);
 			displayMap.put("reg", reg);
 			
-			mylist.add(displayMap);*/
+			mylist.add(displayMap);
 			if (zipp == null) {
 				
 			zipp = "No String Found";
@@ -66,24 +76,34 @@ public class InfoActivity extends Activity{
 			Log.i("Zipp", zipp);
 			Log.i("area", area);
 			Log.i("reg", reg);
-			  
-			
-					
+	
+			Log.i("mylist", mylist.toString());
 					
 					
 				
+		
+			SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
-		//	SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
-			
-			//listview.setAdapter(adapter);
+		listview.setAdapter(adapter);
+		
+		
 			//SimpleAdapter adapter = new SimpleAdapter(_context, null, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(_context, R.id.list2);
-			listview.setAdapter(adapter);
+			//ArrayAdapter<String> adapter = new ArrayAdapter<String>(_context, R.id.list2);
+			//listview.setAdapter(adapter);
 			
 		}
 			//cursor
+	
 		
-		//getInfo();
+	}
+	
+	@Override
+	public void finish() {
+	    Intent data = new Intent();
+	    data.putExtra("zip_code",(zipp));
+	    data.putExtra("areaCode",("area_code"));
+	    setResult(RESULT_OK, data);
+	    super.finish();
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,20 +135,20 @@ public class InfoActivity extends Activity{
 			String _zipcode = one.getString("zip_code");
 			String _areaCode = one.getString("area_code");
 			String _region = one.getString("region");
-			String _county = one.getString("county");
+		/*	String _county = one.getString("county");
 			String _latitude = one.getString("latitude");
 			String _longitude = one.getString("longitude");
-			String _timezone = one.getString("time_zone");
+			String _timezone = one.getString("time_zone");*/
 			
 			HashMap<String, String> displayMap = new HashMap<String, String>();
 			
 			displayMap.put("zipCode", _zipcode);
 			displayMap.put("areaCode", _areaCode);
 			displayMap.put("region", _region);
-			displayMap.put("county", _county);
+		/*	displayMap.put("county", _county);
 			displayMap.put("latidue", _latitude);
 			displayMap.put("longitude", _longitude);
-			displayMap.put("timezone", _timezone);
+			displayMap.put("timezone", _timezone);*/
 		
 				
 		}
@@ -146,15 +166,15 @@ public class InfoActivity extends Activity{
 				
 				if (cursor.getString(0).contentEquals("95105")) {
 					
-					Log.i("CURSOR", "match");
+					//Log.i("CURSOR", "match");
 				}
 				displayMap.put("zipCode", cursor.getString(1));
 				displayMap.put("areaCode", cursor.getString(2));
 				displayMap.put("region", cursor.getString(3));
-				displayMap.put("county", cursor.getString(4));
+			/*	displayMap.put("county", cursor.getString(4));
 				displayMap.put("latitude", cursor.getString(5));
 				displayMap.put("longitude", cursor.getString(6));
-				displayMap.put("time_zone", cursor.getString(7));
+				displayMap.put("time_zone", cursor.getString(7));*/
 				
 				
 				cursor.moveToNext();
@@ -167,9 +187,9 @@ public class InfoActivity extends Activity{
 			}
 		}
 		
-		SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipCode","areaCode","region","county","longitude","latitude","time_zone"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2,R.id.row4_2,R.id.row5_2,R.id.row6_2,R.id.row7_2});
+		//SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2,R.id.row4_2,R.id.row5_2,R.id.row6_2,R.id.row7_2});
 		
-		listview.setAdapter(adapter);
+		//listview.setAdapter(adapter);
 		
 		
 	}

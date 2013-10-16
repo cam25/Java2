@@ -25,7 +25,7 @@ public final class R {
         public static final int zipcodebanner=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f08001a;
+        public static final int action_settings=0x7f080012;
         public static final int banner=0x7f080000;
         public static final int favList=0x7f080003;
         public static final int getHistory=0x7f080001;
@@ -37,21 +37,13 @@ public final class R {
         public static final int location2_header2=0x7f08000a;
         public static final int location3_header=0x7f080008;
         public static final int location3_header2=0x7f08000b;
-        public static final int location4_header2=0x7f08000c;
-        public static final int location5_header2=0x7f08000d;
-        public static final int location6_header2=0x7f08000e;
-        public static final int location7_header2=0x7f08000f;
         public static final int popularZipcodes=0x7f080002;
-        public static final int row1=0x7f080010;
-        public static final int row1_2=0x7f080013;
-        public static final int row2=0x7f080011;
-        public static final int row2_2=0x7f080014;
-        public static final int row3=0x7f080012;
-        public static final int row3_2=0x7f080015;
-        public static final int row4_2=0x7f080016;
-        public static final int row5_2=0x7f080017;
-        public static final int row6_2=0x7f080018;
-        public static final int row7_2=0x7f080019;
+        public static final int row1=0x7f08000c;
+        public static final int row1_2=0x7f08000f;
+        public static final int row2=0x7f08000d;
+        public static final int row2_2=0x7f080010;
+        public static final int row3=0x7f08000e;
+        public static final int row3_2=0x7f080011;
     }
     public static final class layout {
         public static final int form=0x7f030000;

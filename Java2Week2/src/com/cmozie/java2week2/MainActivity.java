@@ -474,14 +474,19 @@ public class MainActivity extends Activity {
 						public void handleMessage(Message msg) {
 							// TODO Auto-generated method stub
 							Log.i("HIT","HANDLER");
-							
-							//string selected is my query reply from my ZipcodeService
 							searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
-									
-									//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
-									Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+							
+							//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+							Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+							
+							Intent infoIntent = new Intent(_context,InfoActivity.class);
+							
+							infoIntent.putExtra("uri", cursor.toString());
+							startActivityForResult(infoIntent, 0);
+							//string selected is my query reply from my ZipcodeService
+							
 									//pulling in data from Local storage here
-									display(cursor);
+									//display(cursor);
 									
 									
 								
@@ -602,22 +607,16 @@ public class MainActivity extends Activity {
 
 				//array adapter for listview cells
 				HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
-					if (arg2 == 1) {
+					if (arg2 == 1 || arg2 == 2 || arg2 ==3 || arg2 == 4 || arg2 == 5) {
 						
 						
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
-						
 						infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
-				
-						
 						infoIntent.putExtra("area_code", intentMap.get("areaCode"));
 						infoIntent.putExtra("county", intentMap.get("county"));
-						infoIntent.putExtra("timezone", intentMap.get("time_zone"));
-						infoIntent.putExtra("latitude", intentMap.get("latitude"));
-						infoIntent.putExtra("longitude", intentMap.get("longitude"));
-						infoIntent.putExtra("region", intentMap.get("region"));
 					
-						startActivity(infoIntent);
+					
+						startActivityForResult(infoIntent, 0);
 						Log.i("Map", intentMap.toString());
 						Log.i("INTENT", infoIntent.toString());
 					}
@@ -626,6 +625,20 @@ public class MainActivity extends Activity {
 		
 		
 	};
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  if (resultCode == RESULT_OK && requestCode == 0) {
+	    Bundle result = data.getExtras();
+	    if (data.hasExtra("zip_code")) {
+	    	
+	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - OBJECT ZIP = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
+
+		}
+	  
+	  
+	  }
+	}
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)

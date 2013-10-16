@@ -30,37 +30,6 @@
 		        android:text="@string/region"
 		        style="@style/textLabels"/>
   
-   <TextView 
-      			android:id="@+id/row4_2"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:paddingLeft="5dp"
-		        android:text="@string/timezone"
-		        style="@style/textLabels"/>
-   <TextView 
-      			android:id="@+id/row5_2"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:paddingLeft="5dp"
-		        android:text="@string/latitude"
-		        style="@style/textLabels"/>
-   <TextView 
-      			android:id="@+id/row6_2"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:paddingLeft="5dp"
-		        android:text="@string/longitude"
-		        style="@style/textLabels"/>
-   <TextView 
-      			android:id="@+id/row7_2"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:paddingLeft="5dp"
-		        android:text="@string/county"
-		        style="@style/textLabels"/>
+
 
 </LinearLayout>
