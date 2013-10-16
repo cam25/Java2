@@ -29,8 +29,9 @@ public class InfoActivity extends Activity{
 	ListView listview;
 	Uri finalUri;
 	public String zipp;
+	public SimpleAdapter adapter;
 	
-	
+	public ArrayList<HashMap<String, String>> mylist;
 	
 	
 	@Override
@@ -53,11 +54,14 @@ public class InfoActivity extends Activity{
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
 			
-			ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+			
+		 mylist = new ArrayList<HashMap<String,String>>();
 			
 			 zipp = activityInfo.getExtras().getString("zip_code");
 			String area = activityInfo.getExtras().getString("area_code");
 			String reg = activityInfo.getExtras().getString("region");
+			
+			
 			
 		/*	finalUri = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
 			Cursor cursor = getContentResolver().query(finalUri, null, null, null, null);
@@ -80,66 +84,22 @@ public class InfoActivity extends Activity{
 	
 			Log.i("mylist", mylist.toString());
 					
-			 /*ArrayList<HashMap<String, String>> secondlist = new ArrayList<HashMap<String,String>>();
-				
-				
-				try{
-				JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-				JSONArray ja = json.getJSONArray("zips");
-				
-				
-			
-				for (int i = 0; i < ja.length(); i++) {
-					//sets a json object to access object values inside array
-					
-					
-					JSONObject one = ja.getJSONObject(i);
-					
-
-
-					String _zipcode = one.getString("zip_code");
-					String _areaCode = one.getString("area_code");
-					String _region = one.getString("region");
-					String _county = one.getString("county");
-					String _latitude = one.getString("latitude");
-					String _longitude = one.getString("longitude");
-					String _timezone = one.getString("time_zone");
-					
-					HashMap<String, String> secondMap = new HashMap<String, String>();
-					
-					displayMap.put("zipp", _zipcode);
-					displayMap.put("area", _areaCode);
-					displayMap.put("reg", _region);
-					displayMap.put("county", _county);
-					displayMap.put("latidue", _latitude);
-					displayMap.put("longitude", _longitude);
-					displayMap.put("timezone", _timezone);
-				
-						
-				}
-				
-			} catch (Exception e) {
-				Log.e("Buffer Error", "Error converting result " + e.toString());
-			}
-				//cursor
-			
-						
-						//Log.i("CURSOR", cursor.toString());
-						mylist.add(displayMap);*/
-						
-						
-						
-						
-					
-			
-				
-				
+			showGPS(zipp);
 		
-			SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
 		listview.setAdapter(adapter);
-		showGPS(zipp);
 		
+		
+		if (savedInstanceState != null) {
+				
+			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+			
+			listview.setAdapter(adapter);
+			
+			
+					
+				}
 			//SimpleAdapter adapter = new SimpleAdapter(_context, null, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			//ArrayAdapter<String> adapter = new ArrayAdapter<String>(_context, R.id.list2);
 			//listview.setAdapter(adapter);
@@ -149,6 +109,24 @@ public class InfoActivity extends Activity{
 		
 		
 	}
+	
+	@Override  
+	 public void onRestoreInstanceState(Bundle savedInstanceState) {  
+	     
+	   // Restore UI state from the savedInstanceState.  
+	   // This bundle has also been passed to onCreate.  
+	   
+	    
+	    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+	   
+	   
+	   Log.i("TEST", mylist + "was saved");
+	 
+	   
+	   super.onRestoreInstanceState(savedInstanceState);
+	   Log.i("Bundle",savedInstanceState.toString());
+	  
+	 }
 	public void showGPS(String zipcode) {
     	Intent intent = new Intent(Intent.ACTION_VIEW,
     			
@@ -172,87 +150,7 @@ public class InfoActivity extends Activity{
 		return true;
 	}
 	
-	public void display(Cursor cursor){
-		
-		
-		  ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
-		
-		
-		try{
-		JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
-		JSONArray ja = json.getJSONArray("zips");
-		
-		
 	
-		for (int i = 0; i < ja.length(); i++) {
-			//sets a json object to access object values inside array
-			
-			
-			JSONObject one = ja.getJSONObject(i);
-			
-
-
-			String _zipcode = one.getString("zip_code");
-			String _areaCode = one.getString("area_code");
-			String _region = one.getString("region");
-		/*	String _county = one.getString("county");
-			String _latitude = one.getString("latitude");
-			String _longitude = one.getString("longitude");
-			String _timezone = one.getString("time_zone");*/
-			
-			HashMap<String, String> displayMap = new HashMap<String, String>();
-			
-			displayMap.put("zipCode", _zipcode);
-			displayMap.put("areaCode", _areaCode);
-			displayMap.put("region", _region);
-		/*	displayMap.put("county", _county);
-			displayMap.put("latidue", _latitude);
-			displayMap.put("longitude", _longitude);
-			displayMap.put("timezone", _timezone);*/
-		
-				
-		}
-		
-	} catch (Exception e) {
-		Log.e("Buffer Error", "Error converting result " + e.toString());
-	}
-		//cursor
-		cursor.moveToFirst();
-		if (cursor.moveToFirst()) {
-			
-			for (int i = 0; i < cursor.getCount(); i++) {
-				;
-				HashMap<String, String> displayMap = new HashMap<String, String>();
-				
-				if (cursor.getString(0).contentEquals("95105")) {
-					
-					//Log.i("CURSOR", "match");
-				}
-				displayMap.put("zipCode", cursor.getString(1));
-				displayMap.put("areaCode", cursor.getString(2));
-				displayMap.put("region", cursor.getString(3));
-			/*	displayMap.put("county", cursor.getString(4));
-				displayMap.put("latitude", cursor.getString(5));
-				displayMap.put("longitude", cursor.getString(6));
-				displayMap.put("time_zone", cursor.getString(7));*/
-				
-				
-				cursor.moveToNext();
-				//Log.i("CURSOR", cursor.toString());
-				mylist.add(displayMap);
-				
-				
-				
-				
-			}
-		}
-		
-		//SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2,R.id.row4_2,R.id.row5_2,R.id.row6_2,R.id.row7_2});
-		
-		//listview.setAdapter(adapter);
-		
-		
-	}
 
 }
 

@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
 			 					
 			 					
 			 					//spinner.setVisibility(View.GONE);
-			 					
+			 					rowSelect();
 			 				
 			 					
 			 					
@@ -610,7 +610,10 @@ public class MainActivity extends Activity {
 
 				//array adapter for listview cells
 				HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
-					if (arg2 == 1 || arg2 == 2 || arg2 ==3 || arg2 == 4 || arg2 == 5) {
+					if (arg2 == 1 || arg2 == 2 || arg2 ==3 || arg2 == 4 || arg2 == 5|| arg2 == 6||arg2 == 7
+							|| arg2 == 8|| arg2 == 9|| arg2 == 10|| arg2 == 11|| arg2 == 12|| arg2 == 13
+							|| arg2 == 14|| arg2 == 15|| arg2 == 16|| arg2 == 17|| arg2 == 18|| arg2 == 19|| 
+							arg2 == 20) {
 						
 						
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
@@ -644,14 +647,7 @@ public class MainActivity extends Activity {
 	  
 	  }
 	}
-	public void showGPS(String zipcode) {
-    	Intent intent = new Intent(Intent.ACTION_VIEW,
-    			
-    			
-				Uri.parse("google.navigation:q="+ zipcode));
-    	
-    	startActivity(intent);
-    }
+	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
 	 */
