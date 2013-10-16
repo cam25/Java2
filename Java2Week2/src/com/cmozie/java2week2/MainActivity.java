@@ -261,7 +261,7 @@ public class MainActivity extends Activity {
 									
 								case 1://washington
 									
-									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/" + 2;
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/WA";
 									
 									searchFilter = Uri.parse(zipcode);
 									
@@ -269,6 +269,7 @@ public class MainActivity extends Activity {
 									cursor = getContentResolver().query(searchFilter, null, null, null, null);
 									if (cursor != null ) {
 										display(cursor);
+										
 									}
 
 									
@@ -276,7 +277,7 @@ public class MainActivity extends Activity {
 								
 								case 2: // Miami
 									
-									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/2";
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/MI";
 									searchFilter = Uri.parse(zipcode);
 									cursor = getContentResolver().query(searchFilter, null, null, null, null);
 									if (cursor != null ) {
@@ -288,17 +289,18 @@ public class MainActivity extends Activity {
 									break;
 									
 								case 3: //Chicago
-									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/3";
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/IL";
 									searchFilter = Uri.parse(zipcode);
 									cursor = getContentResolver().query(searchFilter, null, null, null, null);
 									if (cursor != null ) {
 										display(cursor);
+										
 									}
 									Log.i("MAIN", "uri="+zipcode);
 									//Toast.makeText(_context, "Chicago!", Toast.LENGTH_SHORT).show();
 									break;
 								case 4: //San Francisco
-									//zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/4";
+									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/SF";
 									searchFilter = Uri.parse(zipcode);
 									cursor = getContentResolver().query(searchFilter, null, null, null, null);
 									if (cursor != null ) {
@@ -482,7 +484,7 @@ public class MainActivity extends Activity {
 							Intent infoIntent = new Intent(_context,InfoActivity.class);
 							
 							infoIntent.putExtra("uri", cursor.toString());
-							startActivityForResult(infoIntent, 0);
+							
 							//string selected is my query reply from my ZipcodeService
 							
 									//pulling in data from Local storage here
@@ -491,6 +493,7 @@ public class MainActivity extends Activity {
 									
 								
 									Log.i("CURSOR",cursor.toString());
+									startActivityForResult(infoIntent, 0);
 								
 						
 						}
@@ -613,12 +616,14 @@ public class MainActivity extends Activity {
 						Intent infoIntent = new Intent(_context,InfoActivity.class);
 						infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
 						infoIntent.putExtra("area_code", intentMap.get("areaCode"));
-						infoIntent.putExtra("county", intentMap.get("county"));
+						infoIntent.putExtra("region", intentMap.get("region"));
 					
 					
 						startActivityForResult(infoIntent, 0);
 						Log.i("Map", intentMap.toString());
 						Log.i("INTENT", infoIntent.toString());
+						
+						
 					}
 			}
 		});
@@ -639,7 +644,14 @@ public class MainActivity extends Activity {
 	  
 	  }
 	}
-	
+	public void showGPS(String zipcode) {
+    	Intent intent = new Intent(Intent.ACTION_VIEW,
+    			
+    			
+				Uri.parse("google.navigation:q="+ zipcode));
+    	
+    	startActivity(intent);
+    }
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
 	 */

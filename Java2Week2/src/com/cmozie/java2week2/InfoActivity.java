@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -79,13 +80,65 @@ public class InfoActivity extends Activity{
 	
 			Log.i("mylist", mylist.toString());
 					
+			 /*ArrayList<HashMap<String, String>> secondlist = new ArrayList<HashMap<String,String>>();
+				
+				
+				try{
+				JSONObject json = new JSONObject(FileStuff.readStringFile(_context, "temp", false));
+				JSONArray ja = json.getJSONArray("zips");
+				
+				
+			
+				for (int i = 0; i < ja.length(); i++) {
+					//sets a json object to access object values inside array
 					
+					
+					JSONObject one = ja.getJSONObject(i);
+					
+
+
+					String _zipcode = one.getString("zip_code");
+					String _areaCode = one.getString("area_code");
+					String _region = one.getString("region");
+					String _county = one.getString("county");
+					String _latitude = one.getString("latitude");
+					String _longitude = one.getString("longitude");
+					String _timezone = one.getString("time_zone");
+					
+					HashMap<String, String> secondMap = new HashMap<String, String>();
+					
+					displayMap.put("zipp", _zipcode);
+					displayMap.put("area", _areaCode);
+					displayMap.put("reg", _region);
+					displayMap.put("county", _county);
+					displayMap.put("latidue", _latitude);
+					displayMap.put("longitude", _longitude);
+					displayMap.put("timezone", _timezone);
+				
+						
+				}
+				
+			} catch (Exception e) {
+				Log.e("Buffer Error", "Error converting result " + e.toString());
+			}
+				//cursor
+			
+						
+						//Log.i("CURSOR", cursor.toString());
+						mylist.add(displayMap);*/
+						
+						
+						
+						
+					
+			
+				
 				
 		
 			SimpleAdapter adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
 		listview.setAdapter(adapter);
-		
+		showGPS(zipp);
 		
 			//SimpleAdapter adapter = new SimpleAdapter(_context, null, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			//ArrayAdapter<String> adapter = new ArrayAdapter<String>(_context, R.id.list2);
@@ -93,10 +146,17 @@ public class InfoActivity extends Activity{
 			
 		}
 			//cursor
-	
+		
 		
 	}
-	
+	public void showGPS(String zipcode) {
+    	Intent intent = new Intent(Intent.ACTION_VIEW,
+    			
+    			
+			Uri.parse("google.navigation:q="+ zipp));
+    	
+    	startActivity(intent);
+    }
 	@Override
 	public void finish() {
 	    Intent data = new Intent();
