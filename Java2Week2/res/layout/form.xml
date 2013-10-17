@@ -20,7 +20,11 @@
 	 	    android:id="@+id/getHistory"
 	 	    android:layout_width="wrap_content"
 	 	    android:layout_height="wrap_content"
-	 	    android:text="@string/search_all_regions"/>
+	 	    android:layout_gravity="left"
+	 	    android:text="@string/search_all_regions"
+	 	 
+	 	    android:drawableLeft="@drawable/globe"
+	 	   />
    
    
    
@@ -29,6 +33,9 @@
 	 	    android:layout_width="wrap_content"
 	 	    android:layout_height="wrap_content"
 	 	    android:text="@string/popular_zipcodes"
+	 	    android:layout_gravity="left"
+	 	    android:drawableLeft="@drawable/flag"
+	 	    
 	 	   />
 		
 		
@@ -40,6 +47,7 @@
 	 	    android:paddingTop="10dp"
 	 	    android:prompt="@string/enter_zipcode_here"
 	 	    android:visibility="invisible"
+	 	    android:textAlignment="center"
 	 	    style="@style/spinnerStyle" />
 		
 		
@@ -50,7 +58,8 @@
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
 		    android:layout_weight="1"
-		    android:divider="#ffffffff"
+		    android:divider="@color/sysLtGray"
+		    android:dividerHeight="2sp"
 		    android:drawSelectorOnTop="false">
 		    
 		</ListView>

@@ -6,7 +6,8 @@
     
     <TextView 
         android:id="@+id/location1_header"
-        android:text="Zipcodes:"
+        android:text="@string/zipcodes"
+        android:textSize="20sp"
         android:layout_weight="1"
         android:paddingLeft="5dp"
         android:layout_width="0dp"
@@ -17,7 +18,8 @@
     
     <TextView 
         android:id="@+id/location2_header"
-        android:text="AreaCodes"
+        android:text="@string/areacodes"
+        android:textSize="20sp"
         android:layout_weight="1"
         android:paddingLeft="5dp"
         android:layout_width="0dp"
@@ -28,7 +30,8 @@
 
     <TextView 
         android:id="@+id/location3_header"
-        android:text="Region"
+        android:text="@string/region"
+        android:textSize="20sp"
         android:layout_weight="1"
         android:paddingLeft="5dp"
         android:layout_width="0dp"

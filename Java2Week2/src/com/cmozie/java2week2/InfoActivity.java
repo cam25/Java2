@@ -3,26 +3,20 @@ package com.cmozie.java2week2;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.cmozie.Libz.FileStuff;
-import com.cmozie.classes.ZipcodeContentProvider;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
+import android.widget.Toast;
 public class InfoActivity extends Activity{
 	
 	public static Context _context;
@@ -30,7 +24,7 @@ public class InfoActivity extends Activity{
 	Uri finalUri;
 	public String zipp;
 	public SimpleAdapter adapter;
-	
+	boolean isShown;
 	public ArrayList<HashMap<String, String>> mylist;
 	
 	
@@ -46,15 +40,46 @@ public class InfoActivity extends Activity{
 		listview.addHeaderView(listHeader);
 		
 		_context = this;
+		AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+			alert.setTitle("Info");
+			alert.setMessage("Select the location to launch GPS");
+			alert.setCancelable(false);
+			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+					dialog.cancel();
+				}
+			});
+			alert.show();
 		
-		
+listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			
+			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Log.i("Row","Selected ="+ arg2 + "clicked");
+
+				//array adapter for listview cells
+					if (arg2 == 1 ) {
+						
+						
+						showGPS(zipp);
+						
+						
+					}
+			}
+		});
 		
 		
 		Intent activityInfo = getIntent();
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
 			
-			
+			Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
 		 mylist = new ArrayList<HashMap<String,String>>();
 			
 			 zipp = activityInfo.getExtras().getString("zip_code");
@@ -83,8 +108,11 @@ public class InfoActivity extends Activity{
 			Log.i("reg", reg);
 	
 			Log.i("mylist", mylist.toString());
+			
 					
-			showGPS(zipp);
+					
+				
+			
 		
 			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
@@ -110,6 +138,7 @@ public class InfoActivity extends Activity{
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override  
 	 public void onRestoreInstanceState(Bundle savedInstanceState) {  
 	     
@@ -135,6 +164,17 @@ public class InfoActivity extends Activity{
     	
     	startActivity(intent);
     }
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    boolean resumeHasRun = false;
+		if (!resumeHasRun) {
+			
+	        resumeHasRun = true;
+	        return;
+	    }
+	    // Normal case behavior follows
+	}
 	@Override
 	public void finish() {
 	    Intent data = new Intent();

@@ -14,16 +14,21 @@
             android:contentDescription="@string/zipcode_banner"
             android:src="@drawable/zipcodebanner">
             </ImageView>
+            
+
+         
           
    
-		<ListView 
+		<ListView
 		    android:id="@+id/list2"
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
+		     android:paddingTop="1dp"
+		     android:paddingBottom="15dp"
 		    android:layout_weight="1"
 		    android:divider="#ffffffff"
 		    android:drawSelectorOnTop="false">
 		    
 		</ListView>
-		
+		 
 </LinearLayout>

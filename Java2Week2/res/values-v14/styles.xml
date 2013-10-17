@@ -47,5 +47,8 @@
         <item name="android:gravity">center</item>
         <item name="android:showDividers">beginning</item>
         <item name="android:dividerHeight">10dp</item>
+        
+        
         </style>
+      
 </resources>

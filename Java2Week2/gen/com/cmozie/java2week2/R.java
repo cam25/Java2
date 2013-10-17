@@ -10,6 +10,20 @@ package com.cmozie.java2week2;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int sysBlack=0x7f040000;
+        public static final int sysBlue=0x7f040001;
+        public static final int sysCyan=0x7f040002;
+        public static final int sysDkGray=0x7f040003;
+        public static final int sysGray=0x7f040004;
+        public static final int sysGreen=0x7f040005;
+        public static final int sysLtGray=0x7f040006;
+        public static final int sysMagenta=0x7f040007;
+        public static final int sysRed=0x7f040008;
+        public static final int sysTransparent=0x7f040009;
+        public static final int sysWhite=0x7f04000a;
+        public static final int sysYellow=0x7f04000b;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -17,33 +31,35 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int zipcodebanner=0x7f020001;
+        public static final int flag=0x7f020000;
+        public static final int globe=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int zipcodebanner=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f080012;
-        public static final int banner=0x7f080000;
-        public static final int favList=0x7f080003;
-        public static final int getHistory=0x7f080001;
-        public static final int list=0x7f080004;
-        public static final int list2=0x7f080005;
-        public static final int location1_header=0x7f080006;
-        public static final int location1_header2=0x7f080009;
-        public static final int location2_header=0x7f080007;
-        public static final int location2_header2=0x7f08000a;
-        public static final int location3_header=0x7f080008;
-        public static final int location3_header2=0x7f08000b;
-        public static final int popularZipcodes=0x7f080002;
-        public static final int row1=0x7f08000c;
-        public static final int row1_2=0x7f08000f;
-        public static final int row2=0x7f08000d;
-        public static final int row2_2=0x7f080010;
-        public static final int row3=0x7f08000e;
-        public static final int row3_2=0x7f080011;
+        public static final int action_settings=0x7f090012;
+        public static final int banner=0x7f090000;
+        public static final int favList=0x7f090003;
+        public static final int getHistory=0x7f090001;
+        public static final int list=0x7f090004;
+        public static final int list2=0x7f090005;
+        public static final int location1_header=0x7f090006;
+        public static final int location1_header2=0x7f090009;
+        public static final int location2_header=0x7f090007;
+        public static final int location2_header2=0x7f09000a;
+        public static final int location3_header=0x7f090008;
+        public static final int location3_header2=0x7f09000b;
+        public static final int popularZipcodes=0x7f090002;
+        public static final int row1=0x7f09000c;
+        public static final int row1_2=0x7f09000f;
+        public static final int row2=0x7f09000d;
+        public static final int row2_2=0x7f090010;
+        public static final int row3=0x7f09000e;
+        public static final int row3_2=0x7f090011;
     }
     public static final class layout {
         public static final int form=0x7f030000;
@@ -54,47 +70,49 @@ public final class R {
         public static final int list_row2=0x7f030005;
     }
     public static final class menu {
-        public static final int info=0x7f070000;
-        public static final int main=0x7f070001;
+        public static final int info=0x7f080000;
+        public static final int main=0x7f080001;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int areacode_=0x7f050009;
-        public static final int areacode_2_=0x7f050015;
-        public static final int cbsa_name_=0x7f050010;
-        public static final int city_=0x7f05000a;
-        public static final int city_2_=0x7f050016;
-        public static final int county=0x7f050021;
-        public static final int county_=0x7f05000b;
-        public static final int county_2_=0x7f050017;
-        public static final int csa_name_=0x7f05000f;
-        public static final int enter_zipcode_here=0x7f050005;
-        public static final int hello_world=0x7f050002;
-        public static final int latitude=0x7f050023;
-        public static final int latitude_=0x7f05000d;
-        public static final int latitude_2_=0x7f050019;
-        public static final int longitude=0x7f050022;
-        public static final int longitude_=0x7f05000e;
-        public static final int longitude_2_=0x7f05001a;
-        public static final int popular_zipcodes=0x7f050007;
-        public static final int region=0x7f05001e;
-        public static final int region_=0x7f050011;
-        public static final int region_2_=0x7f05001b;
-        public static final int search=0x7f050006;
-        public static final int searchButn=0x7f050004;
-        public static final int search_all_regions=0x7f05001f;
-        public static final int state_=0x7f05000c;
-        public static final int state_2_=0x7f050018;
-        public static final int textFieldText=0x7f050003;
-        public static final int timezone=0x7f050024;
-        public static final int timezone_=0x7f050012;
-        public static final int timezone_2_=0x7f05001c;
-        public static final int title_activity_info=0x7f050020;
-        public static final int zipcode=0x7f050013;
-        public static final int zipcode_2_=0x7f050014;
-        public static final int zipcode_banner=0x7f050008;
-        public static final int zipcodes_=0x7f05001d;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int areacode_=0x7f060009;
+        public static final int areacode_2_=0x7f060015;
+        public static final int areacodes=0x7f060025;
+        public static final int cbsa_name_=0x7f060010;
+        public static final int city_=0x7f06000a;
+        public static final int city_2_=0x7f060016;
+        public static final int county=0x7f060021;
+        public static final int county_=0x7f06000b;
+        public static final int county_2_=0x7f060017;
+        public static final int csa_name_=0x7f06000f;
+        public static final int enter_zipcode_here=0x7f060005;
+        public static final int hello_world=0x7f060002;
+        public static final int latitude=0x7f060023;
+        public static final int latitude_=0x7f06000d;
+        public static final int latitude_2_=0x7f060019;
+        public static final int longitude=0x7f060022;
+        public static final int longitude_=0x7f06000e;
+        public static final int longitude_2_=0x7f06001a;
+        public static final int popular_zipcodes=0x7f060007;
+        public static final int region=0x7f06001e;
+        public static final int region_=0x7f060011;
+        public static final int region_2_=0x7f06001b;
+        public static final int search=0x7f060006;
+        public static final int searchButn=0x7f060004;
+        public static final int search_all_regions=0x7f06001f;
+        public static final int state_=0x7f06000c;
+        public static final int state_2_=0x7f060018;
+        public static final int textFieldText=0x7f060003;
+        public static final int timezone=0x7f060024;
+        public static final int timezone_=0x7f060012;
+        public static final int timezone_2_=0x7f06001c;
+        public static final int title_activity_info=0x7f060020;
+        public static final int zipcode=0x7f060013;
+        public static final int zipcode_2_=0x7f060014;
+        public static final int zipcode_banner=0x7f060008;
+        public static final int zipcodes=0x7f060026;
+        public static final int zipcodes_=0x7f06001d;
     }
     public static final class style {
         /** 
@@ -118,15 +136,15 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
-        public static final int editTextStyle=0x7f060005;
-        public static final int jsonResults=0x7f060003;
-        public static final int listHeaderStyle=0x7f060004;
-        public static final int spinnerStyle=0x7f060006;
-        public static final int textLabels=0x7f060002;
+        public static final int AppTheme=0x7f070001;
+        public static final int editTextStyle=0x7f070005;
+        public static final int jsonResults=0x7f070003;
+        public static final int listHeaderStyle=0x7f070004;
+        public static final int spinnerStyle=0x7f070006;
+        public static final int textLabels=0x7f070002;
     }
 }

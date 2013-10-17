@@ -24,7 +24,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.net.NetworkInfo.DetailedState;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,10 +32,8 @@ import android.os.Messenger;
 
 import android.util.Log;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -108,6 +105,7 @@ public class MainActivity extends Activity {
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -127,27 +125,10 @@ public class MainActivity extends Activity {
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
 			 
-			 
-			Log.i("Network Connection", WebStuff.getConnectionType(_context));
-			Handler myHandler = new Handler() {
-
-				@Override
-				public void handleMessage(Message msg) {
-					Log.i("MAIN","Data Stored");
-					Toast.makeText(_context, "JSON stored", Toast.LENGTH_SHORT).show();
-					_pop.setVisibility(1);
-					
-				}
-			};
-
-			//my intent services
-			//_pop.setVisibility(0);
-			Messenger zipcodeMessenger = new Messenger(myHandler);
-			Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
-			startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-			startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,searchALL);
-			startService(startZipcodeIntent);
 			
+				
+			Log.i("Network Connection", WebStuff.getConnectionType(_context));
+		
 			 
 			 //array adapter for my cities where i create new objects for each location
 			 ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
@@ -168,13 +149,11 @@ public class MainActivity extends Activity {
 		
 			getRegion = (Button) findViewById(R.id.getHistory);
 					IsButtonPress = false;
+					
 			
 			 //popular zipcodes onclick
 			 _pop = (Button) findViewById(R.id.popularZipcodes);
 			
-			 			
-			 			
-			 			
 			 			if (savedInstanceState != null) {
 			 				
 			 			    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
@@ -182,11 +161,9 @@ public class MainActivity extends Activity {
 			 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 			 					
 			 					listview.setAdapter(adapter);
-			 					
-			 					
-			 					//spinner.setVisibility(View.GONE);
-			 					rowSelect();
 			 				
+			 					rowSelect();
+			 					
 			 					
 			 					
 			 				}
@@ -248,7 +225,7 @@ public class MainActivity extends Activity {
 			 	
 			 					switch (position) {
 			 					
-								case 0:
+								case 0://new york
 							
 									zipcode = "content://" + ZipcodeContentProvider.AUTHORITY + "/zipcodes/NY";
 									//Log.i("Main","uri = "+zipcode);
@@ -311,7 +288,7 @@ public class MainActivity extends Activity {
 									break;
 
 								default:
-									Toast.makeText(_context, "default!", Toast.LENGTH_SHORT).show();
+									Toast.makeText(_context, "default hit!", Toast.LENGTH_SHORT).show();
 									break;
 									
 									
@@ -480,22 +457,12 @@ public class MainActivity extends Activity {
 							
 							//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 							Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
-							
-							//Intent infoIntent = new Intent(_context,InfoActivity.class);
-							
-							//infoIntent.putExtra("uri", cursor.toString());
-							
-							//string selected is my query reply from my ZipcodeService
-							
+					
 									//pulling in data from Local storage here
 									display(cursor);
 									
 									
-								
 									Log.i("CURSOR",cursor.toString());
-									//startActivityForResult(infoIntent, 0);
-								
-						
 						}
 						
 						
@@ -603,6 +570,7 @@ public class MainActivity extends Activity {
 
 			
 			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -637,10 +605,10 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  if (resultCode == RESULT_OK && requestCode == 0) {
-	    Bundle result = data.getExtras();
+	  
 	    if (data.hasExtra("zip_code")) {
 	    	
-	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - OBJECT ZIP = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
+	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - Zipp Passed = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
 
 		}
 	  
@@ -679,7 +647,7 @@ public class MainActivity extends Activity {
 	   // This bundle has also been passed to onCreate.  
 	   
 	    _zipcode = savedInstanceState.getString("_zip_code");
-	    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+	   // mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
 	   
 	   
 	   Log.i("TEST", mylist + "was saved");
