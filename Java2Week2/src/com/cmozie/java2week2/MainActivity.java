@@ -1,12 +1,13 @@
 /*
- * project 			Java2Week2
+ * project 			Java2Week3
  * 
  * package			com.cmozie.java2week2
  * 
  * name				cameronmozie
  * 
- * date				Oct 10, 2013
+ * date				Oct 17, 2013
  */
+
 
 package com.cmozie.java2week2;
 
@@ -367,10 +368,7 @@ public class MainActivity extends Activity {
 								startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,zipcode);
 								startService(startZipcodeIntent);
 							
-								if (savedInstanceState != null) {
-									
-									_pop.setSelected(savedInstanceState.getBoolean("button"));
-								}
+								
 			 				}
 			 			
 							
@@ -390,6 +388,75 @@ public class MainActivity extends Activity {
 							
 								}
 							});
+							 getRegion.setOnClickListener(new OnClickListener() {
+									//combine all the zipcodes and place call the query on all of them?
+									
+								
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										
+										_connected = WebStuff.getConnectionStatus(_context);
+										 if (_connected) {
+											 
+											 
+											Log.i("Network Connection", WebStuff.getConnectionType(_context));
+											
+											//if no connection
+										}else if(!_connected) {
+											
+											//alert for connection
+											AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+											alert.setTitle("Connection Required!");
+											alert.setMessage("You need to connect to an internet service!");
+											alert.setCancelable(false);
+											alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
+											
+												@Override
+												public void onClick(DialogInterface dialog, int which) {
+
+													dialog.cancel();
+												}
+											});
+											alert.show();
+											
+										}
+										
+										Handler zipcodeHandler = new Handler() {
+
+											
+											@Override
+											public void handleMessage(Message msg) {
+												// TODO Auto-generated method stub
+												Log.i("HIT","HANDLER");
+												searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
+												
+												//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+												Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
+										
+														//pulling in data from Local storage here
+														display(cursor);
+														
+														
+														Log.i("CURSOR",cursor.toString());
+											}
+											
+											
+										};
+										
+										//my intent services
+										Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
+										
+										Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
+										startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
+										startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,searchALL);				
+										startService(startZipcodeIntent);
+										
+										
+									}
+								
+									
+								});
 			//if no connection
 		}else if(!_connected) {
 			
@@ -412,76 +479,7 @@ public class MainActivity extends Activity {
 		
 		 	
 
-		 getRegion.setOnClickListener(new OnClickListener() {
-				//combine all the zipcodes and place call the query on all of them?
-				
-			
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-					_connected = WebStuff.getConnectionStatus(_context);
-					 if (_connected) {
-						 
-						 
-						Log.i("Network Connection", WebStuff.getConnectionType(_context));
-						
-						//if no connection
-					}else if(!_connected) {
-						
-						//alert for connection
-						AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-						alert.setTitle("Connection Required!");
-						alert.setMessage("You need to connect to an internet service!");
-						alert.setCancelable(false);
-						alert.setPositiveButton("Alright", new DialogInterface.OnClickListener() {
-						
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-
-								dialog.cancel();
-							}
-						});
-						alert.show();
-						
-					}
-					
-					Handler zipcodeHandler = new Handler() {
-
-						
-						@Override
-						public void handleMessage(Message msg) {
-							// TODO Auto-generated method stub
-							Log.i("HIT","HANDLER");
-							searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
-							
-							//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
-							Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
-					
-									//pulling in data from Local storage here
-									display(cursor);
-									
-									
-									Log.i("CURSOR",cursor.toString());
-						}
-						
-						
-					};
-					
-					//my intent services
-					Messenger zipcodeMessenger = new Messenger(zipcodeHandler);
-					
-					Intent startZipcodeIntent = new Intent(_context, ZipcodeService.class);
-					startZipcodeIntent.putExtra(ZipcodeService.MESSENGER_KEY, zipcodeMessenger);
-					startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,searchALL);
-					//Log.i("ZIP", ZipcodeService.queryReply2.toString());
-					startService(startZipcodeIntent);
-					
-					
-				}
-			
-				
-			});
+		
 		
 		
 			
@@ -565,6 +563,9 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	/**
+	 * Row select.
+	 */
 	private void rowSelect (){
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -578,6 +579,9 @@ public class MainActivity extends Activity {
 
 				//array adapter for listview cells
 				HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
+				
+				//if any of my cells are selected then i grab the zipcode areacode and region for those cells and 
+				//store it inside 
 					if (arg2 == 1 || arg2 == 2 || arg2 ==3 || arg2 == 4 || arg2 == 5|| arg2 == 6||arg2 == 7
 							|| arg2 == 8|| arg2 == 9|| arg2 == 10|| arg2 == 11|| arg2 == 12|| arg2 == 13
 							|| arg2 == 14|| arg2 == 15|| arg2 == 16|| arg2 == 17|| arg2 == 18|| arg2 == 19|| 
@@ -602,6 +606,9 @@ public class MainActivity extends Activity {
 		
 	};
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  if (resultCode == RESULT_OK && requestCode == 0) {

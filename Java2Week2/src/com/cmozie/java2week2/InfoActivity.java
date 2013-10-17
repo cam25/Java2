@@ -1,3 +1,12 @@
+/*
+ * project 			Java2Week2
+ * 
+ * package			com.cmozie.java2week2
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 17, 2013
+ */
 package com.cmozie.java2week2;
 
 import java.util.ArrayList;
@@ -17,6 +26,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class InfoActivity.
+ */
 public class InfoActivity extends Activity{
 	
 	public static Context _context;
@@ -28,6 +42,9 @@ public class InfoActivity extends Activity{
 	public ArrayList<HashMap<String, String>> mylist;
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,36 +125,25 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			Log.i("reg", reg);
 	
 			Log.i("mylist", mylist.toString());
-			
-					
-					
-				
-			
-		
+	
 			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
 		listview.setAdapter(adapter);
-		
 		
 		if (savedInstanceState != null) {
 				
 			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
 			listview.setAdapter(adapter);
-			
-			
-			//showGPS(zipp);
-			
-					
-				}
-	
-			
+
+			}
 		}
-			//cursor
-		
-		
+
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override  
 	 public void onRestoreInstanceState(Bundle savedInstanceState) {  
@@ -156,6 +162,12 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	   Log.i("Bundle",savedInstanceState.toString());
 	  
 	 }
+	
+	/**
+	 * Show gps.
+	 *
+	 * @param zipcode the zipcode
+	 */
 	public void showGPS(String zipcode) {
     	Intent intent = new Intent(Intent.ACTION_VIEW,
     			
@@ -164,17 +176,11 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     	
     	startActivity(intent);
     }
-	@Override
-	protected void onResume() {
-	    super.onResume();
-	    boolean resumeHasRun = false;
-		if (!resumeHasRun) {
-			
-	        resumeHasRun = true;
-	        return;
-	    }
-	    // Normal case behavior follows
-	}
+	
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#finish()
+	 */
 	@Override
 	public void finish() {
 	    Intent data = new Intent();
@@ -183,6 +189,10 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	    setResult(RESULT_OK, data);
 	    super.finish();
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

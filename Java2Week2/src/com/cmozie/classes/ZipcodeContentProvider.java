@@ -1,12 +1,13 @@
 /*
- * project 			Java2Week2
+ * project 			Java2Week3
  * 
  * package			com.cmozie.classes
  * 
  * name				cameronmozie
  * 
- * date				Oct 10, 2013
+ * date				Oct 17, 2013
  */
+
 package com.cmozie.classes;
 
 import org.json.JSONArray;
@@ -30,6 +31,9 @@ import android.util.Log;
 public class ZipcodeContentProvider extends ContentProvider {
 
 	
+	/**
+	 * The Enum City.
+	 */
 	public enum City {
 		NY,
 		WA,
