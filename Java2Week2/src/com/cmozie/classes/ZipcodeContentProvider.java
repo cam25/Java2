@@ -193,8 +193,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 			try {
 				one = ja.getJSONObject(i);
 				
-				//if (one.getString("zip_code").contentEquals("20001")||one.getString("zip_code").contentEquals("94105")||one.getString("zip_code").contentEquals("33133")||one.getString("zip_code").contentEquals("10001")||one.getString("zip_code").contentEquals("60018")) {
-					
+				//setting my content values for my query all
 				if 	(one.getString("zip_code").contentEquals("20001")|| 
 						one.getString("zip_code").contentEquals("10001")||
 						one.getString("zip_code").contentEquals("33133")|| 
@@ -282,7 +281,7 @@ public class ZipcodeContentProvider extends ContentProvider {
 			
 				
 					
-			Log.d("CP", "index="+index);
+			
 			switch(index) {
 			case 0: //NY
 				try {
@@ -315,16 +314,16 @@ public class ZipcodeContentProvider extends ContentProvider {
 
 						JSONObject two = ja.getJSONObject(i);
 
-						//Log.d("CP", "two.get(city)="+two.get("city"));
+						
 						if (two.get("city").equals("Washington")) {
-							//Log.i("CP", "DC");
+					
 						
 						String _zipcode = two.getString("zip_code");
 						String _areaCode = two.getString("area_code");
 						String _region = two.getString("region");
 						result.addRow(new Object[] {index,_zipcode,_areaCode, _region});
 						} else {
-						//	Log.i("CP", "No Match in JSON file");
+					
 						}
 					}
 

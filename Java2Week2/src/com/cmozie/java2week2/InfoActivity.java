@@ -71,7 +71,8 @@ public class InfoActivity extends Activity{
 			});
 			alert.show();
 		
-listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			//on click listenter for the listview
+			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			
 			
@@ -83,7 +84,7 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				//array adapter for listview cells
 					if (arg2 == 1 ) {
 						
-						
+						//get gps
 						showGPS(zipp);
 						
 						
@@ -92,24 +93,26 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 		});
 		
 		
-		Intent activityInfo = getIntent();
-		Log.i("test", activityInfo.toString());
+			Intent activityInfo = getIntent();
+			Log.i("test", activityInfo.toString());
+			
 		if (activityInfo != null) {
 			
 			Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
-		 mylist = new ArrayList<HashMap<String,String>>();
 			
+			
+			//array list to hold my data from intent
+			mylist = new ArrayList<HashMap<String,String>>();
+			
+			//strings to hold my values
 			 zipp = activityInfo.getExtras().getString("zip_code");
 			String area = activityInfo.getExtras().getString("area_code");
 			String reg = activityInfo.getExtras().getString("region");
-			
-			
-			
-		/*	finalUri = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
-			Cursor cursor = getContentResolver().query(finalUri, null, null, null, null);
-			display(cursor);*/
+	
 			HashMap<String, String> displayMap = new HashMap<String, String>();
 			
+			
+			//storing my values inside hashmap
 			displayMap.put("zipp", zipp);
 			displayMap.put("area", area);
 			displayMap.put("reg", reg);
@@ -173,7 +176,7 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     			
     			
 			Uri.parse("google.navigation:q="+ zipp));
-    	
+    	//starts the intent activity
     	startActivity(intent);
     }
 	

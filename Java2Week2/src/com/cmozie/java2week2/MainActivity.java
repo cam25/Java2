@@ -559,6 +559,7 @@ public class MainActivity extends Activity {
 		adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region","county"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
 		
 		listview.setAdapter(adapter);
+		//calls my select row functoin 
 		rowSelect();
 		
 	}
@@ -577,7 +578,7 @@ public class MainActivity extends Activity {
 					long arg3) {
 				Log.i("Row","Selected ="+ arg2 + "clicked");
 
-				//array adapter for listview cells
+				//hashmap for listview cells at position
 				HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
 				
 				//if any of my cells are selected then i grab the zipcode areacode and region for those cells and 
@@ -647,14 +648,15 @@ public class MainActivity extends Activity {
 	 /* (non-Javadoc)
  	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
  	 */
- 	@Override  
+ 	@SuppressWarnings("unchecked")
+	@Override  
 	 public void onRestoreInstanceState(Bundle savedInstanceState) {  
 	     
 	   // Restore UI state from the savedInstanceState.  
 	   // This bundle has also been passed to onCreate.  
 	   
 	    _zipcode = savedInstanceState.getString("_zip_code");
-	   // mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+	    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
 	   
 	   
 	   Log.i("TEST", mylist + "was saved");
