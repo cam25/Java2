@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/holo_blue_dark" >
+    
+     
+   <ImageView 
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="90dip"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/zipcode_banner"
+            android:src="@drawable/zipcodebanner">
+            </ImageView>
+         
+   <Button 
+	 	    android:id="@+id/getHistory"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_gravity="left"
+	 	    android:text="@string/search_all_regions"
+	 	 
+	 	    android:drawableLeft="@drawable/globe"
+	 	   />
+   
+   
+   
+		<Button 
+	 	    android:id="@+id/popularZipcodes"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:text="@string/popular_zipcodes"
+	 	    android:layout_gravity="left"
+	 	    android:drawableLeft="@drawable/flag"
+	 	    
+	 	   />
+		
+		
+		<Spinner 
+	 	    android:id="@+id/favList"
+	 	   	android:layout_width="match_parent"
+	 	    android:layout_height="wrap_content"
+	 	    android:paddingBottom="10dp"
+	 	    android:paddingTop="10dp"
+	 	    android:prompt="@string/enter_zipcode_here"
+	 	    android:visibility="invisible"
+	 	    android:textAlignment="center"
+	 	    style="@style/spinnerStyle" />
+		
+		
+		
+
+		<ListView 
+		    android:id="@+id/list"
+		    android:layout_width="match_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="1"
+		    android:divider="@color/sysLtGray"
+		    android:dividerHeight="2sp"
+		    android:drawSelectorOnTop="false">
+		    
+		</ListView>
+		
+</LinearLayout>
