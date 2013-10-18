@@ -7,6 +7,9 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="18" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,12 +19,35 @@
         <activity
             android:name="com.cmozie.javaweek4.MainActivity"
             android:label="@string/app_name" >
+            
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LaunchGPS"
+           >
+            <intent-filter >
+               <action 
+                   android:name="android.intent.action.SEND"/>
+               <category 
+                   android:name="android.intent.category.DEFAULT"/>
+                </intent-filter>
+            
+        </activity>
+        <activity
+            android:name=".InfoActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo">
+            
+            
+        </activity>
+        <service android:name="com.cmozie.classes.ZipcodeService"></service>
+        <provider android:name="com.cmozie.classes.ZipcodeContentProvider" android:authorities="com.cmozie.classes.zipcodecontentprovider" android:exported="false"></provider>
     </application>
+
 
 </manifest>
