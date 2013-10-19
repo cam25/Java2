@@ -31,6 +31,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,7 +46,7 @@ public class FormFragment extends Fragment {
 	Button _pop;
 	public static Button getRegion;
 	ListView listview;
-	static Spinner spinner = null;
+	static Spinner spinner;
 	public static Context _context;
 	String _zipcode;
 	String _areaCode;
@@ -79,12 +81,12 @@ public class FormFragment extends Fragment {
 		super.onCreateView(inflater, container, savedInstanceState);
 		
 		LinearLayout view = (LinearLayout) inflater.inflate(com.cmozie.javaweek4.R.layout.form, container, false);
-		 
-		
+		 //final Spinner spinner = (Spinner) view.findViewById(com.cmozie.javaweek4.R.id.favList);
 		 _pop = (Button) view.findViewById(com.cmozie.javaweek4.R.id.popularZipcodes);
 		getRegion = (Button) view.findViewById(com.cmozie.javaweek4.R.id.getHistory);
 		
-		
+	
+
 
  //popular zipcodes onclick
 
@@ -111,10 +113,20 @@ public class FormFragment extends Fragment {
 					
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
+						// TODO Auto-generated method stub	spinner.setVisibility(View.VISIBLE);
+						//spinner.setVisibility(View.VISIBLE);
+					
+						
 						listener.onPopSelect();
-
+							
+							
+						
+						
+								
 					}
+							
+
+					
 				});
 				
 				 getRegion.setOnClickListener(new OnClickListener() {

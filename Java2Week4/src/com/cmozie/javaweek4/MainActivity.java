@@ -40,6 +40,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -64,10 +65,11 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 
 	public static Button searchButton;
 	
-	static Spinner spinner = null;
+	
 	public int selected;
 	//public int selected; 
 	public static boolean IsButtonPress;
+	public Spinner spinner = null;
 	//layout
 	TextView _popularZips;
 	Button _pop;
@@ -102,6 +104,8 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 	public String zipcode;
 	public HashMap<String, String> displayMap;
 
+	
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -126,7 +130,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
 			 
-			
+				
 				
 			Log.i("Network Connection", WebStuff.getConnectionType(_context));
 		
@@ -620,6 +624,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		outState.putString("zip_code",_zipcode);
 		outState.putString("area_code", _areaCode);
 		outState.putString("region", _region);
+		
 		outState.putInt("spinner", spinner.getSelectedItemPosition());
 		outState.putSerializable("mylist", mylist);
 		outState.putBoolean("button", _pop.isSelected());
@@ -726,18 +731,34 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		
 	}
 	
-
+	
 	@Override
+	
 	public void onPopSelect() {
-
+	
 		
+		ArrayAdapter<Cities> listAdapter = new ArrayAdapter<Cities>(_context, android.R.layout.simple_spinner_item, new Cities[]{
+                
+                
+                
+                new Cities("", "New York", "NY"),
+                new Cities("", "Washington", "DC"),
+                new Cities("", "Miami", "FL"),
+                new Cities("", "Chicago", "IL"),
+                new Cities("", "San Francisco", "CA")
+});
+
+listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+spinner = (Spinner) findViewById(R.id.favList);
+spinner.setAdapter(listAdapter);
 		
 			spinner.setVisibility(View.VISIBLE);
 			spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 				
 				
 			public void onItemSelected(AdapterView<?> parent,View v,int pos, long id){
-							Log.i("HIT","THE SPINNER");
+							//Log.i("HIT","THE SPINNER");
 				
 					
 					try{
@@ -930,8 +951,8 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 			});
 			
 			//sets button to non clickable once clicked once 
-			_pop.setClickable(false);
-			_pop.setVisibility(View.GONE);
+			//_pop.setClickable(false);
+			//_pop.setVisibility(View.GONE);
 			
 			
 			
