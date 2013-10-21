@@ -12,6 +12,8 @@ package com.cmozie.javaweek4;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cmozie.classes.ListFragment.ListListener;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,7 +33,7 @@ import android.widget.Toast;
 /**
  * The Class InfoActivity.
  */
-public class InfoActivity extends Activity{
+public class InfoActivity extends Activity implements ListListener{
 	
 	public static Context _context;
 	ListView listview;
@@ -49,15 +51,14 @@ public class InfoActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.form2);
-		ListView listview = (ListView) this.findViewById(R.id.list2);
+		setContentView(R.layout.listfrag);
+		
+		/*ListView listview = (ListView) this.findViewById(R.id.list2);
 	
-		
-		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header2, null);
-		listview.addHeaderView(listHeader);
-		
+		View listHeader = getLayoutInflater().inflate(R.layout.list_header2, null);
+		listview.addHeaderView(listHeader);*/
 		_context = this;
-		AlertDialog.Builder alert = new AlertDialog.Builder(_context);
+	/*	AlertDialog.Builder alert = new AlertDialog.Builder(_context);
 			alert.setTitle("Info");
 			alert.setMessage("Select the location to launch GPS");
 			alert.setCancelable(false);
@@ -69,10 +70,10 @@ public class InfoActivity extends Activity{
 					dialog.cancel();
 				}
 			});
-			alert.show();
+			alert.show();*/
 		
 			//on click listenter for the listview
-			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			/*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			
 			
@@ -140,7 +141,7 @@ public class InfoActivity extends Activity{
 			listview.setAdapter(adapter);
 
 			}
-		}
+		}*/
 
 	}
 	
@@ -171,14 +172,7 @@ public class InfoActivity extends Activity{
 	 *
 	 * @param zipcode the zipcode
 	 */
-	public void showGPS(String zipcode) {
-    	Intent intent = new Intent(Intent.ACTION_VIEW,
-    			
-    			
-			Uri.parse("google.navigation:q="+ zipp));
-    	//starts the intent activity
-    	startActivity(intent);
-    }
+	
 	
 	
 	/* (non-Javadoc)
@@ -201,6 +195,67 @@ public class InfoActivity extends Activity{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	public void onListSelect() {
+		// TODO Auto-generated method stub
+		Intent activityInfo = getIntent();
+		Log.i("test", activityInfo.toString());
+	if (activityInfo != null) {
+			
+			Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
+			
+			
+			//array list to hold my data from intent
+			mylist = new ArrayList<HashMap<String,String>>();
+			
+			//strings to hold my values
+			 zipp = activityInfo.getExtras().getString("zip_code");
+			String area = activityInfo.getExtras().getString("area_code");
+			String reg = activityInfo.getExtras().getString("region");
+	
+			HashMap<String, String> displayMap = new HashMap<String, String>();
+			
+			
+			//storing my values inside hashmap
+			displayMap.put("zipp", zipp);
+			displayMap.put("area", area);
+			displayMap.put("reg", reg);
+			
+			mylist.add(displayMap);
+			if (zipp == null) {
+				
+			zipp = "No String Found";
+			}
+			
+			Log.i("Zipp", zipp);
+			Log.i("area", area);
+			Log.i("reg", reg);
+	
+			Log.i("mylist", mylist.toString());
+	
+			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+			
+		listview.setAdapter(adapter);
+
+	}
+		
+		
+
+	
+	}
+
+	@Override
+	public void gpsShow(String zipcode) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(Intent.ACTION_VIEW,
+    			
+    			
+				Uri.parse("google.navigation:q="+ zipp));
+	    	//starts the intent activity
+	    	startActivity(intent);
+		
 	}
 	
 	

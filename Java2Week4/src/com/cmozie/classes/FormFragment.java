@@ -48,25 +48,6 @@ public class FormFragment extends Fragment {
 	ListView listview;
 	static Spinner spinner;
 	public static Context _context;
-	String _zipcode;
-	String _areaCode;
-	String _region;
-	String _county;
-	String _timezone;
-	String _latitude;
-	String _longitude;
-	
-	String _zipcode2;
-	String _area_code2;
-	String _region2;
-	
-	Uri searchALL;
-	Uri searchFilter;
-	public int position;
-	public String zipcode;
-	Boolean _connected = false;
-	
-	public ArrayList<HashMap<String, String>> mylist;
 	private FormListener listener;
 	
 	public interface FormListener {
@@ -81,48 +62,19 @@ public class FormFragment extends Fragment {
 		super.onCreateView(inflater, container, savedInstanceState);
 		
 		LinearLayout view = (LinearLayout) inflater.inflate(com.cmozie.javaweek4.R.layout.form, container, false);
+		listview = (ListView) view.findViewById(R.id.list);
 		 //final Spinner spinner = (Spinner) view.findViewById(com.cmozie.javaweek4.R.id.favList);
 		 _pop = (Button) view.findViewById(com.cmozie.javaweek4.R.id.popularZipcodes);
 		getRegion = (Button) view.findViewById(com.cmozie.javaweek4.R.id.getHistory);
-		
-	
 
-
- //popular zipcodes onclick
-
-
- 			/*if (savedInstanceState != null) {
- 				
- 			    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
- 			    if (mylist != null) {
- 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
- 					
- 					listview.setAdapter(adapter);
- 				
- 					rowSelect();
- 					
- 					
- 					
- 				}
-
- 			}*/
-			
- 		
-					// TODO Auto-generated method stub
+					
 				_pop.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub	spinner.setVisibility(View.VISIBLE);
-						//spinner.setVisibility(View.VISIBLE);
-					
-						
+				
 						listener.onPopSelect();
-							
-							
-						
-						
-								
+
 					}
 							
 

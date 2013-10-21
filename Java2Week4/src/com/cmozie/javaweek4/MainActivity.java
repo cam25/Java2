@@ -118,7 +118,6 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		setContentView(R.layout.formfrag);
 		listview = (ListView) this.findViewById(R.id.list);
 	
-		
 		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
@@ -621,16 +620,16 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 	public void onSaveInstanceState(Bundle outState)
 	{
 		
-		outState.putString("zip_code",_zipcode);
+		/*outState.putString("zip_code",_zipcode);
 		outState.putString("area_code", _areaCode);
 		outState.putString("region", _region);
 		
 		outState.putInt("spinner", spinner.getSelectedItemPosition());
-		outState.putSerializable("mylist", mylist);
-		outState.putBoolean("button", _pop.isSelected());
+		outState.putSerializable("mylist", mylist);*/
+		//outState.putBoolean("button", _pop.isSelected());
 	
-		
-		
+		outState.putSerializable("mylist", mylist);
+		//outState.putInt("spinner", spinner.getSelectedItemPosition());
 		super.onSaveInstanceState(outState);
 		
 	}
