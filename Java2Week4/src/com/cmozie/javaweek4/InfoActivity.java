@@ -17,6 +17,7 @@ import com.cmozie.javaweek4.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,7 +38,7 @@ import android.widget.Toast;
 public class InfoActivity extends Activity implements ListListener{
 	
 	public static Context _context;
-	ListView listview;
+	public static ListView listview;
 	Uri finalUri;
 	public String zipp;
 	public SimpleAdapter adapter;
@@ -48,59 +49,19 @@ public class InfoActivity extends Activity implements ListListener{
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.listfrag);
-		
-		/*ListView listview = (ListView) this.findViewById(R.id.list2);
 	
-		View listHeader = getLayoutInflater().inflate(R.layout.list_header2, null);
-		listview.addHeaderView(listHeader);*/
-		_context = this;
-	/*	AlertDialog.Builder alert = new AlertDialog.Builder(_context);
-			alert.setTitle("Info");
-			alert.setMessage("Select the location to launch GPS");
-			alert.setCancelable(false);
-			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-
-					dialog.cancel();
-				}
-			});
-			alert.show();*/
-		
-			//on click listenter for the listview
-			/*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			
-			
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Log.i("Row","Selected ="+ arg2 + "clicked");
-
-				//array adapter for listview cells
-					if (arg2 == 1 ) {
-						
-						//get gps
-						showGPS(zipp);
-						
-						
-					}
-			}
-		});
-		
-		
-			Intent activityInfo = getIntent();
-			Log.i("test", activityInfo.toString());
-			
+		Intent activityInfo = getIntent();
+		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
 			
-			Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
 			
 			
 			//array list to hold my data from intent
@@ -130,20 +91,16 @@ public class InfoActivity extends Activity implements ListListener{
 			Log.i("reg", reg);
 	
 			Log.i("mylist", mylist.toString());
-	
-			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
-		listview.setAdapter(adapter);
 		
-		if (savedInstanceState != null) {
-				
-			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
-			
-			listview.setAdapter(adapter);
-
-			}
-		}*/
-
+		}
+		/*ListView listview = (ListView) this.findViewById(R.id.list2);
+	
+		View listHeader = getLayoutInflater().inflate(R.layout.list_header2, null);
+		listview.addHeaderView(listHeader);*/
+		
+	
+	
 	}
 	
 	/* (non-Javadoc)
@@ -203,10 +160,6 @@ public class InfoActivity extends Activity implements ListListener{
 		// TODO Auto-generated method stub
 		
 	
-		
-		
-
-	
 	}
 
 	@Override
@@ -222,10 +175,8 @@ public class InfoActivity extends Activity implements ListListener{
 	}
 
 	@Override
-	public void showData() {
+	public void getData() {
 		// TODO Auto-generated method stub
-		
-		
 		Intent activityInfo = getIntent();
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
@@ -260,13 +211,11 @@ public class InfoActivity extends Activity implements ListListener{
 			Log.i("reg", reg);
 	
 			Log.i("mylist", mylist.toString());
-	
-			 
-			adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
-			listview.setAdapter(adapter);
 		
 		}
+		//listview = (ListView) this.findViewById(R.id.list2);
+
 		
 	}
 	

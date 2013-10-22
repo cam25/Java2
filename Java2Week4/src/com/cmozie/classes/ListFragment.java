@@ -29,32 +29,34 @@ public class ListFragment extends Fragment {
 	Context _context;
 	private ListListener listener;
 	public	String zipp;
-    public static SimpleAdapter adapter;
+	
+   // public static SimpleAdapter adapter;
     public ArrayList<HashMap<String, String>> mylist;
     public static ListView listview;
 	public interface ListListener {
 		public void onListSelect();
 		public void gpsShow(String zipcode);
-		public void showData();
+		public void getData();
 	};
 
-	@Override 
+	 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		LinearLayout view = (LinearLayout) inflater.inflate(R.layout.form2, container, false);
 		
-		ListView listview = (ListView) view.findViewById(R.id.list2);
+		 listview = (ListView) view.findViewById(R.id.list2);
 		
-//ListView listview = (ListView) this.findViewById(R.id.list2);
+		
+
 		View listHeader = inflater.inflate(R.layout.list_header2, container, false);
 		listview.addHeaderView(listHeader);
-		 
 		
+		showData();
 		
 		
 			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-			
+				
 			
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -75,12 +77,61 @@ public class ListFragment extends Fragment {
 
 	
 		return view;
-
+		
 	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
-		listener.showData();
+		super.onCreate(savedInstanceState);
+	
+		
+		
+		
+	}
+	
+	
+	public void showData(){
+		//SimpleAdapter adapter = new SimpleAdapter(getActivity(), mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+		//listview.setAdapter(adapter);
+		Intent activityInfo = getActivity().getIntent();
+		Log.i("test", activityInfo.toString());
+		if (activityInfo != null) {
+			
+			//Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
+			
+			
+			//array list to hold my data from intent
+			mylist = new ArrayList<HashMap<String,String>>();
+			
+			//strings to hold my values
+			 zipp = activityInfo.getExtras().getString("zip_code");
+			String area = activityInfo.getExtras().getString("area_code");
+			String reg = activityInfo.getExtras().getString("region");
+	
+			HashMap<String, String> displayMap = new HashMap<String, String>();
+			
+			
+			//storing my values inside hashmap
+			displayMap.put("zipp", zipp);
+			displayMap.put("area", area);
+			displayMap.put("reg", reg);
+			
+			mylist.add(displayMap);
+			if (zipp == null) {
+				
+			zipp = "No String Found";
+			}
+			
+			Log.i("Zipp", zipp);
+			Log.i("area", area);
+			Log.i("reg", reg);
+	
+			Log.i("mylist", mylist.toString());
+			
+			SimpleAdapter adapter = new SimpleAdapter(getActivity(), mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+             
+             listview.setAdapter(adapter);
+		}
 	}
 	
 	@Override
