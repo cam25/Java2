@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.cmozie.classes.ListFragment.ListListener;
+import com.cmozie.javaweek4.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -200,11 +201,36 @@ public class InfoActivity extends Activity implements ListListener{
 	@Override
 	public void onListSelect() {
 		// TODO Auto-generated method stub
+		
+	
+		
+		
+
+	
+	}
+
+	@Override
+	public void gpsShow(String zipcode) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(Intent.ACTION_VIEW,
+    			
+    			
+				Uri.parse("google.navigation:q="+ zipp));
+	    	//starts the intent activity
+	    	startActivity(intent);
+		
+	}
+
+	@Override
+	public void showData() {
+		// TODO Auto-generated method stub
+		
+		
 		Intent activityInfo = getIntent();
 		Log.i("test", activityInfo.toString());
-	if (activityInfo != null) {
+		if (activityInfo != null) {
 			
-			Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
 			
 			
 			//array list to hold my data from intent
@@ -235,26 +261,12 @@ public class InfoActivity extends Activity implements ListListener{
 	
 			Log.i("mylist", mylist.toString());
 	
-			 adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+			 
+			adapter = new SimpleAdapter(_context, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
 			
-		listview.setAdapter(adapter);
-
-	}
+			listview.setAdapter(adapter);
 		
-		
-
-	
-	}
-
-	@Override
-	public void gpsShow(String zipcode) {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent(Intent.ACTION_VIEW,
-    			
-    			
-				Uri.parse("google.navigation:q="+ zipp));
-	    	//starts the intent activity
-	    	startActivity(intent);
+		}
 		
 	}
 	

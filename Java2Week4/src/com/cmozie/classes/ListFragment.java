@@ -3,6 +3,7 @@ package com.cmozie.classes;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cmozie.javaweek4.InfoActivity;
 import com.cmozie.javaweek4.R;
 
 import android.app.Activity;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -27,9 +29,13 @@ public class ListFragment extends Fragment {
 	Context _context;
 	private ListListener listener;
 	public	String zipp;
+    public static SimpleAdapter adapter;
+    public ArrayList<HashMap<String, String>> mylist;
+    public static ListView listview;
 	public interface ListListener {
 		public void onListSelect();
 		public void gpsShow(String zipcode);
+		public void showData();
 	};
 
 	@Override 
@@ -40,18 +46,12 @@ public class ListFragment extends Fragment {
 		ListView listview = (ListView) view.findViewById(R.id.list2);
 		
 //ListView listview = (ListView) this.findViewById(R.id.list2);
-		View listHeader = inflater.inflate(com.cmozie.javaweek4.R.layout.list_header2, null);
+		View listHeader = inflater.inflate(R.layout.list_header2, container, false);
 		listview.addHeaderView(listHeader);
+		 
 		
 		
 		
-		
-		
-	
-		
-			
-			
-			//on click listenter for the listview
 			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			
@@ -76,6 +76,11 @@ public class ListFragment extends Fragment {
 	
 		return view;
 
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		listener.showData();
 	}
 	
 	@Override
