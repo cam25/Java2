@@ -131,6 +131,7 @@ public class ListFragment extends Fragment {
 			SimpleAdapter adapter = new SimpleAdapter(getActivity(), mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
              
              listview.setAdapter(adapter);
+            
 		}
 	}
 	
