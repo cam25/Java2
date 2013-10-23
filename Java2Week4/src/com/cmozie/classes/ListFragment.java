@@ -34,9 +34,8 @@ public class ListFragment extends Fragment {
     public ArrayList<HashMap<String, String>> mylist;
     public static ListView listview;
 	public interface ListListener {
-		public void onListSelect();
+	
 		public void gpsShow(String zipcode);
-		public void getData();
 	};
 
 	 
@@ -85,8 +84,6 @@ public class ListFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 	
 		
-		
-		
 	}
 	
 	
@@ -97,7 +94,7 @@ public class ListFragment extends Fragment {
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
 			
-			//Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
+			
 			
 			
 			//array list to hold my data from intent
@@ -147,5 +144,6 @@ public class ListFragment extends Fragment {
 			throw new ClassCastException(activity.toString() + "Must Implement ListListener");
 		}
 	}
+	
 	
 }

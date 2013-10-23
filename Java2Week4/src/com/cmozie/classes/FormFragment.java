@@ -63,6 +63,8 @@ public class FormFragment extends Fragment {
 		
 		LinearLayout view = (LinearLayout) inflater.inflate(com.cmozie.javaweek4.R.layout.form, container, false);
 		listview = (ListView) view.findViewById(R.id.list);
+		
+		
 		 //final Spinner spinner = (Spinner) view.findViewById(com.cmozie.javaweek4.R.id.favList);
 		 _pop = (Button) view.findViewById(com.cmozie.javaweek4.R.id.popularZipcodes);
 		getRegion = (Button) view.findViewById(com.cmozie.javaweek4.R.id.getHistory);
@@ -72,7 +74,7 @@ public class FormFragment extends Fragment {
 					
 					@Override
 					public void onClick(View v) {
-				
+						_pop.setVisibility(View.GONE);
 						listener.onPopSelect();
 
 					}

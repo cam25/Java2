@@ -58,7 +58,7 @@ import webConnections.*;
  */
 
 @SuppressLint("HandlerLeak")
-public class MainActivity extends Activity implements FormFragment.FormListener {
+public class MainActivity extends Activity implements FormFragment.FormListener,ListFragment.ListListener {
 
 	//--public statics
 	public static Context _context;
@@ -121,7 +121,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(listHeader);
 		//setting contentView to my inflated view/form
-		position = Spinner.INVALID_POSITION;
+	
 		_context = this;
 		
 		
@@ -134,7 +134,6 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 			Log.i("Network Connection", WebStuff.getConnectionType(_context));
 		
 	
-					IsButtonPress = false;
 			
 			 			if (savedInstanceState != null) {
 			 				
@@ -327,16 +326,8 @@ public class MainActivity extends Activity implements FormFragment.FormListener 
 	public void onSaveInstanceState(Bundle outState)
 	{
 		
-		/*outState.putString("zip_code",_zipcode);
-		outState.putString("area_code", _areaCode);
-		outState.putString("region", _region);
-		
-		outState.putInt("spinner", spinner.getSelectedItemPosition());
-		outState.putSerializable("mylist", mylist);*/
-		//outState.putBoolean("button", _pop.isSelected());
 	
 		outState.putSerializable("mylist", mylist);
-		//outState.putInt("spinner", spinner.getSelectedItemPosition());
 		super.onSaveInstanceState(outState);
 		
 	}
@@ -658,12 +649,18 @@ spinner.setAdapter(listAdapter);
 			
 			//sets button to non clickable once clicked once 
 			//_pop.setClickable(false);
-			//_pop.setVisibility(View.GONE);
+			
 			
 			
 			
 				
 		
+	}
+
+	@Override
+	public void gpsShow(String zipcode) {
+		// TODO Auto-generated method stub
+		gpsShow(zipcode);
 	}
 	
 	

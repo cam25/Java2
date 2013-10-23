@@ -50,18 +50,13 @@ public class InfoActivity extends Activity implements ListListener{
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void holderData(){
 		
-		setContentView(R.layout.listfrag);
-	
 		Intent activityInfo = getIntent();
 		Log.i("test", activityInfo.toString());
 		if (activityInfo != null) {
 			
-			//Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
+			
 			
 			
 			//array list to hold my data from intent
@@ -94,12 +89,14 @@ public class InfoActivity extends Activity implements ListListener{
 			
 		
 		}
-		/*ListView listview = (ListView) this.findViewById(R.id.list2);
-	
-		View listHeader = getLayoutInflater().inflate(R.layout.list_header2, null);
-		listview.addHeaderView(listHeader);*/
+	}
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
+		setContentView(R.layout.listfrag);
 	
+		holderData();
 	
 	}
 	
@@ -124,18 +121,7 @@ public class InfoActivity extends Activity implements ListListener{
 	   Log.i("Bundle",savedInstanceState.toString());
 	  
 	 }
-	
-	/**
-	 * Show gps.
-	 *
-	 * @param zipcode the zipcode
-	 */
-	
-	
-	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#finish()
-	 */
+
 	@Override
 	public void finish() {
 	    Intent data = new Intent();
@@ -154,13 +140,6 @@ public class InfoActivity extends Activity implements ListListener{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	@Override
-	public void onListSelect() {
-		// TODO Auto-generated method stub
-		
-	
-	}
 
 	@Override
 	public void gpsShow(String zipcode) {
@@ -174,50 +153,7 @@ public class InfoActivity extends Activity implements ListListener{
 		
 	}
 
-	@Override
-	public void getData() {
-		// TODO Auto-generated method stub
-		Intent activityInfo = getIntent();
-		Log.i("test", activityInfo.toString());
-		if (activityInfo != null) {
-			
-			//Toast.makeText(_context, "Second Activity", Toast.LENGTH_SHORT).show();
-			
-			
-			//array list to hold my data from intent
-			mylist = new ArrayList<HashMap<String,String>>();
-			
-			//strings to hold my values
-			 zipp = activityInfo.getExtras().getString("zip_code");
-			String area = activityInfo.getExtras().getString("area_code");
-			String reg = activityInfo.getExtras().getString("region");
-	
-			HashMap<String, String> displayMap = new HashMap<String, String>();
-			
-			
-			//storing my values inside hashmap
-			displayMap.put("zipp", zipp);
-			displayMap.put("area", area);
-			displayMap.put("reg", reg);
-			
-			mylist.add(displayMap);
-			if (zipp == null) {
-				
-			zipp = "No String Found";
-			}
-			
-			Log.i("Zipp", zipp);
-			Log.i("area", area);
-			Log.i("reg", reg);
-	
-			Log.i("mylist", mylist.toString());
-			
-		
-		}
-		//listview = (ListView) this.findViewById(R.id.list2);
 
-		
-	}
 	
 	
 
