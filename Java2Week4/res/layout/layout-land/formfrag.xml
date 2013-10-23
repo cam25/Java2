@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:baselineAligned="false">
     
-    <fragment
+    <fragment android:xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/form_fragment"
     android:name="com.cmozie.classes.FormFragment"
     android:layout_width="0dp"
@@ -15,7 +15,7 @@
         
     </fragment>
 
- <fragment 
+ <fragment android:xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_fragment"
     android:name="com.cmozie.classes.ListFragment"
     android:layout_width="0dp"
