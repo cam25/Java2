@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="horizontal" 
     android:baselineAligned="false">
     
-    <fragment android:xmlns:android="http://schemas.android.com/apk/res/android"
+
+    
+    <fragment 
     android:id="@+id/form_fragment"
     android:name="com.cmozie.classes.FormFragment"
     android:layout_width="0dp"
@@ -15,7 +16,7 @@
         
     </fragment>
 
- <fragment android:xmlns:android="http://schemas.android.com/apk/res/android"
+ <fragment 
     android:id="@+id/list_fragment"
     android:name="com.cmozie.classes.ListFragment"
     android:layout_width="0dp"
@@ -26,3 +27,4 @@
 </fragment>
     
 </LinearLayout>
+

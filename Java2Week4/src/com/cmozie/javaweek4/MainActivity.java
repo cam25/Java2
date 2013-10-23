@@ -77,7 +77,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 	EditText contentQuery;
 	Uri searchALL;
 	Uri searchFilter;
-	public ArrayList<HashMap<String, String>> mylist;
+	public static ArrayList<HashMap<String, String>> mylist;
 	//bool
 	Boolean _connected = false;
 	public static SimpleAdapter adapter;
@@ -110,21 +110,34 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.formfrag);
-		listview = (ListView) this.findViewById(R.id.list);
-	
-		View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
-		listview.addHeaderView(listHeader);
+		
 		//setting contentView to my inflated view/form
 	
 		_context = this;
 		
-		
+		 if (savedInstanceState != null) {
+             
+             mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+             if (mylist != null) {
+            	 
+            	 listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list);
+ 				
+                     adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+                         
+                         listview.setAdapter(adapter);
+                 
+                      
+                         
+                         
+                         
+                 }
+
+         }
 		 //webConnection jar file usage
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
@@ -135,21 +148,6 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		
 	
 			
-			 			if (savedInstanceState != null) {
-			 				
-			 			    mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
-			 			    if (mylist != null) {
-			 			    	adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-			 					
-			 					listview.setAdapter(adapter);
-			 				
-			 					rowSelect();
-			 					
-			 					
-			 					
-			 				}
-
-			 			}
 						
 			 
 			//if no connection
@@ -181,13 +179,9 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 
 		 }
 	
-/*	*//**
-	 * Display.
-	 *
-	 * @param cursor the cursor
-	 */
+
+	@Override
 	public void display(Cursor cursor){
-		
 		
 		  mylist = new ArrayList<HashMap<String,String>>();
 		
@@ -246,78 +240,22 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 				mylist.add(displayMap);
 				
 				Log.i("mylist", mylist.toString());
-				
-				
+				listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list);
+				adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region","county"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+                
+                listview.setAdapter(adapter);
+
 			}
 		}
 		
-		adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region","county"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-		
-		listview.setAdapter(adapter);
+	
 		//calls my select row functoin 
-		rowSelect();
+	
 		
 	}
 	
-	/**
-	 * Row select.
-	 */
-	private void rowSelect (){
-		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-			
-			
-			@SuppressWarnings("unchecked")
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Log.i("Row","Selected ="+ arg2 + "clicked");
-
-				//hashmap for listview cells at position
-				HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
-				
-				//if any of my cells are selected then i grab the zipcode areacode and region for those cells and 
-				//store it inside 
-					if (arg2 == 1 || arg2 == 2 || arg2 ==3 || arg2 == 4 || arg2 == 5|| arg2 == 6||arg2 == 7
-							|| arg2 == 8|| arg2 == 9|| arg2 == 10|| arg2 == 11|| arg2 == 12|| arg2 == 13
-							|| arg2 == 14|| arg2 == 15|| arg2 == 16|| arg2 == 17|| arg2 == 18|| arg2 == 19|| 
-							arg2 == 20) {
-						
-						
-						Intent infoIntent = new Intent(_context,InfoActivity.class);
-						infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
-						infoIntent.putExtra("area_code", intentMap.get("areaCode"));
-						infoIntent.putExtra("region", intentMap.get("region"));
-					
-					
-						startActivityForResult(infoIntent, 0);
-						Log.i("Map", intentMap.toString());
-						Log.i("INTENT", infoIntent.toString());
-						
-						
-					}
-			}
-		});
-		
-		
-	};
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
-	 */
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	  if (resultCode == RESULT_OK && requestCode == 0) {
-	  
-	    if (data.hasExtra("zip_code")) {
-	    	
-	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - Zipp Passed = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
-
-		}
-	  
-	  
-	  }
-	}
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
@@ -662,7 +600,68 @@ spinner.setAdapter(listAdapter);
 		// TODO Auto-generated method stub
 		gpsShow(zipcode);
 	}
+
+	@Override
+	public void getData() {
+		// TODO Auto-generated method stub
 	
 	
+	}
+
+	@Override
+	public void rowSelect() {
+		// TODO Auto-generated method stub
+		
+listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			
+			
+			
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+        //hashmap for listview cells at position
+        HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
+        
+        //if any of my cells are selected then i grab the zipcode areacode and region for those cells and 
+        //store it inside 
+                if (arg2 == 1 || arg2 == 2 || arg2 ==3 || arg2 == 4 || arg2 == 5|| arg2 == 6||arg2 == 7
+                                || arg2 == 8|| arg2 == 9|| arg2 == 10|| arg2 == 11|| arg2 == 12|| arg2 == 13
+                                || arg2 == 14|| arg2 == 15|| arg2 == 16|| arg2 == 17|| arg2 == 18|| arg2 == 19|| 
+                                arg2 == 20) {
+                        
+                        
+                        Intent infoIntent = new Intent(_context,InfoActivity.class);
+                        infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
+                        infoIntent.putExtra("area_code", intentMap.get("areaCode"));
+                        infoIntent.putExtra("region", intentMap.get("region"));
+                
+                
+                        startActivityForResult(infoIntent, 0);
+                        Log.i("Map", intentMap.toString());
+                        Log.i("INTENT", infoIntent.toString());
+                        
+                        
+			
+                }
+                
+            }
+			
+    });
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  if (resultCode == RESULT_OK && requestCode == 0) {
+	  
+	    if (data.hasExtra("zip_code")) {
+	    	
+	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - Zipp Passed = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
+
+		}
+	  
+	  
+	  }
+	}
 	
 }

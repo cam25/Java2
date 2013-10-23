@@ -48,20 +48,20 @@ public final class R {
         public static final int getHistory=0x7f090001;
         public static final int list=0x7f090004;
         public static final int list2=0x7f090005;
-        public static final int list_fragment=0x7f090013;
-        public static final int location1_header=0x7f090007;
-        public static final int location1_header2=0x7f09000a;
-        public static final int location2_header=0x7f090008;
-        public static final int location2_header2=0x7f09000b;
-        public static final int location3_header=0x7f090009;
-        public static final int location3_header2=0x7f09000c;
+        public static final int list_fragment=0x7f090007;
+        public static final int location1_header=0x7f090008;
+        public static final int location1_header2=0x7f09000b;
+        public static final int location2_header=0x7f090009;
+        public static final int location2_header2=0x7f09000c;
+        public static final int location3_header=0x7f09000a;
+        public static final int location3_header2=0x7f09000d;
         public static final int popularZipcodes=0x7f090002;
-        public static final int row1=0x7f09000d;
-        public static final int row1_2=0x7f090010;
-        public static final int row2=0x7f09000e;
-        public static final int row2_2=0x7f090011;
-        public static final int row3=0x7f09000f;
-        public static final int row3_2=0x7f090012;
+        public static final int row1=0x7f09000e;
+        public static final int row1_2=0x7f090011;
+        public static final int row2=0x7f09000f;
+        public static final int row2_2=0x7f090012;
+        public static final int row3=0x7f090010;
+        public static final int row3_2=0x7f090013;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

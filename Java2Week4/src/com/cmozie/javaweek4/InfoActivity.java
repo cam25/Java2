@@ -46,57 +46,19 @@ public class InfoActivity extends Activity implements ListListener{
 	public ArrayList<HashMap<String, String>> mylist;
 	
 	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
 	
-	public void holderData(){
-		
-		Intent activityInfo = getIntent();
-		Log.i("test", activityInfo.toString());
-		if (activityInfo != null) {
-			
-			
-			
-			
-			//array list to hold my data from intent
-			mylist = new ArrayList<HashMap<String,String>>();
-			
-			//strings to hold my values
-			 zipp = activityInfo.getExtras().getString("zip_code");
-			String area = activityInfo.getExtras().getString("area_code");
-			String reg = activityInfo.getExtras().getString("region");
-	
-			HashMap<String, String> displayMap = new HashMap<String, String>();
-			
-			
-			//storing my values inside hashmap
-			displayMap.put("zipp", zipp);
-			displayMap.put("area", area);
-			displayMap.put("reg", reg);
-			
-			mylist.add(displayMap);
-			if (zipp == null) {
-				
-			zipp = "No String Found";
-			}
-			
-			Log.i("Zipp", zipp);
-			Log.i("area", area);
-			Log.i("reg", reg);
-	
-			Log.i("mylist", mylist.toString());
-			
-		
-		}
-	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.listfrag);
-	
-		holderData();
+		_context = this;
+		
+			
+			
+       	 
+		
+
 	
 	}
 	
@@ -150,6 +112,48 @@ public class InfoActivity extends Activity implements ListListener{
 				Uri.parse("google.navigation:q="+ zipp));
 	    	//starts the intent activity
 	    	startActivity(intent);
+		
+	}
+	@Override
+	public void getData() {
+		// TODO Auto-generated method stub
+		Intent activityInfo = getIntent();
+		Log.i("test", activityInfo.toString());
+		if (activityInfo != null) {
+			
+			
+			
+			
+			//array list to hold my data from intent
+			mylist = new ArrayList<HashMap<String,String>>();
+			
+			//strings to hold my values
+			 zipp = activityInfo.getExtras().getString("zip_code");
+			String area = activityInfo.getExtras().getString("area_code");
+			String reg = activityInfo.getExtras().getString("region");
+	
+			HashMap<String, String> displayMap = new HashMap<String, String>();
+			
+			
+			//storing my values inside hashmap
+			displayMap.put("zipp", zipp);
+			displayMap.put("area", area);
+			displayMap.put("reg", reg);
+			
+			mylist.add(displayMap);
+			if (zipp == null) {
+				
+			zipp = "No String Found";
+			}
+			
+			Log.i("Zipp", zipp);
+			Log.i("area", area);
+			Log.i("reg", reg);
+	
+			Log.i("mylist", mylist.toString());
+			
+       	 
+		}
 		
 	}
 
