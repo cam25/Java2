@@ -3,62 +3,67 @@ package com.cmozie.classes;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.cmozie.javaweek4.InfoActivity;
-import com.cmozie.javaweek4.MainActivity;
 import com.cmozie.javaweek4.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 public class ListFragment extends Fragment {
 	Context _context;
-	private ListListener listener;
-	public static String  zipp;
 	
+	public static String  zipp;
+	public static Button getRegion;
    // public static SimpleAdapter adapter;
     public ArrayList<HashMap<String, String>> mylist;
     public static ListView listview;
+    
+    String _zipcode;
+	String _areaCode;
+	String _region;
+	String _county;
+	String _timezone;
+	String _latitude;
+	String _longitude;
+	public HashMap<String, String> displayMap;
+    
 	public interface ListListener {
 	
 		public void gpsShow(String zipcode);
 		public void getData();
 	};
-
+	private ListListener listener;
+	
 	 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		LinearLayout view = (LinearLayout) inflater.inflate(R.layout.form2, container, false);
 		
 		 listview = (ListView) view.findViewById(R.id.list2);
-		
-		
 		 
-		View listHeader = inflater.inflate(R.layout.list_header2, container, false);
-		listview.addHeaderView(listHeader);
+		 //listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list2);
 		
-	mylist = MainActivity.mylist;
+		//View listHeader = inflater.inflate(R.layout.list_header2, container, false);
+		//listview.addHeaderView(listHeader);
+		
 	
+ 
+		
+		// ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1); 
+	 	
+	//listview.setAdapter(adapter);
+		
 	
-	Log.i("list", mylist.toString());
-		
-		
 			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 				
@@ -69,7 +74,7 @@ public class ListFragment extends Fragment {
 				Log.i("Row","Selected ="+ arg2 + "clicked");
 
 				//array adapter for listview cells
-					if (arg2 == 1 ) {
+					if (arg2 == 0 ) {
 						
 						//get gps
 						listener.gpsShow(zipp);
@@ -93,19 +98,34 @@ public class ListFragment extends Fragment {
 	}
 	
 	
-	public void showData(){
-		//SimpleAdapter adapter = new SimpleAdapter(getActivity(), mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
-		//listview.setAdapter(adapter);
 	
+	public void showData(){
+		
+		 listview = (ListView) getView().findViewById(com.cmozie.javaweek4.R.id.list2);
+			 SimpleAdapter adapter = new SimpleAdapter(getActivity(), mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
+            listview.setAdapter(adapter);
+		
+		
 	}
+	
+	
 	
 	@Override
 	public void onAttach(Activity activity)
 	
 	{
 		super.onAttach(activity);
+		
+		
 		try {
-			listener = (ListListener) activity;
+			
+			
+			if (listener instanceof ListListener) {
+				
+				listener = (ListListener) activity;
+			}
+			
+			
 		} catch (ClassCastException e) {
 			// TODO: handle exception
 			throw new ClassCastException(activity.toString() + "Must Implement ListListener");

@@ -1,13 +1,3 @@
-/*
- * project 			Java2Week3
- * 
- * package			com.cmozie.java2week2
- * 
- * name				cameronmozie
- * 
- * date				Oct 17, 2013
- */
-
 
 package com.cmozie.javaweek4;
 
@@ -34,13 +24,11 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -48,6 +36,7 @@ import android.widget.Toast;
 import android.widget.TextView;
 import com.cmozie.Libz.FileStuff;
 import com.cmozie.classes.*;
+import com.cmozie.classes.ListFragment.ListListener;
 
 import webConnections.*;
 
@@ -58,7 +47,7 @@ import webConnections.*;
  */
 
 @SuppressLint("HandlerLeak")
-public class MainActivity extends Activity implements FormFragment.FormListener,ListFragment.ListListener {
+public class MainActivity extends Activity implements FormFragment.FormListener,ListListener {
 
 	//--public statics
 	public static Context _context;
@@ -110,6 +99,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,6 +109,8 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		//setting contentView to my inflated view/form
 	
 		_context = this;
+		
+		
 		
 		 if (savedInstanceState != null) {
              
@@ -131,7 +123,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
                          
                          listview.setAdapter(adapter);
                  
-                      
+                        
                          
                          
                          
@@ -240,17 +232,19 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 				mylist.add(displayMap);
 				
 				Log.i("mylist", mylist.toString());
+				
 				listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list);
 				adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region","county"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
                 
                 listview.setAdapter(adapter);
+                
+                
 
 			}
 		}
 		
 	
 		//calls my select row functoin 
-	
 		
 	}
 	
@@ -363,6 +357,8 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		startZipcodeIntent.putExtra(ZipcodeService.enteredZipcode,searchALL);				
 		startService(startZipcodeIntent);
 		
+		
+	
 		
 	}
 	
@@ -598,14 +594,49 @@ spinner.setAdapter(listAdapter);
 	@Override
 	public void gpsShow(String zipcode) {
 		// TODO Auto-generated method stub
-		gpsShow(zipcode);
+		Intent activityInfo = getIntent();
+		//Log.i("test", activityInfo.toString());
+		
+		
+		if (activityInfo != null) {
+			
+			Log.i("GETDATA", "WORKING!");
+			
+			
+			//array list to hold my data from intent
+			mylist = new ArrayList<HashMap<String,String>>();
+			
+			//strings to hold my values
+			String zipp = activityInfo.getExtras().getString("zip_code");
+			String area = activityInfo.getExtras().getString("area_code");
+			String reg = activityInfo.getExtras().getString("region");
+	
+
+		
+			HashMap<String, String> displayMap = new HashMap<String, String>();
+			
+			
+			//storing my values inside hashmap
+			displayMap.put("zipp", zipp);
+			displayMap.put("area", area);
+			displayMap.put("reg", reg);
+			
+			mylist.add(displayMap);
+			if (zipp == null) {
+				
+			zipp = "No String Found";
+			}
+		
+		gpsShow(zipp);
+		}
 	}
 
 	@Override
 	public void getData() {
 		// TODO Auto-generated method stub
-	
-	
+		getData();
+		
+		
 	}
 
 	@Override
@@ -619,9 +650,10 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-
+				
         //hashmap for listview cells at position
-        HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
+        @SuppressWarnings("unchecked")
+		HashMap<String, String> intentMap = (HashMap<String, String>) listview.getItemAtPosition(arg2);
         
         //if any of my cells are selected then i grab the zipcode areacode and region for those cells and 
         //store it inside 
@@ -630,7 +662,9 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 || arg2 == 14|| arg2 == 15|| arg2 == 16|| arg2 == 17|| arg2 == 18|| arg2 == 19|| 
                                 arg2 == 20) {
                         
-                        
+                	
+                       
+                     
                         Intent infoIntent = new Intent(_context,InfoActivity.class);
                         infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
                         infoIntent.putExtra("area_code", intentMap.get("areaCode"));
@@ -641,21 +675,24 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         Log.i("Map", intentMap.toString());
                         Log.i("INTENT", infoIntent.toString());
                         
-                        
-			
+            
                 }
+                
                 
             }
 			
+			
+			
     });
+
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  if (resultCode == RESULT_OK && requestCode == 0) {
-	  
+	 
 	    if (data.hasExtra("zip_code")) {
-	    	
+	    	Log.i("data", data.getStringExtra(zipcode));
 	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - Zipp Passed = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
 
 		}
