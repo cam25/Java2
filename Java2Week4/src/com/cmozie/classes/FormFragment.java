@@ -1,8 +1,20 @@
+/*
+ * project 			javaWeek4
+ * 
+ * package			com.cmozie.classes
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 24, 2013
+ */
 package com.cmozie.classes;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.cmozie.javaweek4.MainActivity;
+import com.cmozie.javaweek4.R;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -21,6 +33,10 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FormFragment.
+ */
 public class FormFragment extends Fragment {
 	Button _pop;
 	public static Button getRegion;
@@ -42,18 +58,52 @@ public class FormFragment extends Fragment {
 	public String zipcode;
 	public HashMap<String, String> displayMap;
 	public static ArrayList<HashMap<String, String>> mylist;
+	
+	public static LinearLayout view;
 	//bool
 	Boolean _connected = false;
 	public static SimpleAdapter adapter;
 	
 	
+	/**
+	 * The listener interface for receiving form events.
+	 * The class that is interested in processing a form
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addFormListener<code> method. When
+	 * the form event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see FormEvent
+	 */
 	public interface FormListener {
+		
+		/**
+		 * On query all.
+		 */
 		public void onQueryAll();
+		
+		/**
+		 * On pop select.
+		 */
 		public void onPopSelect();
+		
+		/**
+		 * Display.
+		 *
+		 * @param cursor the cursor
+		 */
 		public void display(Cursor cursor);
+		
+		/**
+		 * Row select.
+		 */
 		public void rowSelect();
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
@@ -65,17 +115,7 @@ public class FormFragment extends Fragment {
 		
 		View listHeader = inflater.inflate(com.cmozie.javaweek4.R.layout.list_header, null);
 		listview.addHeaderView(listHeader);
-		
-		 
-		//adapter = new SimpleAdapter(getActivity(), mylist,com.cmozie.javaweek4.R.layout.list_row, new String[]{ "zipCode","areaCode","region","county"}, new int[]{com.cmozie.javaweek4.R.id.row1, com.cmozie.javaweek4.R.id.row2,com.cmozie.javaweek4.R.id.row3});
-		
-		
-       //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), com.cmozie.javaweek4.R.layout.list_row) ;
-     
-        //listview.setAdapter(adapter);
-        
-      
-		
+	
 		
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			
@@ -129,10 +169,36 @@ public class FormFragment extends Fragment {
 		return view;
 	};
 	
-		
-		
-		
+	@SuppressWarnings("unchecked")
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
 	
+ if (savedInstanceState != null) {
+             
+           MainActivity.mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+             if (mylist != null) {
+            	 
+            	 listview = (ListView) view.findViewById(com.cmozie.javaweek4.R.id.list);
+ 				
+                     adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+                         
+                         listview.setAdapter(adapter);
+                 
+                        
+                         
+                         
+                         
+                 }
+
+         }
+	}
+		
+	 
+	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onAttach(android.app.Activity)
+	 */
 	@Override
 	public void onAttach(Activity activity){
 		

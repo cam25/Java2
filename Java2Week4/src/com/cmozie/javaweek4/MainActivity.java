@@ -1,3 +1,12 @@
+/*
+ * project 			javaWeek4
+ * 
+ * package			com.cmozie.javaweek4
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 24, 2013
+ */
 
 package com.cmozie.javaweek4;
 
@@ -19,8 +28,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
-
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -36,7 +43,6 @@ import android.widget.Toast;
 import android.widget.TextView;
 import com.cmozie.Libz.FileStuff;
 import com.cmozie.classes.*;
-import com.cmozie.classes.ListFragment.ListListener;
 
 import webConnections.*;
 
@@ -47,7 +53,7 @@ import webConnections.*;
  */
 
 @SuppressLint("HandlerLeak")
-public class MainActivity extends Activity implements FormFragment.FormListener,ListListener {
+public class MainActivity extends Activity implements FormFragment.FormListener,ListFragment.ListListener {
 
 	//--public statics
 	public static Context _context;
@@ -106,30 +112,25 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		
 		setContentView(R.layout.formfrag);
 		
-		//setting contentView to my inflated view/form
 	
 		_context = this;
-		
-		
-		
-		 if (savedInstanceState != null) {
-             
-             mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
-             if (mylist != null) {
-            	 
-            	 listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list);
- 				
-                     adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
-                         
-                         listview.setAdapter(adapter);
-                 
-                        
-                         
-                         
-                         
-                 }
 
-         }
+		if (savedInstanceState != null) {
+            
+	          mylist = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mylist");
+	             if (mylist != null) {
+	            	 
+	            	 listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list);
+	 				
+	                     adapter = new SimpleAdapter(_context, mylist, R.layout.list_row, new String[]{ "zipCode","areaCode","region"}, new int[]{R.id.row1, R.id.row2,R.id.row3});
+	                         
+	                         listview.setAdapter(adapter);
+	                 
+	             }
+	                         
+	                         
+	                         
+	                 }
 		 //webConnection jar file usage
 		 _connected = WebStuff.getConnectionStatus(_context);
 		 if (_connected) {
@@ -161,17 +162,13 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 			alert.show();
 			
 		}
-		
-		 	
-
-		
-		
-		
-			
 
 		 }
 	
 
+	/* (non-Javadoc)
+	 * @see com.cmozie.classes.FormFragment.FormListener#display(android.database.Cursor)
+	 */
 	@Override
 	public void display(Cursor cursor){
 		
@@ -245,7 +242,7 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		
 	
 		//calls my select row functoin 
-		
+		rowSelect();
 	}
 	
 
@@ -298,6 +295,9 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cmozie.classes.FormFragment.FormListener#onQueryAll()
+	 */
 	@Override
 	public void onQueryAll() {
 		// TODO Auto-generated method stub
@@ -336,10 +336,8 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 				Log.i("HIT","HANDLER");
 				searchALL = Uri.parse("content://com.cmozie.classes.zipcodecontentprovider/zipcodes/");
 				
-				//ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 				Cursor cursor = getContentResolver().query(searchALL, null, null, null, null);
 		
-						//pulling in data from Local storage here
 						display(cursor);
 						
 						
@@ -358,11 +356,15 @@ public class MainActivity extends Activity implements FormFragment.FormListener,
 		startService(startZipcodeIntent);
 		
 		
+		
 	
 		
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.cmozie.classes.FormFragment.FormListener#onPopSelect()
+	 */
 	@Override
 	
 	public void onPopSelect() {
@@ -580,72 +582,39 @@ spinner.setAdapter(listAdapter);
 				
 				
 			});
-			
-			//sets button to non clickable once clicked once 
-			//_pop.setClickable(false);
-			
-			
-			
-			
-				
-		
-	}
-
-	@Override
-	public void gpsShow(String zipcode) {
-		// TODO Auto-generated method stub
-		Intent activityInfo = getIntent();
-		//Log.i("test", activityInfo.toString());
-		
-		
-		if (activityInfo != null) {
-			
-			Log.i("GETDATA", "WORKING!");
-			
-			
-			//array list to hold my data from intent
-			mylist = new ArrayList<HashMap<String,String>>();
-			
-			//strings to hold my values
-			String zipp = activityInfo.getExtras().getString("zip_code");
-			String area = activityInfo.getExtras().getString("area_code");
-			String reg = activityInfo.getExtras().getString("region");
 	
-
-		
-			HashMap<String, String> displayMap = new HashMap<String, String>();
-			
-			
-			//storing my values inside hashmap
-			displayMap.put("zipp", zipp);
-			displayMap.put("area", area);
-			displayMap.put("reg", reg);
-			
-			mylist.add(displayMap);
-			if (zipp == null) {
 				
-			zipp = "No String Found";
-			}
 		
-		gpsShow(zipp);
-		}
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see com.cmozie.classes.ListFragment.ListListener#getData()
+	 */
 	@Override
 	public void getData() {
 		// TODO Auto-generated method stub
-		getData();
 		
+		getData();
+ListFragment fragment = (ListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+		if (fragment != null && fragment.isInLayout()) {
+			Log.i("Frag", fragment.toString());
+			fragment.showData();
+		}
+	
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cmozie.classes.FormFragment.FormListener#rowSelect()
+	 */
 	@Override
 	public void rowSelect() {
 		// TODO Auto-generated method stub
 		
 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			
-			
+	Intent infoIntent = new Intent(_context,InfoActivity.class);
 			
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -665,19 +634,29 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 	
                        
                      
-                        Intent infoIntent = new Intent(_context,InfoActivity.class);
+                        
                         infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
                         infoIntent.putExtra("area_code", intentMap.get("areaCode"));
                         infoIntent.putExtra("region", intentMap.get("region"));
                 
                 
-                        startActivityForResult(infoIntent, 0);
+                        
                         Log.i("Map", intentMap.toString());
                         Log.i("INTENT", infoIntent.toString());
                         
-            
                 }
-                
+                ListFragment fragment = (ListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+        		if (fragment != null && fragment.isInLayout()) {
+        			
+        			
+        			 infoIntent.putExtra("zip_code", intentMap.get("zipCode"));
+                     infoIntent.putExtra("area_code", intentMap.get("areaCode"));
+                     infoIntent.putExtra("region", intentMap.get("region"));
+                     
+        			//fragment.showData();
+        		}else {
+        			startActivityForResult(infoIntent, 0);
+				}
                 
             }
 			
@@ -687,10 +666,13 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  if (resultCode == RESULT_OK && requestCode == 0) {
-	 
+	 Log.i("data",data.toString());
 	    if (data.hasExtra("zip_code")) {
 	    	Log.i("data", data.getStringExtra(zipcode));
 	  	  Toast.makeText(getApplicationContext(), "MAIN ACTIVITY - Zipp Passed = " + data.getExtras().getString("zip_code"), Toast.LENGTH_SHORT).show();
@@ -700,5 +682,7 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	  
 	  }
 	}
-	
+
+
+
 }

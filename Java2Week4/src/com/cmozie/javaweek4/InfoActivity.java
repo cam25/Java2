@@ -1,15 +1,26 @@
+/*
+ * project 			javaWeek4
+ * 
+ * package			com.cmozie.javaweek4
+ * 
+ * name				cameronmozie
+ * 
+ * date				Oct 24, 2013
+ */
 
 package com.cmozie.javaweek4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cmozie.classes.ListFragment;
 import com.cmozie.classes.ListFragment.ListListener;
 import com.cmozie.javaweek4.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,10 +47,17 @@ public class InfoActivity extends Activity implements ListListener{
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			finish();
+			return;
+		}
 		setContentView(R.layout.listfrag);
 		_context = this;
 		
@@ -47,44 +65,17 @@ public class InfoActivity extends Activity implements ListListener{
 		Intent activityInfo = getIntent();
 		
 		if (activityInfo != null) {
-			
-			
-			
-			
-			//array list to hold my data from intent
-			
-			//Log.i("Zip", zipp);
-			mylist = new ArrayList<HashMap<String,String>>();
-			//Log.i("List", mylist.toString());
-			//strings to hold my values
-			 zipp = activityInfo.getExtras().getString("zip_code");
-			String area = activityInfo.getExtras().getString("area_code");
-			String reg = activityInfo.getExtras().getString("region");
-	
-			HashMap<String, String> displayMap = new HashMap<String, String>();
-			
-			
-			
-			//storing my values inside hashmap
-			displayMap.put("zipp", zipp);
-			displayMap.put("area", area);
-			displayMap.put("reg", reg);
-			
-			mylist.add(displayMap);
-			if (zipp == null) {
-				
-			zipp = "No String Found";
-			}
-			
-			Log.i("Zipp", zipp);
-			Log.i("area", area);
-			Log.i("reg", reg);
-			listview = (ListView) this.findViewById(com.cmozie.javaweek4.R.id.list2);
-			 SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row2, new String[]{ "zipp","area","reg"}, new int[]{R.id.row1_2, R.id.row2_2,R.id.row3_2});
-         listview.setAdapter(adapter);
-			
+
+		
+		
+			ListFragment fragment = (ListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+		if (fragment != null && fragment.isInLayout()) {
+			Log.i("Frag", fragment.toString());
+			fragment.showData();
 		}
-	
+		
+		}
+		
 	}
 	
 	/* (non-Javadoc)
@@ -109,6 +100,9 @@ public class InfoActivity extends Activity implements ListListener{
 	  
 	 }
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#finish()
+	 */
 	@Override
 	public void finish() {
 	    Intent data = new Intent();
@@ -128,17 +122,10 @@ public class InfoActivity extends Activity implements ListListener{
 		return true;
 	}
 
-	@Override
-	public void gpsShow(String zipcode) {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent(Intent.ACTION_VIEW,
-    			
-    			
-				Uri.parse("google.navigation:q="+ zipp));
-	    	//starts the intent activity
-	    	startActivity(intent);
-		
-	}
+	
+	/* (non-Javadoc)
+	 * @see com.cmozie.classes.ListFragment.ListListener#getData()
+	 */
 	@Override
 	public void getData() {
 		// TODO Auto-generated method stub
@@ -185,6 +172,10 @@ public class InfoActivity extends Activity implements ListListener{
 		}
 		
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  if (resultCode == RESULT_OK && requestCode == 0) {
