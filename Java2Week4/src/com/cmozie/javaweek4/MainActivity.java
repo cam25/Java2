@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -639,10 +640,10 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         infoIntent.putExtra("area_code", intentMap.get("areaCode"));
                         infoIntent.putExtra("region", intentMap.get("region"));
                 
-                
-                        
                         Log.i("Map", intentMap.toString());
                         Log.i("INTENT", infoIntent.toString());
+                        
+                       
                         
                 }
                 ListFragment fragment = (ListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
@@ -653,6 +654,8 @@ listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                      infoIntent.putExtra("area_code", intentMap.get("areaCode"));
                      infoIntent.putExtra("region", intentMap.get("region"));
                      
+                     Log.i("Map", intentMap.toString());
+                     Log.i("INTENT", infoIntent.toString());
         			//fragment.showData();
         		}else {
         			startActivityForResult(infoIntent, 0);

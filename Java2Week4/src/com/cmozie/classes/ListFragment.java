@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -89,7 +90,11 @@ public class ListFragment extends Fragment {
 		 listview = (ListView) view.findViewById(R.id.list2);
 		 View listHeader = inflater.inflate(com.cmozie.javaweek4.R.layout.list_header2, null);
 			listview.addHeaderView(listHeader);
-		 
+			ArrayList<String> items = new ArrayList<String> ();
+
+			
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_header2,items);
+			listview.setAdapter(adapter);
 	
 		return view;
 		
